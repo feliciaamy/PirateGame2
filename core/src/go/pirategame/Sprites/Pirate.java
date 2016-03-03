@@ -273,6 +273,7 @@ public class Pirate extends Sprite {
 
 //            PirateGame.manager.get("audio/music/mario_music.ogg", Music.class).stop();
 //            PirateGame.manager.get("audio/sounds/mariodie.wav", Sound.class).play();
+            //test commit
             pirateIsDead = true;
             Filter filter = new Filter();
             filter.maskBits = PirateGame.NOTHING_BIT;
