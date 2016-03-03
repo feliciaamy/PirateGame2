@@ -46,6 +46,117 @@
  <tileset firstgid="21001" name="tiled 2" tilewidth="32" tileheight="32" tilecount="256" columns="16">
   <image source="tileset_gutter.png" width="512" height="512"/>
  </tileset>
+ <tileset firstgid="21257" name="tileset_gutter" tilewidth="16" tileheight="16" spacing="2" margin="1" tilecount="924" columns="33">
+  <image source="../../../SuperMario/android/assets/tileset_gutter.png" width="594" height="504"/>
+  <tile id="0">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="blocked" value=""/>
+    <property name="smashable" value=""/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="blocked" value=""/>
+    <property name="smashable" value=""/>
+   </properties>
+  </tile>
+  <tile id="24">
+   <properties>
+    <property name="blocked" value=""/>
+    <property name="coinblock" value=""/>
+   </properties>
+  </tile>
+  <tile id="25">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+  <tile id="26">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+  <tile id="33">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+  <tile id="264">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+  <tile id="265">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+  <tile id="266">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+  <tile id="267">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+  <tile id="268">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+  <tile id="297">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+  <tile id="298">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+  <tile id="299">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+  <tile id="300">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+  <tile id="301">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+  <tile id="330">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+  <tile id="331">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+  <tile id="363">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+  <tile id="364">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+ </tileset>
  <layer name="Background" width="34" height="34" offsetx="-32" offsety="-32">
   <data encoding="base64" compression="zlib">
    eJztwwENAAAMAiAbPKT9OxjksNFLqqqqquqbAwLWAuc=
@@ -53,7 +164,7 @@
  </layer>
  <layer name="Graphic Layer" width="34" height="34" offsetx="-16" offsety="-16">
   <data encoding="base64" compression="zlib">
-   eJztlzFWAzEMRH2BLA05Bgdh6bgCJVwROAWk5RZQsvvALxMxI43J0uH31Hht60saW8k8tTYvdrPY22Vrdxd/a6uP62+fq/UxD3Ksa87hVRyv05cdpqMPNMUxYnHvy3T020f0wfxmc/f71h72/LsTVx/xG4sh43hfGD5MDlYnxRH9sDNwTn13NRU5ML+VbxZzVieVV8bR84t5jGc6WmR16nsZY6aP6swsvqwu7DzkcPSEpnKfcai17N5We9w8/Uanbk6Zbhy9VCwjHJGHadqtbVyHHPHOZhyPu9aehD3vfI0xDqy3iq2zYo+KtvZKpWH1Bjh1QY7OihxXtz97ttJwnFccWX9Eq/JxTl1iv8j2Yc+OdtiAo3o/srvB7rG7l+Vj5L5tdY+ZTp18OmtHznE4sj6S1c9lcDmyPsL0nTGomLasi3NHlIYcDnV+1fdxTaVVxeFovaoXW6NiVO86q7tTo4xdzWE+qhzgOzXq13lPVD6wrv3MKseVjrM9feBvB6XrygfTbsaBv2H6wF6Z6aTiUH2dxVP933f057wVVZ0Yx/84HZ8T132O
+   eJztlzFSAzEMRX2BLA05Bgdh6ZjhBJRwRcgpQlp6DgAl6wFNhPK/9E2WDs+o8drSs/RtJfPU2rzYzWKvl63dX/yt9RjX3zG72ZgHOfqac3gZx8v0ZYfpGMMb4xixuHc/HePaiDFQ3GzuYdva4xZ/V85lI35DZ8g43heGD5ED1YlxxDjIh59j31VNRQ6f3yo2OnNWJ5ZXxGH59XmMPhUtojrZXsSY6aPymZ0vqwvy5zkUPXljuc842Fp0b6s9ap5+o1M1p0g3il4qlhGOyIM0rdY2rvMc8c5mHE+b1p6J7Ta6xhCHrzc7m7H6HhWt90qmYfYGKHXxHMbqOa5uT3s203CcZxxZf/RW5eOcusR+ke3zPTvaYQWO6v3I7ga6x+pelI+R+7bWPUY6VfKprB3xo3BkfSSrn8qgcmR9BOk7Y2BnWrMuyh1hGlI4mP+q7/s1lVYZh6L1ql5oDTsje9dR3ZUaZexszuejyoF/p2zu7e7UlLwi/ywfvq7mM+Y4xq10nOXVhv/tEHXd46H9iAP1dcbhf8PY8L0SxVM5WF9Htaj+76N4zKq6ZHVCHP/j5/gEwwuCmg==
   </data>
  </layer>
  <objectgroup name="Land" offsetx="-15" offsety="-17">
@@ -119,7 +230,6 @@
   <object id="108" x="1.70445" y="432.362" width="93.7447" height="14.7719"/>
   <object id="109" x="80.1091" y="417.022" width="30.1119" height="14.7719"/>
   <object id="110" x="96.0173" y="448.838" width="15.34" height="28.9756"/>
-  <object id="111" x="113.63" y="463.61" width="14.2037" height="48.2927"/>
   <object id="112" x="432.93" y="432.362" width="45.452" height="15.34"/>
   <object id="113" x="478.95" y="399.977" width="34.6571" height="14.7719"/>
   <object id="114" x="479.518" y="415.885" width="15.34" height="14.7719"/>
@@ -157,11 +267,6 @@
   <object id="140" x="31.8164" y="256.235" width="15.9082" height="14.2037">
    <properties>
     <property name="octopus" value=""/>
-   </properties>
-  </object>
-  <object id="143" x="127.834" y="496.563" width="15.9082" height="15.9082">
-   <properties>
-    <property name="tnt" value=""/>
    </properties>
   </object>
   <object id="144" x="272.144" y="431.794" width="15.34" height="15.34">

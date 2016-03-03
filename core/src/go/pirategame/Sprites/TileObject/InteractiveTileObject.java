@@ -21,10 +21,6 @@ import go.pirategame.PirateGame;
 import go.pirategame.Screen.PlayScreen;
 import go.pirategame.Sprites.Pirate;
 
-
-/**
- * Created by brentaureli on 8/28/15.
- */
 public abstract class InteractiveTileObject {
     protected World world;
     protected TiledMap map;
@@ -68,5 +64,4 @@ public abstract class InteractiveTileObject {
         return layer.getCell((int)(body.getPosition().x * PirateGame.PPM / 16),
                 (int)(body.getPosition().y * PirateGame.PPM / 16));
     }
-
 }
