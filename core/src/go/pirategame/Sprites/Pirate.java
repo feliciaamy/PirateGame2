@@ -3,18 +3,15 @@ package go.pirategame.Sprites;
 /**
  * Created by Amy on 1/3/16.
  */
-import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.audio.Sound;
+
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
-import com.badlogic.gdx.physics.box2d.EdgeShape;
 import com.badlogic.gdx.physics.box2d.Filter;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
@@ -30,15 +27,13 @@ import go.pirategame.Screen.PlayScreen;
  * Created by Amy on 25/2/16.
  */
 public class Pirate extends Sprite {
-    public enum State { SWIMMING, WALKING, HIT, DEAD,IDLING};
-    public enum Direction {UP,DOWN,LEFT,RIGHT};
     public Direction direction;
+    ;
     public State currentState;
+    ;
     public State previousState;
-
     public World world;
     public Body b2body;
-
     private TextureRegion pirateWalk;
     private Animation swimUp;
     private Animation swimDown;
@@ -48,10 +43,8 @@ public class Pirate extends Sprite {
     private Animation idleDown;
     private Animation idleLeft;
     private Animation idleRight;
-
     private TextureRegion pirateHit;
     private Animation pirateDead;
-
     private float stateTimer;
     private boolean runningRight;
     private boolean marioIsBig;
@@ -61,9 +54,7 @@ public class Pirate extends Sprite {
     private boolean pirateIsDead;
     private PlayScreen screen;
 
-//    private Array<FireBall> fireballs;
-
-    public Pirate(PlayScreen screen){
+    public Pirate(PlayScreen screen) {
         //initialize default values
         this.screen = screen;
         this.world = screen.getWorld();
@@ -74,7 +65,7 @@ public class Pirate extends Sprite {
         runningRight = true;
 
         // animation
-        HashMap<String, Animation> anims = new HashMap<String,Animation>();
+        HashMap<String, Animation> anims = new HashMap<String, Animation>();
 
         Animation anim;
 
@@ -105,7 +96,7 @@ public class Pirate extends Sprite {
         anims.put("walking_down", anim);
         swimDown = anim;
 
-        // walking right right
+        // walking right
         keyFrames.clear();
         for (int i = 9; i < 12; i++) {
             keyFrames.add(new TextureRegion(screen.getAtlas().findRegion("Bomberman1"), i * 16, 0, 16, 24));
@@ -152,12 +143,12 @@ public class Pirate extends Sprite {
         pirateDead = anim;
 
         //define mario in Box2d
-        definePirate(0.2f,0.2f);
+        definePirate(0.2f, 0.2f);
 
 
     }
 
-    public void update(float dt){
+    public void update(float dt) {
 
         // time is up : too late mario dies T_T
         // the !isDead() method is used to prevent multiple invocation
@@ -171,6 +162,8 @@ public class Pirate extends Sprite {
         //update sprite with the correct frame depending on marios current action
         setRegion(getFrame(dt));
     }
+
+//    private Array<FireBall> fireballs;
 
     public TextureRegion getFrame(float dt){
         //get marios current state. ie. jumping, running, standing...
@@ -345,4 +338,8 @@ public class Pirate extends Sprite {
     public void draw(Batch batch){
         super.draw(batch);
     }
+
+    public enum State {SWIMMING, WALKING, HIT, DEAD, IDLING}
+
+    public enum Direction {UP, DOWN, LEFT, RIGHT}
 }
