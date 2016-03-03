@@ -105,7 +105,7 @@ public class Pirate extends Sprite {
         anims.put("walking_down", anim);
         swimDown = anim;
 
-        // walking right
+        // walking right right
         keyFrames.clear();
         for (int i = 9; i < 12; i++) {
             keyFrames.add(new TextureRegion(screen.getAtlas().findRegion("Bomberman1"), i * 16, 0, 16, 24));
