@@ -295,30 +295,10 @@ public class Pirate extends Sprite {
                     PirateGame.REEF_BIT |
                     PirateGame.BORDER_BIT;
         b2body.createFixture(fixtureDef);
-//        shape.dispose();
+        shape.dispose();
         b2body.createFixture(fixtureDef).setUserData(this);
-//        Renderer renderer = new Renderer(new TextureRegion(textureRegion, 0, 0, 16, 24), 16 / GameManager.PPM, 24 / GameManager.PPM);
-//        renderer.setOrigin(16 / PirateGame.PPM / 2, 16 / GameManager.PPM / 2);
-//
-//        // entity
-//        Entity e = new com.artemis.utils.EntityBuilder(world)
-//                .with(
-//                        new Player(resetPlayerAbilities),
-//                        new Transform(x, y, 1, 1, 0),
-//                        new RigidBody(body),
-//                        new State("idling_down"),
-//                        renderer,
-//                        new Anim(anims)
-//                )
-//                .build();
-//
-//        body.setUserData(e);
     }
 
-//    public void fire(){
-//        fireballs.add(new FireBall(screen, b2body.getPosition().x, b2body.getPosition().y, runningRight ? true : false));
-//    }
-//
     public void draw(Batch batch){
         super.draw(batch);
     }
