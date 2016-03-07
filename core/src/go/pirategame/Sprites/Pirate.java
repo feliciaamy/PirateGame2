@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
@@ -83,7 +82,7 @@ public class Pirate extends Sprite {
         for (int i = 3; i < 6; i++) {
             keyFrames.add(new TextureRegion(screen.getAtlas().findRegion("Bomberman1"), i * 16, 0, 16, 24));
         }
-        anim = new Animation(0.1f, keyFrames, Animation.PlayMode.LOOP);
+        anim = new Animation(0.1f, keyFrames);
         anims.put("walking_left", anim);
         swimLeft = anim;
 
@@ -144,16 +143,13 @@ public class Pirate extends Sprite {
 
         //define mario in Box2d
         definePirate(0.2f, 0.2f);
-
+        setBounds(0, 0, 16 / PirateGame.PPM, 16 / PirateGame.PPM);
+        setRegion(idleUp.getKeyFrame(stateTimer, true));
 
     }
 
     public void update(float dt) {
 
-        // time is up : too late mario dies T_T
-        // the !isDead() method is used to prevent multiple invocation
-        // of "die music" and jumping
-        // there is probably better ways to do that but it works for now.
         if (screen.getHud().isTimeUp() && !isDead()) {
             die();
         }
@@ -171,6 +167,7 @@ public class Pirate extends Sprite {
 
         TextureRegion region;
 
+//        System.out.println(stateTimer);
         //depending on the state, get corresponding animation keyFrame.
         switch(currentState){
             case DEAD:
@@ -217,20 +214,7 @@ public class Pirate extends Sprite {
                         break;
                 }
                 break;
-
         }
-
-//        //if mario is running left and the texture isnt facing left... flip it.
-//        if((b2body.getLinearVelocity().x < 0 || !runningRight) && !region.isFlipX()){
-//            region.flip(true, false);
-//            runningRight = false;
-//        }
-//
-//        //if mario is running right and the texture isnt facing right... flip it.
-//        else if((b2body.getLinearVelocity().x > 0 || runningRight) && region.isFlipX()){
-//            region.flip(true, false);
-//            runningRight = true;
-//        }
 
         //if the current state is the same as the previous state increase the state timer.
         //otherwise the state has changed and we need to reset timer.
@@ -238,31 +222,29 @@ public class Pirate extends Sprite {
         //update previous state
         previousState = currentState;
         //return our final adjusted frame
+
         return region;
 
     }
 
     public State getState(){
-        //Test to Box2D for velocity on the X and Y-Axis
-        //if mario is going positive in Y-Axis he is jumping... or if he just jumped and is falling remain in jump state
+
         if(pirateIsDead)
             return State.DEAD;
-        else if(b2body.getLinearVelocity().y > 0) {
+        if (b2body.getLinearVelocity().x > 0.08) {
+            direction = Direction.RIGHT;
+            return State.SWIMMING;
+        } else if (b2body.getLinearVelocity().x < -0.08) {
+            direction = Direction.LEFT;
+            return State.SWIMMING;
+        } else if (b2body.getLinearVelocity().y > 0.08) {
             direction = Direction.UP;
             return State.SWIMMING;
-        }
-        else if(b2body.getLinearVelocity().y < 0){
+        } else if (b2body.getLinearVelocity().y < -0.08) {
             direction = Direction.DOWN;
             return State.SWIMMING;
         }
-        else if(b2body.getLinearVelocity().x > 0){
-            direction = Direction.RIGHT;
-            return State.SWIMMING;
-        }
-        else if(b2body.getLinearVelocity().x > 0){
-            direction = Direction.LEFT;
-            return State.SWIMMING;
-        }
+
         else
             return State.IDLING;
     }
@@ -282,7 +264,7 @@ public class Pirate extends Sprite {
                 fixture.setFilterData(filter);
             }
 
-            b2body.applyLinearImpulse(new Vector2(0, 4f), b2body.getWorldCenter(), true);
+//            b2body.applyLinearImpulse(new Vector2(0, 0), b2body.getWorldCenter(), true);
         }
     }
     //test
@@ -314,9 +296,9 @@ public class Pirate extends Sprite {
                     PirateGame.BORDER_BIT;
         b2body.createFixture(fixtureDef);
 //        shape.dispose();
-
+        b2body.createFixture(fixtureDef).setUserData(this);
 //        Renderer renderer = new Renderer(new TextureRegion(textureRegion, 0, 0, 16, 24), 16 / GameManager.PPM, 24 / GameManager.PPM);
-//        renderer.setOrigin(16 / GameManager.PPM / 2, 16 / GameManager.PPM / 2);
+//        renderer.setOrigin(16 / PirateGame.PPM / 2, 16 / GameManager.PPM / 2);
 //
 //        // entity
 //        Entity e = new com.artemis.utils.EntityBuilder(world)

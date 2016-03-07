@@ -2,34 +2,21 @@ package go.pirategame.Screen;
 
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g3d.particles.ParticleSystem;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Window;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-
-import java.util.concurrent.LinkedBlockingQueue;
 
 import go.pirategame.Control.Controller;
 import go.pirategame.PirateGame;
@@ -43,11 +30,10 @@ import go.pirategame.Tools.WorldContactListener;
  * Created by Amy on 25/2/16.
  */
 public class PlayScreen implements Screen {
+    public static boolean alreadyDestroyed = false;
     //Reference to our Game, used to set Screens
     private PirateGame game;
     private TextureAtlas atlas;
-    public static boolean alreadyDestroyed = false;
-
     //basic playscreen variables
     private OrthographicCamera gamecam;
     private Viewport gamePort;
@@ -100,6 +86,8 @@ public class PlayScreen implements Screen {
         renderer = new OrthogonalTiledMapRenderer(map, 1  / PirateGame.PPM);
 
         //initially set our gamcam to be centered correctly at the start of of map
+//        gamecam.position.set(game.batch.getX(),  game.batch.getY(), 0);
+//        camera.update();
         gamecam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
 
         //create our Box2D world, setting no gravity in X, -10 gravity in Y, and allow bodies to sleep
@@ -217,13 +205,13 @@ public class PlayScreen implements Screen {
 
     public void handleInput(float dt){
         if(player.currentState != Pirate.State.DEAD) {
-            if (controller.isUpPressed())
+            if (controller.isUpPressed() && player.b2body.getLinearVelocity().y <= 2)
                 player.b2body.applyLinearImpulse(new Vector2(0, 0.1f), player.b2body.getWorldCenter(), true);
             if (controller.isDownPressed() && player.b2body.getLinearVelocity().y >= -2)
                 player.b2body.applyLinearImpulse(new Vector2(0,-0.1f), player.b2body.getWorldCenter(), true);
             if (controller.isRightPressed() && player.b2body.getLinearVelocity().x <= 2)
                 player.b2body.applyLinearImpulse(new Vector2(0.1f, 0), player.b2body.getWorldCenter(), true);
-            if (controller.isLeftPressed())
+            if (controller.isLeftPressed() && player.b2body.getLinearVelocity().x >= -2)
                 player.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), player.b2body.getWorldCenter(), true);
         }
     }
@@ -247,7 +235,12 @@ public class PlayScreen implements Screen {
         }
 
         //update our gamecam with correct coordinates after changes
+        gamecam.setToOrtho(false, PirateGame.V_WIDTH / PirateGame.PPM, PirateGame.V_HEIGHT / PirateGame.PPM);
+        gamecam.position.x = player.b2body.getPosition().x;
+        gamecam.position.y = player.b2body.getPosition().y;
+
         gamecam.update();
+
         //tell our renderer to draw only what our camera can see in our game world.
         renderer.setView(gamecam);
 
@@ -270,13 +263,14 @@ public class PlayScreen implements Screen {
         //renderer our Box2DDebugLines
         b2dr.render(world, gamecam.combined);
 
-//        game.batch.setProjectionMatrix(gamecam.combined);
+
         game.batch.begin();
+        game.batch.setProjectionMatrix(gamecam.combined);
         player.draw(game.batch);
         game.batch.end();
 
         //Set our batch to now draw what the Hud camera sees.
-        game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
+//        game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
 //        hud.stage.draw();
         if(Gdx.app.getType() == Application.ApplicationType.Android)
             controller.draw();
