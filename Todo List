@@ -1,11 +1,13 @@
 Todo List:
 1. Player's animation (Amy) DONE
 2. Camera following player (Amy) DONE
-3. Size of the screen
+3. Size of the screen + GUI
 4. Maps (at least 5)(ZhaoJuan) 
-5. Bomb and explosion(Zhao Juan)
-6. Socket/Google Play
-7. GUI
+5. Bomb (MAIN) + TNT (POWER UP) and explosion(Zhao Juan)
+6. Socket/Google Play (Milton)
+7. Pistol (MAIN)
 8. Controller (right side)
 9. Background Music
-10. Octopus,pistol,all power ups.
+10. Octopus (POWER UP)
+11. Sword (MAIN)
+12. Shield (POWER UP)
