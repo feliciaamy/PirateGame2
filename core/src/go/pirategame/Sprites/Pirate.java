@@ -19,6 +19,7 @@ import com.badlogic.gdx.utils.Array;
 
 import java.util.HashMap;
 
+import go.pirategame.Other.Pistol;
 import go.pirategame.PirateGame;
 import go.pirategame.Screen.PlayScreen;
 
@@ -53,6 +54,7 @@ public class Pirate extends Sprite {
     private boolean pirateIsDead;
     private PlayScreen screen;
 
+    private Array<Pistol> bullets;
     public Pirate(PlayScreen screen) {
         //initialize default values
         this.screen = screen;
@@ -146,6 +148,8 @@ public class Pirate extends Sprite {
         setBounds(0, 0, 16 / PirateGame.PPM, 16 / PirateGame.PPM);
         setRegion(idleUp.getKeyFrame(stateTimer, true));
 
+        bullets = new Array<Pistol>();
+
     }
 
     public void update(float dt) {
@@ -157,6 +161,12 @@ public class Pirate extends Sprite {
         setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
         //update sprite with the correct frame depending on marios current action
         setRegion(getFrame(dt));
+
+        for (Pistol bullet : bullets) {
+            bullet.update(dt);
+            if (bullet.isDestroyed())
+                bullets.removeValue(bullet, true);
+        }
     }
 
 //    private Array<FireBall> fireballs;
@@ -297,6 +307,10 @@ public class Pirate extends Sprite {
         b2body.createFixture(fixtureDef);
         shape.dispose();
         b2body.createFixture(fixtureDef).setUserData(this);
+    }
+
+    public void fire() {
+        bullets.add(new Pistol(screen, b2body.getPosition().x, b2body.getPosition().y, runningRight ? true : false));
     }
 
     public void draw(Batch batch){

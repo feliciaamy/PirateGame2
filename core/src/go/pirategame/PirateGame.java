@@ -1,13 +1,8 @@
 package go.pirategame;
 
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.physics.box2d.Filter;
 
 import go.pirategame.Screen.PlayScreen;
 
@@ -23,13 +18,14 @@ public class PirateGame extends Game {
 	public static final short PLAYER_BIT = 2;
 	public static final short ROCK_BIT = 4;
 	public static final short REEF_BIT = 8;
-	public static final short DESTROYED_BIT = 16;
-	public static final short OBJECT_BIT = 32;
+	public static final short INDESTRUCTIIBLE_BIT = 16;
+	public static final short EXPLOSION_BIT = 32;
 	public static final short TREASURE_BIT = 64;
 	public static final short BORDER_BIT = 128;
-	public static final short ITEM_BIT = 256;
-	public static final short MARIO_HEAD_BIT = 512;
-	public static final short FIREBALL_BIT = 1024;
+	public static final short BOMB_BIT = 256;
+	public static final short ENEMY_BIT = 512;
+	public static final short BREAKABLE_BIT = 1024;
+	public static final short BULLET_BIT = 2048;
 
 	public static SpriteBatch batch;
 

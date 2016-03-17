@@ -18,7 +18,8 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-import go.pirategame.Control.Controller;
+import go.pirategame.Control.LeftController;
+import go.pirategame.Control.RightController;
 import go.pirategame.PirateGame;
 import go.pirategame.Scene.Hud;
 import go.pirategame.Sprites.Pirate;
@@ -61,7 +62,8 @@ public class PlayScreen implements Screen {
 //    private Array<Item> items;
 //    private LinkedBlockingQueue<ItemDef> itemsToSpawn;
 //
-    private Controller controller;
+private LeftController leftController;
+    private RightController rightController;
 
     public PlayScreen(PirateGame game){
 
@@ -100,7 +102,8 @@ public class PlayScreen implements Screen {
         //create mario in our game world
         player = new Pirate(this);
 
-        controller = new Controller();
+        leftController = new LeftController();
+        rightController = new RightController();
         world.setContactListener(new WorldContactListener());
 //
 //        music = PirateGame.manager.get("audio/music/mario_music.ogg", Music.class);
@@ -133,86 +136,18 @@ public class PlayScreen implements Screen {
         return atlas;
     }
 
-    @Override
-    public void show() {
-        /*
-        gamecam = new OrthographicCamera();
-        gamePort = new FitViewport(PirateGame.V_WIDTH, PirateGame.V_HEIGHT, gamecam);
-        gamecam.position.set(PirateGame.V_WIDTH / 2, PirateGame.V_HEIGHT / 2, 0);
-
-        world = new World(new Vector2(), true);
-        world.setContactListener(new WorldContactListener());
-        b2dr = new Box2DDebugRenderer();
-
-//
-//        WorldBuilder worldBuilder = new WorldBuilder(b2dWorld, world);
-//        worldBuilder.build(level);
-//        groundSprite = worldBuilder.getGroundSprite();
-//
-//        mapWidth = worldBuilder.getMapWidth();
-//        mapHeight = worldBuilder.getMapHeight();
-//
-//        hud = new Hud(batch, WIDTH, HEIGHT);
-//        hud.setLevelInfo(level);
-//
-//        b2dTimer = 0;
-
-        changeScreen = false;
-        stage = new Stage(gamePort);
-        Pixmap pixmap = new Pixmap((int) PirateGame.V_WIDTH, (int) PirateGame.V_HEIGHT, Pixmap.Format.RGB888);
-        pixmap.setColor(0.2f, 0.2f, 0.2f, 1f);
-        pixmap.fill();
-        fadeOutTexture = new Texture(pixmap);
-        pixmap.dispose();
-        Image image = new Image(fadeOutTexture);
-        stage.addActor(image);
-        stage.addAction(Actions.fadeOut(0.5f));
-
-//        paused = false;
-//
-//        skin = new Skin(Gdx.files.internal("uiskin/uiskin.json"));
-//
-//        stage2 = new Stage(new FitViewport(640, 480), batch);
-//        pauseWindow = new Window("Pause", skin);
-//        pauseWindow.setPosition((640 - pauseWindow.getWidth()) / 2, (480 - pauseWindow.getHeight()) / 2);
-//        pauseWindow.setVisible(paused);
-
-//        TextButton continueButton = new TextButton("Continue", skin);
-//        continueButton.addListener(new ClickListener() {
-//            @Override
-//            public void clicked(InputEvent event, float x, float y) {
-//                paused = false;
-//                GameManager.getInstance().playMusic();
-//            }
-//        });
-//
-//        TextButton exitButton = new TextButton("Exit", skin);
-//        exitButton.addListener(new ClickListener() {
-//            @Override
-//            public void clicked(InputEvent event, float x, float y) {
-//                game.setScreen(new MainMenuScreen(game));
-//            }
-//
-//        });
-//        pauseWindow.add(continueButton).padBottom(16f);
-//        pauseWindow.row();
-//        pauseWindow.add(exitButton);
-//
-//        stage2.addActor(pauseWindow);
-//        Gdx.input.setInputProcessor(stage2);
-        */
-    }
-
     public void handleInput(float dt){
         if(player.currentState != Pirate.State.DEAD) {
-            if (controller.isUpPressed() && player.b2body.getLinearVelocity().y <= 2)
+            if (leftController.isUpPressed() && player.b2body.getLinearVelocity().y <= 2)
                 player.b2body.applyLinearImpulse(new Vector2(0, 0.1f), player.b2body.getWorldCenter(), true);
-            if (controller.isDownPressed() && player.b2body.getLinearVelocity().y >= -2)
+            else if (leftController.isDownPressed() && player.b2body.getLinearVelocity().y >= -2)
                 player.b2body.applyLinearImpulse(new Vector2(0,-0.1f), player.b2body.getWorldCenter(), true);
-            if (controller.isRightPressed() && player.b2body.getLinearVelocity().x <= 2)
+            else if (leftController.isRightPressed() && player.b2body.getLinearVelocity().x <= 2)
                 player.b2body.applyLinearImpulse(new Vector2(0.1f, 0), player.b2body.getWorldCenter(), true);
-            if (controller.isLeftPressed() && player.b2body.getLinearVelocity().x >= -2)
+            else if (leftController.isLeftPressed() && player.b2body.getLinearVelocity().x >= -2)
                 player.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), player.b2body.getWorldCenter(), true);
+            if (rightController.ispistolPressed()) ;
+            player.fire();
         }
     }
 
@@ -248,6 +183,11 @@ public class PlayScreen implements Screen {
 
 
     @Override
+    public void show() {
+
+    }
+
+    @Override
     public void render(float delta) {
         //separate our update logic from render
 
@@ -272,8 +212,11 @@ public class PlayScreen implements Screen {
         //Set our batch to now draw what the Hud camera sees.
 //        game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
 //        hud.stage.draw();
-        if(Gdx.app.getType() == Application.ApplicationType.Android)
-            controller.draw();
+        if (Gdx.app.getType() == Application.ApplicationType.Android) {
+            leftController.draw();
+            rightController.draw();
+        }
+        rightController.draw();
 
         if(gameOver()){
             game.setScreen(new GameOverScreen(game));
@@ -293,7 +236,8 @@ public class PlayScreen implements Screen {
     public void resize(int width, int height) {
         //updated our game viewport
         gamePort.update(width,height);
-        controller.resize(width,height);
+        rightController.resize(width, height);
+        leftController.resize(width, height);
     }
 
     public TiledMap getMap(){
@@ -327,6 +271,7 @@ public class PlayScreen implements Screen {
         b2dr.dispose();
         hud.dispose();
     }
+
 
     public Hud getHud(){ return hud; }
 }

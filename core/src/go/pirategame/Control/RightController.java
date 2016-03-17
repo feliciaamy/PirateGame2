@@ -15,15 +15,16 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import go.pirategame.PirateGame;
 
 /**
- * Created by Amy on 26/2/16.
+ * Created by Amy on 17/3/16.
  */
-public class Controller {
+public class RightController {
     Viewport viewport;
     Stage stage;
-    boolean upPressed, downPressed, leftPressed, rightPressed;
+    boolean pistolPressed, powerUpPressed, bombPressed, swordPressed;
     OrthographicCamera cam;
+    // TODO: 17/3/16 Make variables for powerups
 
-    public Controller(){
+    public RightController() {
         cam = new OrthographicCamera();
         viewport = new FitViewport(800, 480, cam);
         stage = new Stage(viewport, PirateGame.batch);
@@ -34,17 +35,17 @@ public class Controller {
             @Override
             public boolean keyDown(InputEvent event, int keycode) {
                 switch (keycode) {
-                    case Input.Keys.UP:
-                        upPressed = true;
+                    case Input.Keys.X:
+                        pistolPressed = true;
                         break;
-                    case Input.Keys.DOWN:
-                        downPressed = true;
+                    case Input.Keys.SPACE:
+                        powerUpPressed = true;
                         break;
-                    case Input.Keys.LEFT:
-                        leftPressed = true;
+                    case Input.Keys.Z:
+                        bombPressed = true;
                         break;
-                    case Input.Keys.RIGHT:
-                        rightPressed = true;
+                    case Input.Keys.C:
+                        swordPressed = true;
                         break;
                 }
                 return true;
@@ -56,17 +57,17 @@ public class Controller {
             @Override
             public boolean keyUp(InputEvent event, int keycode) {
                 switch (keycode) {
-                    case Input.Keys.UP:
-                        upPressed = false;
+                    case Input.Keys.X:
+                        pistolPressed = false;
                         break;
-                    case Input.Keys.DOWN:
-                        downPressed = false;
+                    case Input.Keys.SPACE:
+                        powerUpPressed = false;
                         break;
-                    case Input.Keys.LEFT:
-                        leftPressed = false;
+                    case Input.Keys.Z:
+                        bombPressed = false;
                         break;
-                    case Input.Keys.RIGHT:
-                        rightPressed = false;
+                    case Input.Keys.C:
+                        swordPressed = false;
                         break;
                 }
                 return true;
@@ -74,69 +75,74 @@ public class Controller {
         });
 
         Table table = new Table();
-        table.left().bottom();
+        table.right().bottom();
 
-        Image upImg = new Image(new Texture("controller/flatDark25.png"));
-        upImg.setSize(50,50);
+        Image upImg = new Image(new Texture("controller/Pistol.png"));
+        upImg.setSize(50, 50);
         upImg.addListener(new InputListener() {
 
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                upPressed = true;
+                pistolPressed = true;
                 return true;
             }
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                upPressed = false;
+                pistolPressed = false;
             }
         });
 
-        Image downImg = new Image(new Texture("controller/flatDark26.png"));
-        downImg.setSize(50,50);
-        downImg.addListener(new InputListener(){
+        //Power up
+        //// TODO: 17/3/16 make a condition for power ups 
+        Image downImg = new Image(new Texture("controller/empty.png"));
+        downImg.setSize(50, 50);
+        downImg.addListener(new InputListener() {
 
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                downPressed = true;
+                powerUpPressed = true;
                 return true;
             }
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                downPressed = false;
+                powerUpPressed = false;
             }
         });
 
-        Image leftImg = new Image(new Texture("controller/flatDark23.png"));
+        //Bomb
+        Image leftImg = new Image(new Texture("controller/Bomb.png"));
         leftImg.setSize(50, 50);
         leftImg.addListener(new InputListener() {
 
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                leftPressed = true;
+                bombPressed = true;
                 return true;
             }
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                leftPressed = false;
+                bombPressed = false;
             }
         });
 
-        Image rightImg = new Image(new Texture("controller/flatDark24.png"));
+
+        //Sword
+        Image rightImg = new Image(new Texture("controller/Sword.png"));
         rightImg.setSize(50, 50);
         rightImg.addListener(new InputListener() {
 
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                rightPressed = true;
+                swordPressed = true;
                 return true;
             }
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                rightPressed = false;
+                swordPressed = false;
             }
         });
 
@@ -156,27 +162,27 @@ public class Controller {
 
     }
 
-    public void draw(){
+    public void draw() {
         stage.draw();
     }
 
-    public boolean isUpPressed(){
-        return upPressed;
+    public boolean ispistolPressed() {
+        return pistolPressed;
     }
 
-    public boolean isDownPressed(){
-        return downPressed;
+    public boolean ispowerUpPressed() {
+        return powerUpPressed;
     }
 
-    public boolean isLeftPressed(){
-        return leftPressed;
+    public boolean isbombPressed() {
+        return bombPressed;
     }
 
-    public boolean isRightPressed(){
-        return rightPressed;
+    public boolean isswordPressed() {
+        return swordPressed;
     }
 
-    public void resize(int width, int height){
-        viewport.update(width,height);
+    public void resize(int width, int height) {
+        viewport.update(width, height);
     }
 }
