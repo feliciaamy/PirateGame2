@@ -18,8 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-import go.pirategame.Control.LeftController;
-import go.pirategame.Control.RightController;
+import go.pirategame.Control.Controller;
 import go.pirategame.PirateGame;
 import go.pirategame.Scene.Hud;
 import go.pirategame.Sprites.Pirate;
@@ -62,8 +61,7 @@ public class PlayScreen implements Screen {
 //    private Array<Item> items;
 //    private LinkedBlockingQueue<ItemDef> itemsToSpawn;
 //
-private LeftController leftController;
-    private RightController rightController;
+private Controller controller;
 
     public PlayScreen(PirateGame game){
 
@@ -102,8 +100,7 @@ private LeftController leftController;
         //create mario in our game world
         player = new Pirate(this);
 
-        leftController = new LeftController();
-        rightController = new RightController();
+        controller = new Controller();
         world.setContactListener(new WorldContactListener());
 //
 //        music = PirateGame.manager.get("audio/music/mario_music.ogg", Music.class);
@@ -138,16 +135,16 @@ private LeftController leftController;
 
     public void handleInput(float dt){
         if(player.currentState != Pirate.State.DEAD) {
-            if (leftController.isUpPressed() && player.b2body.getLinearVelocity().y <= 2)
+            if (controller.isUpPressed() && player.b2body.getLinearVelocity().y <= 2)
                 player.b2body.applyLinearImpulse(new Vector2(0, 0.1f), player.b2body.getWorldCenter(), true);
-            else if (leftController.isDownPressed() && player.b2body.getLinearVelocity().y >= -2)
+            if (controller.isDownPressed() && player.b2body.getLinearVelocity().y >= -2)
                 player.b2body.applyLinearImpulse(new Vector2(0,-0.1f), player.b2body.getWorldCenter(), true);
-            else if (leftController.isRightPressed() && player.b2body.getLinearVelocity().x <= 2)
+            if (controller.isRightPressed() && player.b2body.getLinearVelocity().x <= 2)
                 player.b2body.applyLinearImpulse(new Vector2(0.1f, 0), player.b2body.getWorldCenter(), true);
-            else if (leftController.isLeftPressed() && player.b2body.getLinearVelocity().x >= -2)
+            if (controller.isLeftPressed() && player.b2body.getLinearVelocity().x >= -2)
                 player.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), player.b2body.getWorldCenter(), true);
-            if (rightController.ispistolPressed()) ;
-            player.fire();
+            if (controller.isPistolPressed())
+                player.fire();
         }
     }
 
@@ -213,11 +210,9 @@ private LeftController leftController;
 //        game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
 //        hud.stage.draw();
         if (Gdx.app.getType() == Application.ApplicationType.Android) {
-            leftController.draw();
-            rightController.draw();
+            controller.draw();
         }
-        rightController.draw();
-
+        controller.draw();
         if(gameOver()){
             game.setScreen(new GameOverScreen(game));
             dispose();
@@ -236,8 +231,7 @@ private LeftController leftController;
     public void resize(int width, int height) {
         //updated our game viewport
         gamePort.update(width,height);
-        rightController.resize(width, height);
-        leftController.resize(width, height);
+        controller.resize(width, height);
     }
 
     public TiledMap getMap(){

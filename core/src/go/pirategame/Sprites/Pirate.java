@@ -310,13 +310,31 @@ public class Pirate extends Sprite {
     }
 
     public void fire() {
-        bullets.add(new Pistol(screen, b2body.getPosition().x, b2body.getPosition().y, runningRight ? true : false));
+        System.out.println(getDirection());
+        if (bullets.size == 0)
+            bullets.add(new Pistol(screen, b2body.getPosition().x, b2body.getPosition().y, direction));
     }
 
     public void draw(Batch batch){
         super.draw(batch);
+        for (Pistol bullet : bullets)
+            bullet.draw(batch);
     }
 
+    public String getDirection() {
+        switch (direction) {
+            case DOWN:
+                return "Down";
+            case LEFT:
+                return "Left";
+            case RIGHT:
+                return "Right";
+            case UP:
+                return "Up";
+            default:
+                return "IDK";
+        }
+    }
     public enum State {SWIMMING, WALKING, HIT, DEAD, IDLING}
 
     public enum Direction {UP, DOWN, LEFT, RIGHT}
