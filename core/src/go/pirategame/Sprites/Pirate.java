@@ -20,6 +20,7 @@ import com.badlogic.gdx.utils.Array;
 import java.util.HashMap;
 
 import go.pirategame.Other.Pistol;
+import go.pirategame.Other.Sword;
 import go.pirategame.PirateGame;
 import go.pirategame.Screen.PlayScreen;
 
@@ -27,14 +28,12 @@ import go.pirategame.Screen.PlayScreen;
  * Created by Amy on 25/2/16.
  */
 public class Pirate extends Sprite {
-    public Direction direction;
-    ;
+    public static Direction direction;
     public State currentState;
-    ;
     public State previousState;
     public World world;
     public Body b2body;
-    private TextureRegion pirateWalk;
+    float weaponTime;
     private Animation swimUp;
     private Animation swimDown;
     private Animation swimRight;
@@ -46,14 +45,10 @@ public class Pirate extends Sprite {
     private TextureRegion pirateHit;
     private Animation pirateDead;
     private float stateTimer;
-    private boolean runningRight;
-    private boolean marioIsBig;
-    private boolean runGrowAnimation;
-    private boolean timeToDefineBigMario;
-    private boolean timeToRedefineMario;
     private boolean pirateIsDead;
     private PlayScreen screen;
-
+    private boolean swordOut;
+    private Sword sword;
     private Array<Pistol> bullets;
     public Pirate(PlayScreen screen) {
         //initialize default values
@@ -63,7 +58,8 @@ public class Pirate extends Sprite {
         previousState = State.SWIMMING;
         direction = Direction.UP;
         stateTimer = 0;
-        runningRight = true;
+        weaponTime = 0;
+        swordOut = false;
 
         // animation
         HashMap<String, Animation> anims = new HashMap<String, Animation>();
@@ -153,7 +149,7 @@ public class Pirate extends Sprite {
     }
 
     public void update(float dt) {
-
+        weaponTime += dt;
         if (screen.getHud().isTimeUp() && !isDead()) {
             die();
         }
@@ -167,9 +163,17 @@ public class Pirate extends Sprite {
             if (bullet.isDestroyed())
                 bullets.removeValue(bullet, true);
         }
-    }
 
-//    private Array<FireBall> fireballs;
+
+        if (swordOut) {
+            if (sword.isDestroyed()) {
+                weaponTime = 0;
+                swordOut = false;
+            } else sword.update(dt, b2body.getPosition().x, b2body.getPosition().y);
+
+        }
+
+    }
 
     public TextureRegion getFrame(float dt){
         //get marios current state. ie. jumping, running, standing...
@@ -177,7 +181,6 @@ public class Pirate extends Sprite {
 
         TextureRegion region;
 
-//        System.out.println(stateTimer);
         //depending on the state, get corresponding animation keyFrame.
         switch(currentState){
             case DEAD:
@@ -295,7 +298,6 @@ public class Pirate extends Sprite {
 
         b2body = world.createBody(bdef);
         CircleShape shape = new CircleShape();
-//        shape.setColor
         shape.setRadius(0.08f);
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
@@ -306,7 +308,9 @@ public class Pirate extends Sprite {
                     PirateGame.BORDER_BIT;
         b2body.createFixture(fixtureDef);
         shape.dispose();
+
         b2body.createFixture(fixtureDef).setUserData(this);
+
     }
 
     public void fire() {
@@ -315,7 +319,7 @@ public class Pirate extends Sprite {
             bullets.add(new Pistol(screen, b2body.getPosition().x, b2body.getPosition().y, direction));
     }
 
-    public void draw(Batch batch){
+    public void draw(Batch batch) {
         super.draw(batch);
         for (Pistol bullet : bullets)
             bullet.draw(batch);
@@ -334,6 +338,15 @@ public class Pirate extends Sprite {
             default:
                 return "IDK";
         }
+    }
+
+    public void useSword() {
+        if (!swordOut) {
+            System.out.println("Use sword");
+            sword = new Sword(screen, b2body.getPosition().x, b2body.getPosition().y, direction);
+            swordOut = true;
+        }
+
     }
     public enum State {SWIMMING, WALKING, HIT, DEAD, IDLING}
 
