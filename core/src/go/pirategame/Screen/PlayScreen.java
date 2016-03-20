@@ -67,16 +67,12 @@ private Controller controller;
 
 
         atlas = new TextureAtlas("img/actors.pack");
-
         this.game = game;
         //create cam used to follow mario through cam world
         gamecam = new OrthographicCamera();
-
         gamecam.setToOrtho(false,PirateGame.V_WIDTH,PirateGame.V_HEIGHT);
-
         //create a FitViewport to maintain virtual aspect ratio despite screen size
         gamePort = new FitViewport(PirateGame.V_WIDTH / PirateGame.PPM, PirateGame.V_HEIGHT / PirateGame.PPM, gamecam);
-
         //create our game HUD for scores/timers/level info
         hud = new Hud(game.batch);
 
@@ -163,23 +159,27 @@ private Controller controller;
 
         hud.update(dt);
 
-        //attach our gamecam to our players.x coordinate
+        /*//attach our gamecam to our players.x coordinate
         if(player.currentState != Pirate.State.DEAD) {
             gamecam.position.x = player.b2body.getPosition().x;
-        }
+        }*/
 
         //update our gamecam with correct coordinates after changes
         gamecam.setToOrtho(false, PirateGame.V_WIDTH / PirateGame.PPM, PirateGame.V_HEIGHT / PirateGame.PPM);
-        gamecam.position.x = player.b2body.getPosition().x;
-        gamecam.position.y = player.b2body.getPosition().y;
+        if (player.b2body.getPosition().x<(PirateGame.V_WIDTH / PirateGame.PPM)/2){
+            gamecam.position.x=gamePort.getWorldWidth()/2;
+        }else {
+            gamecam.position.x = player.b2body.getPosition().x;
+        }
+        if (player.b2body.getPosition().y>(PirateGame.V_HEIGHT / PirateGame.PPM) /2){
+            gamecam.position.y = player.b2body.getPosition().y;
+        }
+
 
         gamecam.update();
-
         //tell our renderer to draw only what our camera can see in our game world.
         renderer.setView(gamecam);
-
     }
-
 
     @Override
     public void show() {
@@ -189,7 +189,6 @@ private Controller controller;
     @Override
     public void render(float delta) {
         //separate our update logic from render
-
         update(delta);
 
         //Clear the game screen with Black

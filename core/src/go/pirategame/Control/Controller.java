@@ -179,10 +179,8 @@ public class Controller {
 
         // TODO: 17/3/16 Set the pad correctly 
         Table right = new Table();
-//        right.padRight(500);
-//        right.padTop(400);
-//        right.setOriginX(,1000);
-//        right.right().top();
+        right.bottom().left();
+        right.setPosition(left.getX()+620,left.getY());
 
         Image bomb = new Image(new Texture("controller/Pistol.png"));
         bomb.setSize(50, 50);
