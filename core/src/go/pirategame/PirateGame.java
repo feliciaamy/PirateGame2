@@ -8,9 +8,13 @@ import go.pirategame.Screen.PlayScreen;
 
 public class PirateGame extends Game {
 	//Virtual Screen size and Box2D Scale(Pixels Per Meter)
-	public static final int V_WIDTH = 500;
+	public static final int V_WIDTH = 400;
 	public static final int V_HEIGHT = 300;
-	public static final float PPM = 90;
+	public static final float PPM = 40;
+
+	//Hud Split Ratio
+	public static final int FULL_WIDTH = 16;
+	public static final int MAP_WIDTH = 12;
 
 	//Box2D Collision Bits
 	public static final short NOTHING_BIT = 0;
@@ -38,7 +42,6 @@ public class PirateGame extends Game {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-
 		setScreen(new PlayScreen(this));
 	}
 
@@ -48,15 +51,7 @@ public class PirateGame extends Game {
 		manager.dispose();
 		batch.dispose();
 	}
-//
-//	@Override
-//	public void render () {
-//		Gdx.gl.glClearColor(1, 0, 0, 1);
-//		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-//		batch.begin();
-//		batch.draw(img, 0, 0);
-//		batch.end();
-//	}
+
 	@Override
 	public void render () {
 		super.render();

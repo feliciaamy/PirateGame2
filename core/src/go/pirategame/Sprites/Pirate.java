@@ -186,7 +186,7 @@ public class Pirate extends Sprite {
             case DEAD:
                 region = pirateDead.getKeyFrame(stateTimer, true);
                 break;
-            case WALKING: //JUST FOR NOW
+            case WALKING:
             case SWIMMING:
                 switch (direction){
                     case DOWN:
@@ -280,7 +280,6 @@ public class Pirate extends Sprite {
 //            b2body.applyLinearImpulse(new Vector2(0, 0), b2body.getWorldCenter(), true);
         }
     }
-    //test
 
     public boolean isDead(){
         return pirateIsDead;

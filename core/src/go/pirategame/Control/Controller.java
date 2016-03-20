@@ -177,7 +177,8 @@ public class Controller {
 
         stage.addActor(left);
 
-        // TODO: 17/3/16 Set the pad correctly 
+
+        //right
         Table right = new Table();
         right.bottom().left();
         right.setPosition(left.getX()+620,left.getY());

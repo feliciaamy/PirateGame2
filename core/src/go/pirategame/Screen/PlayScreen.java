@@ -81,9 +81,7 @@ private Controller controller;
         map = maploader.load("Pirate.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, 1  / PirateGame.PPM);
 
-        //initially set our gamcam to be centered correctly at the start of of map
-//        gamecam.position.set(game.batch.getX(),  game.batch.getY(), 0);
-//        camera.update();
+        //initialize gamecame
         gamecam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
 
         //create our Box2D world, setting no gravity in X, -10 gravity in Y, and allow bodies to sleep
@@ -108,21 +106,17 @@ private Controller controller;
 //        itemsToSpawn = new LinkedBlockingQueue<ItemDef>();
     }
 
-    /*
-    public void spawnItem(ItemDef idef){
-        itemsToSpawn.add(idef);
-    }
-
-
-    public void handleSpawningItems(){
-        if(!itemsToSpawn.isEmpty()){
-            ItemDef idef = itemsToSpawn.poll();
-            if(idef.type == Mushroom.class){
-                items.add(new Mushroom(this, idef.position.x, idef.position.y));
-            }
-        }
-    }
-    */
+//    public void spawnItem(ItemDef idef){
+//        itemsToSpawn.add(idef);
+//    }
+//    public void handleSpawningItems(){
+//        if(!itemsToSpawn.isEmpty()){
+//            ItemDef idef = itemsToSpawn.poll();
+//            if(idef.type == Mushroom.class){
+//                items.add(new Mushroom(this, idef.position.x, idef.position.y));
+//            }
+//        }
+//    }
 
 
     public TextureAtlas getAtlas(){
@@ -153,10 +147,7 @@ private Controller controller;
 
         //takes 1 step in the physics simulation(60 times per second)
         world.step(1 / 60f, 6, 2);
-
         player.update(dt);
-
-
         hud.update(dt);
 
         /*//attach our gamecam to our players.x coordinate
@@ -175,7 +166,6 @@ private Controller controller;
             gamecam.position.y = player.b2body.getPosition().y;
         }
 
-
         gamecam.update();
         //tell our renderer to draw only what our camera can see in our game world.
         renderer.setView(gamecam);
@@ -188,6 +178,9 @@ private Controller controller;
 
     @Override
     public void render(float delta) {
+
+
+
         //separate our update logic from render
         update(delta);
 
@@ -195,12 +188,15 @@ private Controller controller;
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+
+        //
+        Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth() / PirateGame.FULL_WIDTH * PirateGame.MAP_WIDTH, Gdx.graphics.getHeight());
+
         //render our game map
         renderer.render();
 
         //renderer our Box2DDebugLines
         b2dr.render(world, gamecam.combined);
-
 
         game.batch.begin();
         game.batch.setProjectionMatrix(gamecam.combined);
@@ -208,12 +204,14 @@ private Controller controller;
         game.batch.end();
 
         //Set our batch to now draw what the Hud camera sees.
-//        game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
-//        hud.stage.draw();
-        if (Gdx.app.getType() == Application.ApplicationType.Android) {
-            controller.draw();
-        }
+        game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
+
+        Gdx.gl.glViewport(Gdx.graphics.getWidth() / PirateGame.FULL_WIDTH * PirateGame.MAP_WIDTH, 0, Gdx.graphics.getWidth() / PirateGame.FULL_WIDTH * (PirateGame.FULL_WIDTH-PirateGame.MAP_WIDTH), Gdx.graphics.getHeight());
+        hud.stage.draw();
+        Gdx.gl.glViewport(0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
         controller.draw();
+
+
         if(gameOver()){
             game.setScreen(new GameOverScreen(game));
             dispose();
@@ -244,7 +242,6 @@ private Controller controller;
 
     @Override
     public void pause() {
-
     }
 
     @Override
