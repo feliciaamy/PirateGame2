@@ -1,15 +1,12 @@
-package go.pirategame.Other;
+package go.pirategame.Weapon;
 
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.utils.Array;
 
 import go.pirategame.PirateGame;
 import go.pirategame.Screen.PlayScreen;
@@ -18,26 +15,23 @@ import go.pirategame.Sprites.Pirate;
 /**
  * Created by Amy on 17/3/16.
  */
-public class Sword extends Sprite {
+public class Shield extends Sprite {
     public Pirate.Direction dir;
     PlayScreen screen;
     World world;
-    Array<TextureRegion> frames;
-    Animation fireAnimation;
     float stateTime;
     boolean destroyed;
     boolean setToDestroy;
-    boolean fireRight;
     Body b2body;
     float oldX;
     float oldY;
 
-    public Sword(PlayScreen screen, float x, float y, Pirate.Direction dir) {
+    public Shield(PlayScreen screen, float x, float y, Pirate.Direction dir) {
         this.dir = dir;
         this.screen = screen;
         this.world = screen.getWorld();
 
-        // TODO: 18/3/16 Sword Animation
+        // TODO: 18/3/16 Shield Animation
         /*
         frames = new Array<TextureRegion>();
         for (int i = 0; i < 4; i++) {
@@ -47,12 +41,12 @@ public class Sword extends Sprite {
         setRegion(fireAnimation.getKeyFrame(0));
         */
         setBounds(x, y, 6 / PirateGame.PPM, 6 / PirateGame.PPM);
-        defineSword();
+        defineShield();
         oldX = x;
         oldY = y;
     }
 
-    public void defineSword() {
+    public void defineShield() {
         BodyDef bdef = new BodyDef();
         switch (dir) {
             case DOWN:
@@ -76,18 +70,25 @@ public class Sword extends Sprite {
             b2body = world.createBody(bdef);
 
         FixtureDef fixtureDef = new FixtureDef();
-        PolygonShape sword = new PolygonShape();
+        PolygonShape shield = new PolygonShape();
         Vector2[] vertice = new Vector2[4];
-        vertice[0] = new Vector2(8, 8).scl(1 / PirateGame.PPM);
-        vertice[1] = new Vector2(15, 8).scl(1 / PirateGame.PPM);
-        vertice[2] = new Vector2(8, 3).scl(1 / PirateGame.PPM);
-        vertice[3] = new Vector2(15, 3).scl(1 / PirateGame.PPM);
-        sword.set(vertice);
-        fixtureDef.filter.categoryBits = PirateGame.SWORD_BIT;
-        fixtureDef.shape = sword;
+        if (dir == Pirate.Direction.RIGHT || dir == Pirate.Direction.LEFT) {
+            vertice[0] = new Vector2(8, 10).scl(1 / PirateGame.PPM);
+            vertice[1] = new Vector2(15, 10).scl(1 / PirateGame.PPM);
+            vertice[2] = new Vector2(8, -1).scl(1 / PirateGame.PPM);
+            vertice[3] = new Vector2(15, -1).scl(1 / PirateGame.PPM);
+        } else {
+            vertice[0] = new Vector2(1, 6).scl(1 / PirateGame.PPM);
+            vertice[1] = new Vector2(12, 6).scl(1 / PirateGame.PPM);
+            vertice[2] = new Vector2(1, -1).scl(1 / PirateGame.PPM);
+            vertice[3] = new Vector2(12, -1).scl(1 / PirateGame.PPM);
+        }
+
+        shield.set(vertice);
+        fixtureDef.filter.categoryBits = PirateGame.SHIELD_BIT;
+        fixtureDef.shape = shield;
         fixtureDef.isSensor = true;
-//        b2body.createFixture(fixtureDef).setUserData(this);
-        fixtureDef.filter.categoryBits = PirateGame.SWORD_BIT;
+        fixtureDef.filter.categoryBits = PirateGame.SHIELD_BIT;
         fixtureDef.filter.maskBits = PirateGame.REEF_BIT |
                 PirateGame.PLAYER_BIT |
                 PirateGame.BORDER_BIT |
@@ -109,8 +110,6 @@ public class Sword extends Sprite {
 
         oldX = x;
         oldY = y;
-//        setPosition(b2body.getPosition().x + x - getWidth() / 2, b2body.getPosition().y + y - getHeight() / 2);
-//        System.out.println("new " + (b2body.getPosition().x + x - getWidth() / 2) + " " +(b2body.getPosition().y + y - getHeight() / 2));
         if ((stateTime > 3 || setToDestroy || Pirate.direction != dir) && !destroyed) {
             setToDestroy();
             world.destroyBody(b2body);

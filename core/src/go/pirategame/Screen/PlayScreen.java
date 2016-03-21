@@ -1,6 +1,5 @@
 package go.pirategame.Screen;
 
-import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
@@ -137,6 +136,8 @@ private Controller controller;
                 player.fire();
             else if (controller.isSwordPressed())
                 player.useSword();
+            else if (controller.isPowerUpPressed())
+                player.usePowerup();
         }
     }
 

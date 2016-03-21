@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
@@ -19,10 +20,11 @@ import com.badlogic.gdx.utils.Array;
 
 import java.util.HashMap;
 
-import go.pirategame.Other.Pistol;
-import go.pirategame.Other.Sword;
 import go.pirategame.PirateGame;
 import go.pirategame.Screen.PlayScreen;
+import go.pirategame.Weapon.Pistol;
+import go.pirategame.Weapon.Shield;
+import go.pirategame.Weapon.Sword;
 
 /**
  * Created by Amy on 25/2/16.
@@ -33,7 +35,7 @@ public class Pirate extends Sprite {
     public State previousState;
     public World world;
     public Body b2body;
-    float weaponTime;
+
     private Animation swimUp;
     private Animation swimDown;
     private Animation swimRight;
@@ -44,12 +46,19 @@ public class Pirate extends Sprite {
     private Animation idleRight;
     private TextureRegion pirateHit;
     private Animation pirateDead;
+
     private float stateTimer;
     private boolean pirateIsDead;
     private PlayScreen screen;
-    private boolean swordOut;
     private Sword sword;
+    private Shield shield;
+    private float powerUpTime;
     private Array<Pistol> bullets;
+    private HandledWeapon weapon;
+    private PowerUp extraWeapon;
+    private boolean timeToRedefinePirate;
+    private boolean timeToDefineShield;
+
     public Pirate(PlayScreen screen) {
         //initialize default values
         this.screen = screen;
@@ -58,8 +67,11 @@ public class Pirate extends Sprite {
         previousState = State.SWIMMING;
         direction = Direction.UP;
         stateTimer = 0;
-        weaponTime = 0;
-        swordOut = false;
+        weapon = HandledWeapon.NONE;
+//        extraWeapon = PowerUp.NONE;
+        extraWeapon = PowerUp.SHIELD; // for test only
+        timeToRedefinePirate = false;
+        timeToDefineShield = false;
 
         // animation
         HashMap<String, Animation> anims = new HashMap<String, Animation>();
@@ -149,7 +161,7 @@ public class Pirate extends Sprite {
     }
 
     public void update(float dt) {
-        weaponTime += dt;
+        powerUpTime += dt;
         if (screen.getHud().isTimeUp() && !isDead()) {
             die();
         }
@@ -158,25 +170,39 @@ public class Pirate extends Sprite {
         //update sprite with the correct frame depending on marios current action
         setRegion(getFrame(dt));
 
+        if (timeToDefineShield)
+            defineShield();
+        if (timeToRedefinePirate)
+            redefinePirate();
+
         for (Pistol bullet : bullets) {
             bullet.update(dt);
             if (bullet.isDestroyed())
                 bullets.removeValue(bullet, true);
         }
 
-
-        if (swordOut) {
+        if (weapon == HandledWeapon.SWORD) {
             if (sword.isDestroyed()) {
-                weaponTime = 0;
-                swordOut = false;
+                weapon = HandledWeapon.NONE;
             } else sword.update(dt, b2body.getPosition().x, b2body.getPosition().y);
-
         }
+        // TODO: 21/3/16 Set an accurate timing
+        if (powerUpTime >= 12) {
+            weapon = HandledWeapon.NONE;
+            powerUpTime = 0;
+            timeToRedefinePirate = true;
+            extraWeapon = PowerUp.NONE;
+        }
+//        else if (weapon == HandledWeapon.SHIELD) {
+//            if (shield.isDestroyed()) {
+//                weapon = HandledWeapon.NONE;
+//            } else shield.update(dt, b2body.getPosition().x, b2body.getPosition().y);
+//        }
 
     }
 
     public TextureRegion getFrame(float dt){
-        //get marios current state. ie. jumping, running, standing...
+        //get pirate current state. ie. swimming, running, standing...
         currentState = getState();
 
         TextureRegion region;
@@ -235,13 +261,10 @@ public class Pirate extends Sprite {
         //update previous state
         previousState = currentState;
         //return our final adjusted frame
-
         return region;
-
     }
 
     public State getState(){
-
         if(pirateIsDead)
             return State.DEAD;
         if (b2body.getLinearVelocity().x > 0.08) {
@@ -257,11 +280,11 @@ public class Pirate extends Sprite {
             direction = Direction.DOWN;
             return State.SWIMMING;
         }
-
         else
             return State.IDLING;
     }
 
+    // TODO: 18/3/16 GameOver screen and some animation (to be decided later)
     public void die() {
 
         if (!isDead()) {
@@ -276,8 +299,6 @@ public class Pirate extends Sprite {
             for (Fixture fixture : b2body.getFixtureList()) {
                 fixture.setFilterData(filter);
             }
-
-//            b2body.applyLinearImpulse(new Vector2(0, 0), b2body.getWorldCenter(), true);
         }
     }
 
@@ -293,37 +314,109 @@ public class Pirate extends Sprite {
         BodyDef bdef = new BodyDef();
         bdef.type = BodyDef.BodyType.DynamicBody;
         bdef.position.set(x, y);
-        bdef.linearDamping = 12f;
+        bdef.linearDamping = 11f;
 
         b2body = world.createBody(bdef);
         CircleShape shape = new CircleShape();
-        shape.setRadius(0.08f);
+        shape.setRadius(7 / PirateGame.PPM);
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
         fixtureDef.filter.categoryBits = PirateGame.PLAYER_BIT;
         fixtureDef.filter.maskBits = PirateGame.PLAYER_BIT |
                     PirateGame.ROCK_BIT |
                     PirateGame.REEF_BIT |
-                    PirateGame.BORDER_BIT;
+                PirateGame.BORDER_BIT |
+                PirateGame.BULLET_BIT;
         b2body.createFixture(fixtureDef);
         shape.dispose();
 
         b2body.createFixture(fixtureDef).setUserData(this);
+    }
+
+    //Put the pirate in a spherical shield
+    public void defineShield() {
+        Vector2 position = b2body.getPosition();
+        world.destroyBody(b2body);
+
+        BodyDef bdef = new BodyDef();
+        bdef.position.set(position);
+        bdef.type = BodyDef.BodyType.DynamicBody;
+        bdef.linearDamping = 11f;
+        b2body = world.createBody(bdef);
+
+
+        FixtureDef fdef = new FixtureDef();
+        CircleShape shield = new CircleShape();
+        shield.setRadius(10 / PirateGame.PPM);
+        fdef.filter.categoryBits = PirateGame.PLAYER_BIT;
+        fdef.filter.maskBits = PirateGame.PLAYER_BIT |
+                PirateGame.BULLET_BIT;
+
+        fdef.shape = shield;
+        b2body.createFixture(fdef).setUserData(this);
+
+        CircleShape body = new CircleShape();
+        body.setRadius(7 / PirateGame.PPM);
+        FixtureDef fixtureDef = new FixtureDef();
+        fixtureDef.shape = body;
+        fixtureDef.filter.categoryBits = PirateGame.PLAYER_BIT;
+        fixtureDef.filter.maskBits = PirateGame.PLAYER_BIT |
+                PirateGame.ROCK_BIT |
+                PirateGame.REEF_BIT |
+                PirateGame.BORDER_BIT |
+                PirateGame.BULLET_BIT;
+        b2body.createFixture(fixtureDef);
+//        shape.dispose();
+
+        b2body.createFixture(fixtureDef).setUserData(this);
+        timeToDefineShield = false;
 
     }
 
+    //After shield is gone
+    public void redefinePirate() {
+        Vector2 position = b2body.getPosition();
+        world.destroyBody(b2body);
+
+        BodyDef bdef = new BodyDef();
+        bdef.position.set(position);
+        bdef.type = BodyDef.BodyType.DynamicBody;
+        bdef.linearDamping = 11f;
+        b2body = world.createBody(bdef);
+
+
+        FixtureDef fdef = new FixtureDef();
+        CircleShape shape = new CircleShape();
+        shape.setRadius(7 / PirateGame.PPM);
+        fdef.filter.categoryBits = PirateGame.PLAYER_BIT;
+        fdef.filter.maskBits = PirateGame.PLAYER_BIT |
+                PirateGame.ROCK_BIT |
+                PirateGame.REEF_BIT |
+                PirateGame.BORDER_BIT;
+
+        fdef.shape = shape;
+        b2body.createFixture(fdef).setUserData(this);
+
+        b2body.createFixture(fdef).setUserData(this);
+
+        timeToRedefinePirate = false;
+    }
+
     public void fire() {
-        System.out.println(getDirection());
-        if (bullets.size == 0)
+        if (bullets.size == 0) {
+            weapon = HandledWeapon.PISTOL;
             bullets.add(new Pistol(screen, b2body.getPosition().x, b2body.getPosition().y, direction));
+        }
     }
 
     public void draw(Batch batch) {
         super.draw(batch);
         for (Pistol bullet : bullets)
             bullet.draw(batch);
+        // TODO: 18/3/16 draw other weapon also 
     }
 
+    /*Not used for now
     public String getDirection() {
         switch (direction) {
             case DOWN:
@@ -337,17 +430,50 @@ public class Pirate extends Sprite {
             default:
                 return "IDK";
         }
-    }
+    }*/
 
     public void useSword() {
-        if (!swordOut) {
-            System.out.println("Use sword");
+        if (weapon != HandledWeapon.SWORD) {
+            weapon = HandledWeapon.SWORD;
             sword = new Sword(screen, b2body.getPosition().x, b2body.getPosition().y, direction);
-            swordOut = true;
         }
+    }
+
+    public void usePowerup() {
+        if (extraWeapon == PowerUp.NONE) return;
+        else if (extraWeapon == PowerUp.SHIELD) useShield();
+        else if (extraWeapon == PowerUp.OCTOPUS) useOctopus();
+        else if (extraWeapon == PowerUp.TNT) useTNT();
+    }
+
+    public void useShield() {
+        if (weapon != HandledWeapon.SHIELD) {
+            timeToDefineShield = true;
+            weapon = HandledWeapon.SHIELD;
+            // TODO: 21/3/16 decide whether we want it to be like pistol or just a sphere around the player
+//            shield = new Shield(screen, b2body.getPosition().x, b2body.getPosition().y, direction);
+        }
+    }
+
+    // TODO: 18/3/16
+    public void useOctopus() {
 
     }
+
+    // TODO: 18/3/16
+    public void useTNT() {
+    }
+
+    //Note: This will be needed for Contact Listener
+    public boolean shieldOn() {
+        return (weapon == HandledWeapon.SHIELD);
+    }
+
     public enum State {SWIMMING, WALKING, HIT, DEAD, IDLING}
 
     public enum Direction {UP, DOWN, LEFT, RIGHT}
+
+    public enum HandledWeapon {PISTOL, SWORD, SHIELD, NONE}
+
+    public enum PowerUp {OCTOPUS, SHIELD, TNT, NONE}
 }

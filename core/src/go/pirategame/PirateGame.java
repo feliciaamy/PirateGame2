@@ -31,6 +31,7 @@ public class PirateGame extends Game {
 	public static final short BREAKABLE_BIT = 1024;
 	public static final short BULLET_BIT = 2048;
 	public static final short SWORD_BIT = 4096;
+	public static final short SHIELD_BIT = 8192;
 
 	public static SpriteBatch batch;
 
@@ -48,7 +49,7 @@ public class PirateGame extends Game {
 	@Override
 	public void dispose() {
 		super.dispose();
-		manager.dispose();
+//		manager.dispose();
 		batch.dispose();
 	}
 

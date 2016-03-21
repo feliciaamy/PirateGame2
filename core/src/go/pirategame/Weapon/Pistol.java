@@ -1,4 +1,4 @@
-package go.pirategame.Other;
+package go.pirategame.Weapon;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -27,27 +27,29 @@ public class Pistol extends Sprite {
     float stateTime;
     boolean destroyed;
     boolean setToDestroy;
-    boolean fireRight;
     Body b2body;
 
     public Pistol(PlayScreen screen, float x, float y, Pirate.Direction dir) {
         this.dir = dir;
         this.screen = screen;
         this.world = screen.getWorld();
-        frames = new Array<TextureRegion>();
+
         // TODO: 18/3/16 Bullet Animation
+
+        frames = new Array<TextureRegion>();
         for (int i = 0; i < 4; i++) {
             frames.add(new TextureRegion(screen.getAtlas().findRegion("Bomb"), i * 8, 0, 8, 8));
         }
         fireAnimation = new Animation(0.2f, frames);
         setRegion(fireAnimation.getKeyFrame(0));
+
         setBounds(x, y, 6 / PirateGame.PPM, 6 / PirateGame.PPM);
         defineFireBall();
     }
 
     public void defineFireBall() {
         BodyDef bdef = new BodyDef();
-        bdef.position.set(fireRight ? getX() + 12 / PirateGame.PPM : getX() - 12 / PirateGame.PPM, getY());
+        bdef.position.set((dir == Pirate.Direction.LEFT) ? getX() - 12 / PirateGame.PPM : getX() + 5 / PirateGame.PPM, getY());
         bdef.type = BodyDef.BodyType.DynamicBody;
         if (!world.isLocked())
             b2body = world.createBody(bdef);
@@ -79,7 +81,7 @@ public class Pistol extends Sprite {
                 b2body.setLinearVelocity(new Vector2(0, 2));
                 break;
             default:
-                b2body.setLinearVelocity(new Vector2(fireRight ? 2 : -2, 2.5f));
+                b2body.setLinearVelocity(new Vector2(0, 0));
         }
 
     }
@@ -92,8 +94,8 @@ public class Pistol extends Sprite {
             world.destroyBody(b2body);
             destroyed = true;
         }
-        if (b2body.getLinearVelocity().y > 2f)
-            b2body.setLinearVelocity(b2body.getLinearVelocity().x, 2f);
+//        if (b2body.getLinearVelocity().y > 2f)
+//            b2body.setLinearVelocity(b2body.getLinearVelocity().x, 2f);
         if ((dir == Pirate.Direction.RIGHT && b2body.getLinearVelocity().x < 0) ||
                 (dir == Pirate.Direction.LEFT && b2body.getLinearVelocity().x > 0) ||
                 (dir == Pirate.Direction.UP && b2body.getLinearVelocity().y < 0) ||
