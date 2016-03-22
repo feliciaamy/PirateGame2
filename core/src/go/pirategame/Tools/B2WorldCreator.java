@@ -15,6 +15,7 @@ import go.pirategame.Screen.PlayScreen;
 import go.pirategame.Sprites.Pirate;
 import go.pirategame.Sprites.TileObject.Border;
 import go.pirategame.Sprites.TileObject.Reef;
+import go.pirategame.Sprites.TileObject.Rock;
 import go.pirategame.Sprites.TileObject.Treasure;
 
 
@@ -49,21 +50,21 @@ public class B2WorldCreator {
             body.createFixture(fdef);
         }*/
 
-        //create rock bodies/fixtures
-        for(MapObject object : map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)){
-            Rectangle rect = ((RectangleMapObject) object).getRectangle();
-
-            bdef.type = BodyDef.BodyType.StaticBody;
-            bdef.position.set((rect.getX() + rect.getWidth() / 2) / PirateGame.PPM, (rect.getY() + rect.getHeight() / 2)
-                    / PirateGame.PPM);
-
-            body = world.createBody(bdef);
-
-            shape.setAsBox(rect.getWidth() / 2 / PirateGame.PPM, rect.getHeight() / 2 / PirateGame.PPM);
-            fdef.shape = shape;
-            fdef.filter.categoryBits = PirateGame.OBJECT_BIT;
-            body.createFixture(fdef);
-        }
+//        //create rock bodies/fixtures
+//        for(MapObject object : map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)){
+//            Rectangle rect = ((RectangleMapObject) object).getRectangle();
+//
+//            bdef.type = BodyDef.BodyType.StaticBody;
+//            bdef.position.set((rect.getX() + rect.getWidth() / 2) / PirateGame.PPM, (rect.getY() + rect.getHeight() / 2)
+//                    / PirateGame.PPM);
+//
+//            body = world.createBody(bdef);
+//
+//            shape.setAsBox(rect.getWidth() / 2 / PirateGame.PPM, rect.getHeight() / 2 / PirateGame.PPM);
+//            fdef.shape = shape;
+//            fdef.filter.categoryBits = PirateGame.OBJECT_BIT;
+//            body.createFixture(fdef);
+//        }
 
         //create reef bodies/fixtures
         for(MapObject object : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)){
@@ -73,6 +74,11 @@ public class B2WorldCreator {
         //create Border bodies/fixtures
         for(MapObject object : map.getLayers().get(6).getObjects().getByType(RectangleMapObject.class)){
             new Border(screen, object);
+        }
+
+        //create Rock bodies/fixtures
+        for(MapObject object : map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)){
+            new Rock(screen, object);
         }
 
         //create Treasure bodies/fixtures
