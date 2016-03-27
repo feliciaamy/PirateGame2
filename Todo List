@@ -1,14 +1,20 @@
 Todo List:
-1. Player's animation (Amy) DONE
-2. Camera following player (Amy) DONE
-3. Shield (POWER UP) (Amy) DONE
-4. Maps (at least 5)(Zhao Juan)
-5. Bomb (MAIN) + TNT (POWER UP) and explosion(Zhao Juan)
-6. Socket/Google Play (Milton)
-7. Pistol (MAIN) (Amy) DONE
-8. Controller (right side) (Amy) DONE
-9. Sword (MAIN) (Amy) DONE
-10. Octopus (POWER UP)
-11. Background Music
-12. Size of the screen + GUI
-13. Spawn Item (i.e. Power ups)
+Maps (at least 5)(Zhao Juan)
+Bomb (MAIN) + TNT (POWER UP) and explosion(Zhao Juan)
+Socket/Google Play (Milton)
+Octopus (POWER UP)
+Background Music
+Spawn Item (i.e. Power ups)
+GUI
+
+
+
+Done:
+Player's animation (Amy) DONE
+Camera following player (Amy) DONE
+Shield (POWER UP) (Amy) DONE
+Pistol (MAIN) (Amy) DONE
+Controller (right side) (Amy) DONE
+Sword (MAIN) (Amy) DONE
+Contact Listener
+Size of the screen
