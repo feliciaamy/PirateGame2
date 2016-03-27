@@ -11,11 +11,12 @@ public class PirateGame extends Game {
 	public static final float PPM = 40;
 	public static final int V_WIDTH = 400;
 	public static final int V_HEIGHT = 300;
-	public static final float EDGE_POSITION_X = 8.6f;
-	public static final float EDGE_POSITION_Y = 9.0f;
+	public static final float EDGE_POSITION_X = 8f;
+	public static final float EDGE_POSITION_Y = 8f;
 
 	//Player Info
 	public static final int MAX_VELOCITY=4;
+	public static final float BOARDER_OFFSET=0.5f;
 
 	//Hud Split Ratio
 	public static final int FULL_WIDTH = 16;

@@ -50,12 +50,14 @@ public class Pirate extends Sprite {
     private boolean timeToRedefinePirate,timeToDefineShield;
 
     private int health;
+    private int player_id;
 
-    public Pirate(PlayScreen screen) {
+    public Pirate(PlayScreen screen,int player_id) {
         //initialize default values
         this.screen = screen;
         this.world = screen.getWorld();
         this.direction=Direction.DOWN;
+        this.player_id=player_id;
         currentState = State.SWIMMING;
         previousState = State.SWIMMING;
         direction = Direction.UP;
@@ -146,6 +148,20 @@ public class Pirate extends Sprite {
 
         //define mario in Box2d
         definePirate(0.3f, 0.3f);
+        switch (player_id){
+            case 0:
+                definePirate(PirateGame.BOARDER_OFFSET,PirateGame.BOARDER_OFFSET);
+                break;
+            case 1:
+                definePirate(PirateGame.EDGE_POSITION_X-PirateGame.BOARDER_OFFSET,PirateGame.BOARDER_OFFSET);
+                break;
+            case 2:
+                definePirate(PirateGame.BOARDER_OFFSET,PirateGame.EDGE_POSITION_Y-PirateGame.BOARDER_OFFSET);
+                break;
+            case 3:
+                definePirate(PirateGame.EDGE_POSITION_X-PirateGame.BOARDER_OFFSET,PirateGame.EDGE_POSITION_Y-PirateGame.BOARDER_OFFSET);
+                break;
+        }
         setBounds(0, 0, 16 / PirateGame.PPM, 16 / PirateGame.PPM);
         setRegion(idleUp.getKeyFrame(stateTimer, true));
 
@@ -315,7 +331,7 @@ public class Pirate extends Sprite {
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
         fixtureDef.filter.categoryBits = PirateGame.PLAYER_BIT;
-        fixtureDef.filter.maskBits = PirateGame.PLAYER_BIT |
+        fixtureDef.filter.maskBits =
                     PirateGame.ROCK_BIT |
                     PirateGame.REEF_BIT |
                 PirateGame.BORDER_BIT |
@@ -360,7 +376,6 @@ public class Pirate extends Sprite {
                 PirateGame.BULLET_BIT;
         b2body.createFixture(fixtureDef);
 //        shape.dispose();
-
         b2body.createFixture(fixtureDef).setUserData(this);
         timeToDefineShield = false;
 

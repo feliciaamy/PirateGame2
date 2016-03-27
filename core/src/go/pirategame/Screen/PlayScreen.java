@@ -91,7 +91,7 @@ public class PlayScreen implements Screen {
         creator = new B2WorldCreator(this);
         //create mario in our game world
         for (int i = 0; i < 4; i++) {
-            players.add(new Pirate(this));
+            players.add(new Pirate(this,i));
         }
 //        player = new Pirate(this);
 
