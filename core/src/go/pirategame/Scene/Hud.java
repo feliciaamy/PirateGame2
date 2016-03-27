@@ -88,6 +88,7 @@ public class Hud implements Disposable {
 
         //add our table to the stage
         stage.addActor(table);
+
     }
 
     public void update(float dt){
