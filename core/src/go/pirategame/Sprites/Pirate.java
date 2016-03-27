@@ -30,7 +30,7 @@ import go.pirategame.Weapon.Sword;
  * Created by Amy on 25/2/16.
  */
 public class Pirate extends Sprite {
-    public static Direction direction;
+    public Direction direction;
     public State currentState;
     public State previousState;
     public World world;
@@ -55,6 +55,7 @@ public class Pirate extends Sprite {
         //initialize default values
         this.screen = screen;
         this.world = screen.getWorld();
+        this.direction=Direction.DOWN;
         currentState = State.SWIMMING;
         previousState = State.SWIMMING;
         direction = Direction.UP;
@@ -176,7 +177,7 @@ public class Pirate extends Sprite {
         if (weapon == HandledWeapon.SWORD) {
             if (sword.isDestroyed()) {
                 weapon = HandledWeapon.NONE;
-            } else sword.update(dt, b2body.getPosition().x, b2body.getPosition().y);
+            } else sword.update(dt, b2body.getPosition().x, b2body.getPosition().y,this);
         }
         // TODO: 21/3/16 Set an accurate timing
         if (powerUpTime >= 12) {

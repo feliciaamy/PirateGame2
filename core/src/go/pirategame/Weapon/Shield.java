@@ -100,7 +100,7 @@ public class Shield extends Sprite {
 
     }
 
-    public void update(float dt, float x, float y) {
+    public void update(float dt, float x, float y,Pirate pirate) {
         System.out.println("old " + b2body.getPosition().x + " " + b2body.getPosition().y);
         stateTime += dt;
         if (oldX != x)
@@ -110,7 +110,7 @@ public class Shield extends Sprite {
 
         oldX = x;
         oldY = y;
-        if ((stateTime > 3 || setToDestroy || Pirate.direction != dir) && !destroyed) {
+        if ((stateTime > 3 || setToDestroy || pirate.direction != dir) && !destroyed) {
             setToDestroy();
             world.destroyBody(b2body);
             destroyed = true;

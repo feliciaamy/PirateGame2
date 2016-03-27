@@ -39,6 +39,9 @@ public class PirateGame extends Game {
 	public static final short SWORD_BIT = 4096;
 	public static final short SHIELD_BIT = 8192;
 
+	//player info
+	public static final int THIS_PLAYER=0;
+
 	public static SpriteBatch batch;
 
 	/* WARNING Using AssetManager in a static way can cause issues, especially on Android.
@@ -49,7 +52,7 @@ public class PirateGame extends Game {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		setScreen(new PlayScreen(this));
+		setScreen(new PlayScreen(this,THIS_PLAYER));
 	}
 
 	@Override

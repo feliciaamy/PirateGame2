@@ -17,6 +17,8 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+import java.util.ArrayList;
+
 import go.pirategame.Control.Controller;
 import go.pirategame.PirateGame;
 import go.pirategame.Scene.Hud;
@@ -50,7 +52,9 @@ public class PlayScreen implements Screen {
     private B2WorldCreator creator;
 
     //sprites
-    private Pirate player;
+//    private Pirate player;
+    private ArrayList<Pirate> players = new ArrayList<Pirate>(4);
+    private int thisPlayerIndex;
 
     private Music music;
 
@@ -63,9 +67,10 @@ public class PlayScreen implements Screen {
 
     private Controller controller;
 
-    public PlayScreen(PirateGame game){
+    public PlayScreen(PirateGame game, int thisPlayerIndex){
         atlas = new TextureAtlas("img/actors.pack");
         this.game = game;
+        this.thisPlayerIndex=thisPlayerIndex;
         //create cam used to follow mario through cam world
         gamecam = new OrthographicCamera();
         gamecam.setToOrtho(false,PirateGame.V_WIDTH,PirateGame.V_HEIGHT);
@@ -85,11 +90,14 @@ public class PlayScreen implements Screen {
         b2dr = new Box2DDebugRenderer();
         creator = new B2WorldCreator(this);
         //create mario in our game world
-        player = new Pirate(this);
+        for (int i = 0; i < 4; i++) {
+            players.add(new Pirate(this));
+        }
+//        player = new Pirate(this);
 
 
         //create our game HUD for scores/timers/level info
-        hud = new Hud(PirateGame.batch,player);
+        hud = new Hud(PirateGame.batch,players.get(thisPlayerIndex));
 
         controller = new Controller();
 
@@ -122,6 +130,7 @@ public class PlayScreen implements Screen {
     }
 
     public void handleInput(float dt){
+        Pirate player=players.get(thisPlayerIndex);
         if(player.currentState != Pirate.State.DEAD) {
             if (controller.isUpPressed() && player.b2body.getLinearVelocity().y <= PirateGame.MAX_VELOCITY)
                 player.b2body.applyLinearImpulse(new Vector2(0, 0.2f), player.b2body.getWorldCenter(), true);
@@ -147,7 +156,10 @@ public class PlayScreen implements Screen {
 
         //takes 1 step in the physics simulation(60 times per second)
         world.step(1 / 60f, 6, 2);
-        player.update(dt);
+        for (int i = 0; i < 4; i++) {
+            players.get(i).update(dt);
+        }
+//        player.update(dt);
         hud.update(dt);
 
         /*//attach our gamecam to our players.x coordinate
@@ -155,6 +167,7 @@ public class PlayScreen implements Screen {
             gamecam.position.x = player.b2body.getPosition().x;
         }*/
 
+        Pirate player=players.get(thisPlayerIndex);
         //update our gamecam with correct coordinates after changes
         //x position
         gamecam.setToOrtho(false, PirateGame.V_WIDTH / PirateGame.PPM, PirateGame.V_HEIGHT / PirateGame.PPM);
@@ -175,7 +188,6 @@ public class PlayScreen implements Screen {
             else
                 gamecam.position.y = player.b2body.getPosition().y;
         }
-
         gamecam.update();
         //tell our renderer to draw only what our camera can see in our game world.
         renderer.setView(gamecam);
@@ -205,7 +217,10 @@ public class PlayScreen implements Screen {
 
         PirateGame.batch.begin();
         PirateGame.batch.setProjectionMatrix(gamecam.combined);
-        player.draw(PirateGame.batch);
+        for (int i = 0; i < 4; i++) {
+            players.get(i).draw(PirateGame.batch);
+        }
+//        player.draw(PirateGame.batch);
         PirateGame.batch.end();
 
         //Set our batch to now draw what the Hud camera sees.
@@ -225,7 +240,8 @@ public class PlayScreen implements Screen {
     }
 
     public boolean gameOver(){
-        return player.currentState == Pirate.State.DEAD && player.getStateTimer() > 3;
+//        return player.currentState == Pirate.State.DEAD && player.getStateTimer() > 3;
+        return players.get(thisPlayerIndex).currentState == Pirate.State.DEAD && players.get(thisPlayerIndex).getStateTimer() > 3;
     }
 
     @Override
