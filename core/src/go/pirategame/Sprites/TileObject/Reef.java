@@ -24,6 +24,13 @@ public class Reef extends InteractiveTileObject {
         setCategoryFilter(PirateGame.REEF_BIT);
     }
 
+    @Override
+    public void onHit(Pirate pirate) {
+        setCategoryFilter(PirateGame.HIT_BIT);
+        getCell().setTile(null);
+        PirateGame.manager.get("audio/sounds/breakblock.wav", Sound.class).play();
+    }
+
    /*
     @Override
     public void onHeadHit(Mario mario) {

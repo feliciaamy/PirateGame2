@@ -152,7 +152,7 @@ public class Pirate extends Sprite {
         pirateDead = anim;
 
         //define mario in Box2d
-        definePirate(0.2f, 0.2f);
+        definePirate(0.3f, 0.3f);
         setBounds(0, 0, 16 / PirateGame.PPM, 16 / PirateGame.PPM);
         setRegion(idleUp.getKeyFrame(stateTimer, true));
 

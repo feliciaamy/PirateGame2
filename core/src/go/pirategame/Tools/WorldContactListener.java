@@ -6,6 +6,12 @@ import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 
+import go.pirategame.PirateGame;
+import go.pirategame.Scene.Hud;
+import go.pirategame.Sprites.Pirate;
+import go.pirategame.Sprites.TileObject.InteractiveTileObject;
+import go.pirategame.Sprites.TileObject.Reef;
+
 /**
  * Created by Amy on 25/2/16.
  */
@@ -17,14 +23,48 @@ public class WorldContactListener implements ContactListener {
 
         int cDef = fixA.getFilterData().categoryBits | fixB.getFilterData().categoryBits;
 
-        // TODO: 18/3/16 Player vs. bullet(pistol)
-        // TODO: 18/3/16 Player vs. bomb || TNT
-        // TODO: 18/3/16 Player vs. sword
-        // TODO: 18/3/16 Reef vs. bomb
-        // TODO: 18/3/16 Player + shield vs. bomb
-        // TODO: 18/3/16 Player + shield vs. pistol
-        // TODO: 18/3/16 Player + shield vs. sword
+        switch (cDef) {
+            // Player vs. bullet(pistol)
+            case PirateGame.PLAYER_BIT | PirateGame.BULLET_BIT:
+                if(fixA.getFilterData().categoryBits == PirateGame.PLAYER_BIT)
+                    ((InteractiveTileObject) fixA.getUserData()).hitByBullet((Pirate) fixB.getUserData());
+                else
+                    ((InteractiveTileObject) fixB.getUserData()).hitByBullet((Pirate) fixA.getUserData());
+                break;
+            // Player vs. bomb || TNT
+            case PirateGame.PLAYER_BIT | PirateGame.BOMB_BIT:
+                if(fixA.getFilterData().categoryBits == PirateGame.PLAYER_BIT)
+                    ((InteractiveTileObject) fixA.getUserData()).hitByBomb((Pirate) fixB.getUserData());
+                else
+                    ((InteractiveTileObject) fixB.getUserData()).hitByBomb((Pirate) fixA.getUserData());
+                break;
 
+            case PirateGame.PLAYER_BIT | PirateGame.TNT_BIT:
+                if(fixA.getFilterData().categoryBits == PirateGame.PLAYER_BIT)
+                    ((InteractiveTileObject) fixA.getUserData()).hitByTNT((Pirate) fixB.getUserData());
+                else
+                    ((InteractiveTileObject) fixB.getUserData()).hitByTNT((Pirate) fixA.getUserData());
+                break;
+
+            //  Player vs. sword
+            case PirateGame.PLAYER_BIT | PirateGame.SWORD_BIT:
+                if(fixA.getFilterData().categoryBits == PirateGame.PLAYER_BIT)
+                    ((InteractiveTileObject) fixA.getUserData()).hitBySword((Pirate) fixB.getUserData());
+                else
+                    ((InteractiveTileObject) fixB.getUserData()).hitBySword((Pirate) fixA.getUserData());
+                break;
+
+            // Reef vs. bomb
+            case PirateGame.REEF_BIT | PirateGame.BOMB_BIT:
+                if(fixA.getFilterData().categoryBits == PirateGame.REEF_BIT)
+                    ((InteractiveTileObject) fixA.getUserData()).destroyReef((Reef) fixB.getUserData());
+                else
+                    ((InteractiveTileObject) fixB.getUserData()).destroyReef((Reef) fixA.getUserData());
+                break;
+            case PirateGame.PLAYER_BIT | PirateGame.BORDER_BIT:
+                Hud.setTestMsg("Testing: C");
+                break;
+        }
 //        switch (cDef){
 //            case MarioBros.MARIO_HEAD_BIT | MarioBros.BRICK_BIT:
 //            case MarioBros.MARIO_HEAD_BIT | MarioBros.COIN_BIT:

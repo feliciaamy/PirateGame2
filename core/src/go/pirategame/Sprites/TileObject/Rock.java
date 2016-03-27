@@ -23,6 +23,11 @@ public class Rock extends InteractiveTileObject {
         setCategoryFilter(PirateGame.BORDER_BIT);
     }
 
+    @Override
+    public void onHit(Pirate pirate) {
+
+    }
+
    /*
     @Override
     public void onHeadHit(Mario mario) {

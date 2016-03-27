@@ -73,11 +73,12 @@ private Controller controller;
         //create a FitViewport to maintain virtual aspect ratio despite screen size
         gamePort = new FitViewport(PirateGame.V_WIDTH / PirateGame.PPM, PirateGame.V_HEIGHT / PirateGame.PPM, gamecam);
         //create our game HUD for scores/timers/level info
-        hud = new Hud(game.batch);
+        hud = new Hud(PirateGame.batch);
 
         //Load our map and setup our map renderer
         maploader = new TmxMapLoader();
         map = maploader.load("Pirate.tmx");
+//        map=maploader.load("world-3.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, 1  / PirateGame.PPM);
 
         //initialize gamecame
@@ -124,14 +125,14 @@ private Controller controller;
 
     public void handleInput(float dt){
         if(player.currentState != Pirate.State.DEAD) {
-            if (controller.isUpPressed() && player.b2body.getLinearVelocity().y <= 2)
-                player.b2body.applyLinearImpulse(new Vector2(0, 0.1f), player.b2body.getWorldCenter(), true);
-            if (controller.isDownPressed() && player.b2body.getLinearVelocity().y >= -2)
-                player.b2body.applyLinearImpulse(new Vector2(0,-0.1f), player.b2body.getWorldCenter(), true);
-            if (controller.isRightPressed() && player.b2body.getLinearVelocity().x <= 2)
-                player.b2body.applyLinearImpulse(new Vector2(0.1f, 0), player.b2body.getWorldCenter(), true);
-            if (controller.isLeftPressed() && player.b2body.getLinearVelocity().x >= -2)
-                player.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), player.b2body.getWorldCenter(), true);
+            if (controller.isUpPressed() && player.b2body.getLinearVelocity().y <= PirateGame.MAX_VELOCITY)
+                player.b2body.applyLinearImpulse(new Vector2(0, 0.2f), player.b2body.getWorldCenter(), true);
+            if (controller.isDownPressed() && player.b2body.getLinearVelocity().y >= -PirateGame.MAX_VELOCITY)
+                player.b2body.applyLinearImpulse(new Vector2(0,-0.2f), player.b2body.getWorldCenter(), true);
+            if (controller.isRightPressed() && player.b2body.getLinearVelocity().x <= PirateGame.MAX_VELOCITY)
+                player.b2body.applyLinearImpulse(new Vector2(0.2f, 0), player.b2body.getWorldCenter(), true);
+            if (controller.isLeftPressed() && player.b2body.getLinearVelocity().x >= -PirateGame.MAX_VELOCITY)
+                player.b2body.applyLinearImpulse(new Vector2(-0.2f, 0), player.b2body.getWorldCenter(), true);
             if (controller.isPistolPressed())
                 player.fire();
             else if (controller.isSwordPressed())
@@ -199,13 +200,13 @@ private Controller controller;
         //renderer our Box2DDebugLines
         b2dr.render(world, gamecam.combined);
 
-        game.batch.begin();
-        game.batch.setProjectionMatrix(gamecam.combined);
-        player.draw(game.batch);
-        game.batch.end();
+        PirateGame.batch.begin();
+        PirateGame.batch.setProjectionMatrix(gamecam.combined);
+        player.draw(PirateGame.batch);
+        PirateGame.batch.end();
 
         //Set our batch to now draw what the Hud camera sees.
-        game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
+        PirateGame.batch.setProjectionMatrix(hud.stage.getCamera().combined);
 
         Gdx.gl.glViewport(Gdx.graphics.getWidth() / PirateGame.FULL_WIDTH * PirateGame.MAP_WIDTH, 0, Gdx.graphics.getWidth() / PirateGame.FULL_WIDTH * (PirateGame.FULL_WIDTH-PirateGame.MAP_WIDTH), Gdx.graphics.getHeight());
         hud.stage.draw();
@@ -221,10 +222,7 @@ private Controller controller;
     }
 
     public boolean gameOver(){
-        if(player.currentState == Pirate.State.DEAD && player.getStateTimer() > 3){
-            return true;
-        }
-        return false;
+        return player.currentState == Pirate.State.DEAD && player.getStateTimer() > 3;
     }
 
     @Override

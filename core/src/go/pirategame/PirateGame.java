@@ -8,9 +8,12 @@ import go.pirategame.Screen.PlayScreen;
 
 public class PirateGame extends Game {
 	//Virtual Screen size and Box2D Scale(Pixels Per Meter)
+	public static final float PPM = 40;
 	public static final int V_WIDTH = 400;
 	public static final int V_HEIGHT = 300;
-	public static final float PPM = 40;
+
+	//Player Info
+	public static final int MAX_VELOCITY=4;
 
 	//Hud Split Ratio
 	public static final int FULL_WIDTH = 16;
@@ -18,12 +21,12 @@ public class PirateGame extends Game {
 
 	//Box2D Collision Bits
 	public static final short NOTHING_BIT = 0;
-	public static final short WATER_BIT = 1;
+	public static final short HIT_BIT = 1;
 	public static final short PLAYER_BIT = 2;
 	public static final short ROCK_BIT = 4;
 	public static final short REEF_BIT = 8;
 	public static final short INDESTRUCTIIBLE_BIT = 16;
-	public static final short EXPLOSION_BIT = 32;
+	public static final short TNT_BIT = 32;
 	public static final short TREASURE_BIT = 64;
 	public static final short BORDER_BIT = 128;
 	public static final short BOMB_BIT = 256;

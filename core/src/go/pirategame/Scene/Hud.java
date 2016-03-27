@@ -33,6 +33,7 @@ public class Hud implements Disposable {
     private Label levelLabel;
     private Label worldLabel;
     private Label playerLabel;
+    public static Label testLabel;
 
     public Hud(SpriteBatch sb){
         worldTimer = 300;
@@ -57,7 +58,8 @@ public class Hud implements Disposable {
         timeLabel = new Label("TIME", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         levelLabel = new Label("1-1", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         worldLabel = new Label("WORLD", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        playerLabel = new Label("MARIO", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        playerLabel = new Label("Pirate 1", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        testLabel= new Label("Testing", new Label.LabelStyle(new BitmapFont(),Color.WHITE));
 
         //add our labels to our table, padding the top, and giving them all equal width with expandX
         table.add(playerLabel).expandX().padTop(10);
@@ -69,6 +71,8 @@ public class Hud implements Disposable {
 //        table.add(levelLabel).expandX();
         table.add(timeLabel).left().padLeft(10);
         table.add(countdownLabel).right().padRight(10);
+        table.row();
+        table.add(testLabel);
 
         //add our table to the stage
         stage.addActor(table);
@@ -90,6 +94,10 @@ public class Hud implements Disposable {
     public static void addScore(int value){
         score += value;
         scoreLabel.setText(String.format("%06d", score));
+    }
+
+    public static void setTestMsg(String msg){
+        testLabel.setText(msg);
     }
 
     @Override

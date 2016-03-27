@@ -100,7 +100,7 @@ public class Controller {
         left.left().bottom();
 
         Image upImg = new Image(new Texture("controller/flatDark25.png"));
-        upImg.setSize(50,50);
+        upImg.setSize(50, 50);
         upImg.addListener(new InputListener() {
 
             @Override
@@ -115,9 +115,9 @@ public class Controller {
             }
         });
 
-        Image downImg = new Image(new Texture("controller/flatDark26.png"));
-        downImg.setSize(50,50);
-        downImg.addListener(new InputListener() {
+        Image emptyImg = new Image(new Texture("controller/flatDark26.png"));
+        emptyImg.setSize(50, 50);
+        emptyImg.addListener(new InputListener() {
 
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -131,9 +131,9 @@ public class Controller {
             }
         });
 
-        Image leftImg = new Image(new Texture("controller/flatDark23.png"));
-        leftImg.setSize(50, 50);
-        leftImg.addListener(new InputListener() {
+        Image bombImg = new Image(new Texture("controller/flatDark23.png"));
+        bombImg.setSize(50, 50);
+        bombImg.addListener(new InputListener() {
 
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -147,9 +147,9 @@ public class Controller {
             }
         });
 
-        Image rightImg = new Image(new Texture("controller/flatDark24.png"));
-        rightImg.setSize(50, 50);
-        rightImg.addListener(new InputListener() {
+        Image swordImg = new Image(new Texture("controller/flatDark24.png"));
+        swordImg.setSize(50, 50);
+        swordImg.addListener(new InputListener() {
 
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -167,12 +167,12 @@ public class Controller {
         left.add(upImg).size(upImg.getWidth(), upImg.getHeight());
         left.add();
         left.row().pad(5, 5, 5, 5);
-        left.add(leftImg).size(leftImg.getWidth(), leftImg.getHeight());
+        left.add(bombImg).size(bombImg.getWidth(), bombImg.getHeight());
         left.add();
-        left.add(rightImg).size(rightImg.getWidth(), rightImg.getHeight());
+        left.add(swordImg).size(swordImg.getWidth(), swordImg.getHeight());
         left.row().padBottom(5);
         left.add();
-        left.add(downImg).size(downImg.getWidth(), downImg.getHeight());
+        left.add(emptyImg).size(emptyImg.getWidth(), emptyImg.getHeight());
         left.add();
 
         stage.addActor(left);
@@ -201,9 +201,9 @@ public class Controller {
 
         //Power up
         //// TODO: 17/3/16 make a condition for power ups
-        downImg = new Image(new Texture("controller/empty.png"));
-        downImg.setSize(50, 50);
-        downImg.addListener(new InputListener() {
+        emptyImg = new Image(new Texture("controller/empty.png"));
+        emptyImg.setSize(50, 50);
+        emptyImg.addListener(new InputListener() {
 
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -218,9 +218,9 @@ public class Controller {
         });
 
         //Bomb
-        leftImg = new Image(new Texture("controller/Bomb.png"));
-        leftImg.setSize(50, 50);
-        leftImg.addListener(new InputListener() {
+        bombImg = new Image(new Texture("controller/Bomb.png"));
+        bombImg.setSize(50, 50);
+        bombImg.addListener(new InputListener() {
 
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -236,9 +236,9 @@ public class Controller {
 
 
         //Sword
-        rightImg = new Image(new Texture("controller/Sword.png"));
-        rightImg.setSize(50, 50);
-        rightImg.addListener(new InputListener() {
+        swordImg = new Image(new Texture("controller/Sword.png"));
+        swordImg.setSize(50, 50);
+        swordImg.addListener(new InputListener() {
 
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -256,12 +256,12 @@ public class Controller {
         right.add(bomb).size(bomb.getWidth(), bomb.getHeight());
         right.add();
         right.row().pad(5, 5, 5, 5);
-        right.add(leftImg).size(leftImg.getWidth(), leftImg.getHeight());
+        right.add(bombImg).size(bombImg.getWidth(), bombImg.getHeight());
         right.add();
-        right.add(rightImg).size(rightImg.getWidth(), rightImg.getHeight());
+        right.add(swordImg).size(swordImg.getWidth(), swordImg.getHeight());
         right.row().padBottom(5);
         right.add();
-        right.add(downImg).size(downImg.getWidth(), downImg.getHeight());
+        right.add(emptyImg).size(emptyImg.getWidth(), emptyImg.getHeight());
         right.add();
 
         stage.addActor(right);

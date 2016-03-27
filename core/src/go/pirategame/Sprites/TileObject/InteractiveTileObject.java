@@ -63,10 +63,33 @@ public abstract class InteractiveTileObject {
         fixture.setFilterData(filter);
     }
 
+    public abstract void onHit(Pirate pirate);
+
     public TiledMapTileLayer.Cell getCell(){
         TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(1);
         return layer.getCell((int)(body.getPosition().x * PirateGame.PPM / 16),
                 (int)(body.getPosition().y * PirateGame.PPM / 16));
     }
 
+    // TODO: 27/3/16 Handle hit by bullet
+    public void hitByBullet(Pirate pirate) {
+    }
+
+    // TODO: 27/3/16 Handle hit by bomb
+    public void hitByBomb(Pirate pirate) {
+
+    }
+
+    // TODO: 27/3/16 Handle hit by TNT
+    public void hitByTNT(Pirate pirate) {
+
+    }
+
+    public void hitBySword(Pirate pirate) {
+
+    }
+
+    public void destroyReef(Reef reef) {
+
+    }
 }
