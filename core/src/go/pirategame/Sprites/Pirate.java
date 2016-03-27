@@ -56,11 +56,10 @@ public class Pirate extends Sprite {
         //initialize default values
         this.screen = screen;
         this.world = screen.getWorld();
-        this.direction=Direction.DOWN;
         this.player_id=player_id;
         currentState = State.SWIMMING;
         previousState = State.SWIMMING;
-        direction = Direction.UP;
+        direction = Direction.DOWN;
         stateTimer = 0;
         weapon = HandledWeapon.NONE;
 //        extraWeapon = PowerUp.NONE;
@@ -147,7 +146,7 @@ public class Pirate extends Sprite {
         pirateDead = anim;
 
         //define mario in Box2d
-        definePirate(0.3f, 0.3f);
+
         switch (player_id){
             case 0:
                 definePirate(PirateGame.BOARDER_OFFSET,PirateGame.BOARDER_OFFSET);
@@ -459,7 +458,7 @@ public class Pirate extends Sprite {
             timeToDefineShield = true;
             weapon = HandledWeapon.SHIELD;
             // TODO: 21/3/16 decide whether we want it to be like pistol or just a sphere around the player
-//            shield = new Shield(screen, b2body.getPosition().x, b2body.getPosition().y, direction);
+            shield = new Shield(screen, b2body.getPosition().x, b2body.getPosition().y, direction);
         }
     }
 

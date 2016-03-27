@@ -25,12 +25,13 @@ public class WorldContactListener implements ContactListener {
 
         switch (cDef) {
             // Player vs. bullet(pistol)
-            case PirateGame.PLAYER_BIT | PirateGame.BULLET_BIT:
-                if(fixA.getFilterData().categoryBits == PirateGame.PLAYER_BIT)
-                    ((InteractiveTileObject) fixA.getUserData()).hitByBullet((Pirate) fixB.getUserData());
-                else
-                    ((InteractiveTileObject) fixB.getUserData()).hitByBullet((Pirate) fixA.getUserData());
-                break;
+            // TODO: 27/3/16 fix pistol
+//            case PirateGame.PLAYER_BIT | PirateGame.BULLET_BIT:
+//                if(fixA.getFilterData().categoryBits != PirateGame.PLAYER_BIT)
+//                    ((InteractiveTileObject) fixA.getUserData()).hitByBullet((Pirate) fixB.getUserData());
+//                else
+//                    ((InteractiveTileObject) fixB.getUserData()).hitByBullet((Pirate) fixA.getUserData());
+//                break;
             // Player vs. bomb || TNT
             case PirateGame.PLAYER_BIT | PirateGame.BOMB_BIT:
                 if(fixA.getFilterData().categoryBits == PirateGame.PLAYER_BIT)

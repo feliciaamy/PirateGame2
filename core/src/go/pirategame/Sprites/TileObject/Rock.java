@@ -1,10 +1,7 @@
 package go.pirategame.Sprites.TileObject;
 
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.tiled.TiledMapTileSet;
-import com.badlogic.gdx.math.Vector2;
-
 import go.pirategame.PirateGame;
 import go.pirategame.Screen.PlayScreen;
 import go.pirategame.Sprites.Pirate;

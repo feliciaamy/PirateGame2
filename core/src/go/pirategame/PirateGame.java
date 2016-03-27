@@ -40,7 +40,7 @@ public class PirateGame extends Game {
 	public static final short SWORD_BIT = 4096;
 	public static final short SHIELD_BIT = 8192;
 
-	//player info
+	//player select
 	public static final int THIS_PLAYER=0;
 
 	public static SpriteBatch batch;
