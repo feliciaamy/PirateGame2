@@ -15,7 +15,6 @@ import go.pirategame.Sprites.Pirate;
 
 public class Reef extends InteractiveTileObject {
     private static TiledMapTileSet tileSet;
-    private final int BLANK_COIN = 28;
 
     public Reef(PlayScreen screen, MapObject object) {
         super(screen, object);

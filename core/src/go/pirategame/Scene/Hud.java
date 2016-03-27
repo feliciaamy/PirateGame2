@@ -36,7 +36,7 @@ public class Hud implements Disposable {
     private Label levelLabel;
     private Label worldLabel;
     private Label playerLabel;
-    public static Label testLabel;
+    public static Label testLabel,testLabel2;
     private Label healthLabel;
     private Label healthValueLabel;
 
@@ -66,9 +66,12 @@ public class Hud implements Disposable {
         levelLabel = new Label("1-1", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         worldLabel = new Label("WORLD", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         playerLabel = new Label("Pirate 1", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        testLabel= new Label("Testing", new Label.LabelStyle(new BitmapFont(),Color.WHITE));
         healthLabel= new Label("HEALTH", new Label.LabelStyle(new BitmapFont(),Color.WHITE));
         healthValueLabel= new Label(String.format("%03d",pirate.getHealth()), new Label.LabelStyle(new BitmapFont(),Color.WHITE));
+
+
+        testLabel= new Label("Testing", new Label.LabelStyle(new BitmapFont(),Color.WHITE));
+        testLabel2= new Label("Testing", new Label.LabelStyle(new BitmapFont(),Color.WHITE));
 
         //add our labels to our table, padding the top, and giving them all equal width with expandX
         table.add(playerLabel).center().padTop(10);
@@ -80,6 +83,8 @@ public class Hud implements Disposable {
         table.add(healthValueLabel).right().padRight(PirateGame.HUD_PAD);
         table.row();
         table.add(testLabel).padLeft(PirateGame.HUD_PAD);
+        table.row();
+        table.add(testLabel2).padLeft(PirateGame.HUD_PAD);
 
         //add our table to the stage
         stage.addActor(table);
@@ -97,6 +102,8 @@ public class Hud implements Disposable {
             timeCount = 0;
         }
         healthValueLabel.setText(String.format("%03d",pirate.getHealth()));
+        testLabel.setText(String.format("%1.2f",pirate.b2body.getPosition().x));
+        testLabel2.setText(String.format("%1.2f",pirate.b2body.getPosition().y));
     }
 
     public static void addScore(int value){

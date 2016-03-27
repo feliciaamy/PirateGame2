@@ -227,13 +227,11 @@ public class Controller {
                 bombPressed = true;
                 return true;
             }
-
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 bombPressed = false;
             }
         });
-
 
         //Sword
         swordImg = new Image(new Texture("controller/Sword.png"));

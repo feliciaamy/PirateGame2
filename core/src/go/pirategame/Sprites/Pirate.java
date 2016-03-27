@@ -36,16 +36,7 @@ public class Pirate extends Sprite {
     public World world;
     public Body b2body;
 
-    private Animation swimUp;
-    private Animation swimDown;
-    private Animation swimRight;
-    private Animation swimLeft;
-    private Animation idleUp;
-    private Animation idleDown;
-    private Animation idleLeft;
-    private Animation idleRight;
-    private TextureRegion pirateHit;
-    private Animation pirateDead;
+    private Animation swimUp,swimDown,swimRight,swimLeft,idleUp,idleDown,idleLeft,idleRight,pirateDead;
 
     private float stateTimer;
     private boolean pirateIsDead;
@@ -56,8 +47,7 @@ public class Pirate extends Sprite {
     private Array<Pistol> bullets;
     private HandledWeapon weapon;
     private PowerUp extraWeapon;
-    private boolean timeToRedefinePirate;
-    private boolean timeToDefineShield;
+    private boolean timeToRedefinePirate,timeToDefineShield;
 
     private int health;
 

@@ -33,6 +33,7 @@ public class PlayScreen implements Screen {
     //Reference to our Game, used to set Screens
     private PirateGame game;
     private TextureAtlas atlas;
+
     //basic playscreen variables
     private OrthographicCamera gamecam;
     private Viewport gamePort;
@@ -59,12 +60,10 @@ public class PlayScreen implements Screen {
 
 //    private Array<Item> items;
 //    private LinkedBlockingQueue<ItemDef> itemsToSpawn;
-//
-private Controller controller;
+
+    private Controller controller;
 
     public PlayScreen(PirateGame game){
-
-
         atlas = new TextureAtlas("img/actors.pack");
         this.game = game;
         //create cam used to follow mario through cam world
@@ -73,13 +72,10 @@ private Controller controller;
         //create a FitViewport to maintain virtual aspect ratio despite screen size
         gamePort = new FitViewport(PirateGame.V_WIDTH / PirateGame.PPM, PirateGame.V_HEIGHT / PirateGame.PPM, gamecam);
 
-
         //Load our map and setup our map renderer
         maploader = new TmxMapLoader();
-        map = maploader.load("Pirate.tmx");
-//        map=maploader.load("world-3.tmx");
+        map=maploader.load("testingworld.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, 1  / PirateGame.PPM);
-
         //initialize gamecame
         gamecam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
 
@@ -87,16 +83,16 @@ private Controller controller;
         world = new World(new Vector2(0, 0), true);
         //allows for debug lines of our box2d world.
         b2dr = new Box2DDebugRenderer();
-
         creator = new B2WorldCreator(this);
-
         //create mario in our game world
         player = new Pirate(this);
+
 
         //create our game HUD for scores/timers/level info
         hud = new Hud(PirateGame.batch,player);
 
         controller = new Controller();
+
         world.setContactListener(new WorldContactListener());
 //
 //        music = PirateGame.manager.get("audio/music/mario_music.ogg", Music.class);
@@ -192,9 +188,6 @@ private Controller controller;
 
     @Override
     public void render(float delta) {
-
-
-
         //separate our update logic from render
         update(delta);
 
@@ -202,8 +195,6 @@ private Controller controller;
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-
-        //
         Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth() / PirateGame.FULL_WIDTH * PirateGame.MAP_WIDTH, Gdx.graphics.getHeight());
 
         //render our game map

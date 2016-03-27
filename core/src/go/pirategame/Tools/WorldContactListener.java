@@ -61,9 +61,9 @@ public class WorldContactListener implements ContactListener {
                 else
                     ((InteractiveTileObject) fixB.getUserData()).destroyReef((Reef) fixA.getUserData());
                 break;
-            case PirateGame.PLAYER_BIT | PirateGame.BORDER_BIT:
-                Hud.setTestMsg("Testing: C");
-                break;
+//            case PirateGame.PLAYER_BIT | PirateGame.BORDER_BIT:
+//                Hud.setTestMsg("Testing: C");
+//                break;
         }
     }
 
