@@ -11,6 +11,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import go.pirategame.PirateGame;
+import go.pirategame.Sprites.Pirate;
 
 /**
  * Created by Amy on 1/3/16.
@@ -26,6 +27,8 @@ public class Hud implements Disposable {
     private float timeCount;
     private static Integer score;
 
+    private Pirate pirate;
+
     //Scene2D widgets
     private Label countdownLabel;
     private static Label scoreLabel;
@@ -34,11 +37,15 @@ public class Hud implements Disposable {
     private Label worldLabel;
     private Label playerLabel;
     public static Label testLabel;
+    private Label healthLabel;
+    private Label healthValueLabel;
 
-    public Hud(SpriteBatch sb){
+
+    public Hud(SpriteBatch sb,Pirate pirate){
         worldTimer = 300;
         timeCount = 0;
         score = 0;
+        this.pirate=pirate;
 
         //setup the HUD viewport using a new camera seperate from our gamecam
         //define our stage using that viewport and our games spritebatch
@@ -60,19 +67,19 @@ public class Hud implements Disposable {
         worldLabel = new Label("WORLD", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         playerLabel = new Label("Pirate 1", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         testLabel= new Label("Testing", new Label.LabelStyle(new BitmapFont(),Color.WHITE));
+        healthLabel= new Label("HEALTH", new Label.LabelStyle(new BitmapFont(),Color.WHITE));
+        healthValueLabel= new Label(String.format("%03d",pirate.getHealth()), new Label.LabelStyle(new BitmapFont(),Color.WHITE));
 
         //add our labels to our table, padding the top, and giving them all equal width with expandX
-        table.add(playerLabel).expandX().padTop(10);
-//        table.add(worldLabel).expandX().padTop(10);
-//
-        //add a second row to our table
+        table.add(playerLabel).center().padTop(10);
         table.row();
-//        table.add(scoreLabel).expandX();
-//        table.add(levelLabel).expandX();
-        table.add(timeLabel).left().padLeft(10);
-        table.add(countdownLabel).right().padRight(10);
+        table.add(timeLabel).left().padLeft(PirateGame.HUD_PAD);
+        table.add(countdownLabel).right().padRight(PirateGame.HUD_PAD);
         table.row();
-        table.add(testLabel);
+        table.add(healthLabel).left().padLeft(PirateGame.HUD_PAD);
+        table.add(healthValueLabel).right().padRight(PirateGame.HUD_PAD);
+        table.row();
+        table.add(testLabel).padLeft(PirateGame.HUD_PAD);
 
         //add our table to the stage
         stage.addActor(table);
@@ -89,6 +96,7 @@ public class Hud implements Disposable {
             countdownLabel.setText(String.format("%03d", worldTimer));
             timeCount = 0;
         }
+        healthValueLabel.setText(String.format("%03d",pirate.getHealth()));
     }
 
     public static void addScore(int value){

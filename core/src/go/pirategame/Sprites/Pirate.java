@@ -59,6 +59,8 @@ public class Pirate extends Sprite {
     private boolean timeToRedefinePirate;
     private boolean timeToDefineShield;
 
+    private int health;
+
     public Pirate(PlayScreen screen) {
         //initialize default values
         this.screen = screen;
@@ -72,7 +74,7 @@ public class Pirate extends Sprite {
         extraWeapon = PowerUp.SHIELD; // for test only
         timeToRedefinePirate = false;
         timeToDefineShield = false;
-
+        health=100;
         // animation
         HashMap<String, Animation> anims = new HashMap<String, Animation>();
 
@@ -464,6 +466,12 @@ public class Pirate extends Sprite {
     public void useTNT() {
     }
 
+    public void decreaseHealth(int value){
+        health-=value;
+    }
+    public int getHealth(){
+        return health;
+    }
     //Note: This will be needed for Contact Listener
     public boolean shieldOn() {
         return (weapon == HandledWeapon.SHIELD);

@@ -11,6 +11,8 @@ public class PirateGame extends Game {
 	public static final float PPM = 40;
 	public static final int V_WIDTH = 400;
 	public static final int V_HEIGHT = 300;
+	public static final float EDGE_POSITION_X = 8.6f;
+	public static final float EDGE_POSITION_Y = 9.0f;
 
 	//Player Info
 	public static final int MAX_VELOCITY=4;
@@ -18,6 +20,7 @@ public class PirateGame extends Game {
 	//Hud Split Ratio
 	public static final int FULL_WIDTH = 16;
 	public static final int MAP_WIDTH = 12;
+	public static final int HUD_PAD=5;
 
 	//Box2D Collision Bits
 	public static final short NOTHING_BIT = 0;

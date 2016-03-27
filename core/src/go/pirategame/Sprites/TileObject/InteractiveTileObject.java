@@ -73,23 +73,26 @@ public abstract class InteractiveTileObject {
 
     // TODO: 27/3/16 Handle hit by bullet
     public void hitByBullet(Pirate pirate) {
+        pirate.decreaseHealth(20);
     }
 
     // TODO: 27/3/16 Handle hit by bomb
     public void hitByBomb(Pirate pirate) {
-
+        pirate.decreaseHealth(25);
     }
 
     // TODO: 27/3/16 Handle hit by TNT
     public void hitByTNT(Pirate pirate) {
-
+        pirate.decreaseHealth(50);
     }
 
+    // TODO: 27/3/16 Handle hit by Sword
     public void hitBySword(Pirate pirate) {
-
+        pirate.decreaseHealth(10);
     }
 
+    // TODO: 27/3/16 Handle reef destroyed
     public void destroyReef(Reef reef) {
-
+        reef.getCell().setTile(null);
     }
 }

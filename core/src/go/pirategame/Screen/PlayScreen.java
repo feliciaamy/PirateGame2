@@ -72,8 +72,7 @@ private Controller controller;
         gamecam.setToOrtho(false,PirateGame.V_WIDTH,PirateGame.V_HEIGHT);
         //create a FitViewport to maintain virtual aspect ratio despite screen size
         gamePort = new FitViewport(PirateGame.V_WIDTH / PirateGame.PPM, PirateGame.V_HEIGHT / PirateGame.PPM, gamecam);
-        //create our game HUD for scores/timers/level info
-        hud = new Hud(PirateGame.batch);
+
 
         //Load our map and setup our map renderer
         maploader = new TmxMapLoader();
@@ -93,6 +92,9 @@ private Controller controller;
 
         //create mario in our game world
         player = new Pirate(this);
+
+        //create our game HUD for scores/timers/level info
+        hud = new Hud(PirateGame.batch,player);
 
         controller = new Controller();
         world.setContactListener(new WorldContactListener());
@@ -158,14 +160,24 @@ private Controller controller;
         }*/
 
         //update our gamecam with correct coordinates after changes
+        //x position
         gamecam.setToOrtho(false, PirateGame.V_WIDTH / PirateGame.PPM, PirateGame.V_HEIGHT / PirateGame.PPM);
         if (player.b2body.getPosition().x<(PirateGame.V_WIDTH / PirateGame.PPM)/2){
             gamecam.position.x=gamePort.getWorldWidth()/2;
         }else {
-            gamecam.position.x = player.b2body.getPosition().x;
+            if (player.b2body.getPosition().x>PirateGame.EDGE_POSITION_X)
+                gamecam.position.x=PirateGame.EDGE_POSITION_X;
+            else
+                gamecam.position.x = player.b2body.getPosition().x;
         }
-        if (player.b2body.getPosition().y>(PirateGame.V_HEIGHT / PirateGame.PPM) /2){
-            gamecam.position.y = player.b2body.getPosition().y;
+        //y position
+        if (player.b2body.getPosition().y<(PirateGame.V_HEIGHT / PirateGame.PPM) /2){
+            gamecam.position.y = gamePort.getWorldHeight()/2;
+        }else {
+            if (player.b2body.getPosition().y>PirateGame.EDGE_POSITION_Y)
+                gamecam.position.y=PirateGame.EDGE_POSITION_Y;
+            else
+                gamecam.position.y = player.b2body.getPosition().y;
         }
 
         gamecam.update();
