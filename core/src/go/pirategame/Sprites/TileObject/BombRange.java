@@ -6,15 +6,15 @@ import go.pirategame.Screen.PlayScreen;
 import go.pirategame.Sprites.Pirate;
 
 /**
- * Created by zhanghao on 20/3/16.
+ * Created by zhanghao on 28/3/16.
  */
-public class Bomb extends InteractiveTileObject{
-    public Bomb(PlayScreen screen, MapObject object) {
+public class BombRange extends InteractiveTileObject {
+    public BombRange(PlayScreen screen, MapObject object) {
         super(screen, object);
     }
 
     @Override
     public void onHit(Pirate pirate) {
-
+        
     }
 }

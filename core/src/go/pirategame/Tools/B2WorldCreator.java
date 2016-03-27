@@ -87,16 +87,6 @@ public class B2WorldCreator {
         }
 
 
-
-
-
-
-
-
-
-
-
-
         //create all goombas
 //        goombas = new Array<Goomba>();
 //        for(MapObject object : map.getLayers().get(6).getObjects().getByType(RectangleMapObject.class)){
