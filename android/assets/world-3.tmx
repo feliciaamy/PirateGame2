@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" nextobjectid="97">
+ <tileset firstgid="1" name="tileset_gutter" tilewidth="32" tileheight="32" tilecount="256" columns="16">
+  <image source="tileset_gutter.png" trans="385959" width="512" height="512"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="50" height="50" visible="0">
+  <data encoding="base64" compression="zlib">
+   eJztwQENAAAAwqD3T20ON6AAAAAAAAAAAADg3wAnEAAB
+  </data>
+ </layer>
+ <objectgroup name="boarder" visible="0"/>
+ <objectgroup name="rock">
+  <object id="87" x="233.147" y="1561.07"/>
+  <object id="88" x="268.626" y="1545.87"/>
+  <object id="89" x="140.226" y="1577.97"/>
+  <object id="90" x="260.179" y="1471.53" height="1.68947"/>
+  <object id="91" x="172.326" y="1539.11"/>
+  <object id="92" x="238.216" y="1496.87"/>
+  <object id="93" x="204.426" y="1557.7"/>
+  <object id="94" x="116.574" y="1515.46"/>
+  <object id="95" x="60.8211" y="1583.04"/>
+  <object id="96" x="47.3053" y="1513.77"/>
+ </objectgroup>
+ <objectgroup name="reef">
+  <object id="75" gid="76" x="96" y="1568" width="32" height="32"/>
+ </objectgroup>
+ <objectgroup name="treasure" visible="0"/>
+ <layer name="Background" width="50" height="50">
+  <data encoding="base64" compression="zlib">
+   eJztVkEOwyAM6wP5/3t2naKQOMZQQLVUrWvB2GBC23MH2tsCRPh87IX23OHl87EXrI9TPd3kI/p/CjwfJ3q52Yf3fHdE++MkL16O2DVp5lqJyIe9t30y3St9ZT6UemZ6ynK1clw1H7JGM8dX8ES8MzOuyuzj/HptZ4Mdw9sDEdeuXqKaqRqDAXt2VXh29ML6QM5BBVDerD719K6sy2i76PxGx1Cd89VsWA57j/Sf9T1Z1WE5vXdI3wqqe7eihR1T7SOqHbN8IJnq1Yas3jG1JJvTLG9Rvtn6zPqI2ljNPW5UN+Ib1VPVmT1Ha0UlV9Xaw+Qi897jqvAr1gOd5yjHKn1oG2a+kXyg+xrd+//jMjyVbCHaK2tk+2XvM629eWauEZ2j76NMe55ZzNw7CA+blR4Pqg9tV/HRe85mrjoXqlypMLKWDH/vnhlfMR9VH6M1SaXb41ZzqPb9iIbV/VVQZHsHZN8XWWZ2wYxvjDfwA5oyjoE=
+  </data>
+ </layer>
+ <layer name="Tile Layer 4" width="50" height="50" visible="0">
+  <data encoding="base64" compression="zlib">
+   eJztwQENAAAAwqD3T20ON6AAAAAAAAAAAADg3wAnEAAB
+  </data>
+ </layer>
+</map>

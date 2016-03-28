@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="31" height="31" tilewidth="16" tileheight="16" nextobjectid="277">
+ <tileset firstgid="1" name="Tiny32-Complete-Spritesheet-Repack3" tilewidth="32" tileheight="32" tilecount="256" columns="16">
+  <image source="Tiny32-Complete-Spritesheet-Repack3.png" width="512" height="512"/>
+ </tileset>
+ <tileset firstgid="257" name="tileset" tilewidth="16" tileheight="16" tilecount="21000" columns="140">
+  <image source="tileset.png" width="2240" height="2400"/>
+ </tileset>
+ <tileset firstgid="21257" name="Octopus" tilewidth="16" tileheight="16" tilecount="76" columns="19">
+  <image source="Octopus.png" width="312" height="64"/>
+ </tileset>
+ <tileset firstgid="21333" name="Shield" tilewidth="16" tileheight="16" tilecount="60" columns="15">
+  <image source="Shield.png" width="240" height="64"/>
+ </tileset>
+ <tileset firstgid="21393" name="Octopus" tilewidth="64" tileheight="64" tilecount="4" columns="4">
+  <image source="Octopus.png" width="312" height="64"/>
+ </tileset>
+ <tileset firstgid="21397" name="nethack-3.4.3-16x16" tilewidth="16" tileheight="16" tilecount="1080" columns="40">
+  <image source="nethack-3.4.3-16x16.png" width="640" height="432"/>
+ </tileset>
+ <tileset firstgid="22477" name="nethack-3.4.3-16x16" tilewidth="16" tileheight="16" tilecount="1080" columns="40">
+  <image source="nethack-3.4.3-16x16.png" trans="385959" width="640" height="432"/>
+ </tileset>
+ <layer name="Backgroud" width="31" height="31">
+  <data encoding="base64" compression="zlib">
+   eJxz4WdgcBnhmCGCOLFRPIpH8SgmBtOj/Bgto0bxUMXDOe2i+40Yvw7n8BgpeKjF4VBzLy38MJTCAJdbCflhKPlxIDAAsVs37g==
+  </data>
+ </layer>
+ <layer name="graphics" width="31" height="31" visible="0">
+  <properties>
+   <property name="octopus" value=""/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJzFV0FSAzEMywu6J/on4Mw74IPAK4C3dOBA9uBBo0pylks942mb2JEtO97t5TzG5YZa8nT3p+o3StrjfWWL2M4WfZ6n7cs5Y6BdyqOwXWy8/j1tfxZiLTuHvavCxtzQD/05NuZB7a9gc8x8luKU41U88nfEXq3fLhgf/lZ1ZV+FnfpCcbGSW6o95438dX3naqr6RZ3BeSf+WB2G8lfcq3p3mKknHf9cN8Z2NeN50nHMeSofxznzgxzWOp7L+TAvK9gojs9a532Oic9THCA2+3X1fj2N8Tb1/eRjSv2L2Lzv4q21+22Mh6mP23Xs6Z7Wp5trifta+5iYn1O/tuvYU60Ttoqhy8vVGf1ZVZ+75wJywHyszBPOJT3HXLzcR+n+u5h2OfLO5DDxfHWGignz7nJU948xFceqx1TeiMH2araps92Mw9wdtrrj3ZxQfKY7Unsd5+55gOL6IfUvYys50vPuXjm77j2Vc1M1YG5czbvZovq34z+9J6paM3bH6X/451y4X9JsWa3vET+UW/7/3PUXrsK//A==
+  </data>
+ </layer>
+ <layer name="graphicsTresure" width="31" height="31">
+  <data encoding="base64" compression="zlib">
+   eJztzsEAAAAIBLCDyd8hsyzq0UawBADY1nU9AICfBshOAOY=
+  </data>
+ </layer>
+</map>
