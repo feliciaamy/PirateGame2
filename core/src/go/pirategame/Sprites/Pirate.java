@@ -149,16 +149,16 @@ public class Pirate extends Sprite {
 
         switch (player_id){
             case 0:
-                definePirate(PirateGame.BOARDER_OFFSET,PirateGame.BOARDER_OFFSET);
+                definePirate(PirateGame.BOARDER_OFFSET,PirateGame.BOARDER_OFFSET,player_id);
                 break;
             case 1:
-                definePirate(PirateGame.EDGE_POSITION_X-PirateGame.BOARDER_OFFSET,PirateGame.BOARDER_OFFSET);
+                definePirate(PirateGame.EDGE_POSITION_X-PirateGame.BOARDER_OFFSET,PirateGame.BOARDER_OFFSET,player_id);
                 break;
             case 2:
-                definePirate(PirateGame.BOARDER_OFFSET,PirateGame.EDGE_POSITION_Y-PirateGame.BOARDER_OFFSET);
+                definePirate(PirateGame.BOARDER_OFFSET,PirateGame.EDGE_POSITION_Y-PirateGame.BOARDER_OFFSET,player_id);
                 break;
             case 3:
-                definePirate(PirateGame.EDGE_POSITION_X-PirateGame.BOARDER_OFFSET,PirateGame.EDGE_POSITION_Y-PirateGame.BOARDER_OFFSET);
+                definePirate(PirateGame.EDGE_POSITION_X-PirateGame.BOARDER_OFFSET,PirateGame.EDGE_POSITION_Y-PirateGame.BOARDER_OFFSET,player_id);
                 break;
         }
         setBounds(0, 0, 16 / PirateGame.PPM, 16 / PirateGame.PPM);
@@ -318,7 +318,7 @@ public class Pirate extends Sprite {
         return stateTimer;
     }
 
-    public void definePirate(float x, float y){
+    public void definePirate(float x, float y,int player_id){
         BodyDef bdef = new BodyDef();
         bdef.type = BodyDef.BodyType.DynamicBody;
         bdef.position.set(x, y);
@@ -329,7 +329,21 @@ public class Pirate extends Sprite {
         shape.setRadius(7 / PirateGame.PPM);
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
-        fixtureDef.filter.categoryBits = PirateGame.PLAYER_BIT;
+        switch (player_id){
+            case 0:
+                fixtureDef.filter.categoryBits = PirateGame.PLAYER_0_BIT;
+                break;
+            case 1:
+                fixtureDef.filter.categoryBits = PirateGame.PLAYER_1_BIT;
+                break;
+            case 2:
+                fixtureDef.filter.categoryBits = PirateGame.PLAYER_2_BIT;
+                break;
+            case 3:
+                fixtureDef.filter.categoryBits = PirateGame.PLAYER_3_BIT;
+                break;
+        }
+
         fixtureDef.filter.maskBits =
                     PirateGame.ROCK_BIT |
                     PirateGame.REEF_BIT |
@@ -356,8 +370,8 @@ public class Pirate extends Sprite {
         FixtureDef fdef = new FixtureDef();
         CircleShape shield = new CircleShape();
         shield.setRadius(10 / PirateGame.PPM);
-        fdef.filter.categoryBits = PirateGame.PLAYER_BIT;
-        fdef.filter.maskBits = PirateGame.PLAYER_BIT |
+        fdef.filter.categoryBits = PirateGame.PLAYER_0_BIT;
+        fdef.filter.maskBits = PirateGame.PLAYER_0_BIT |
                 PirateGame.BULLET_BIT;
 
         fdef.shape = shield;
@@ -367,8 +381,8 @@ public class Pirate extends Sprite {
         body.setRadius(7 / PirateGame.PPM);
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = body;
-        fixtureDef.filter.categoryBits = PirateGame.PLAYER_BIT;
-        fixtureDef.filter.maskBits = PirateGame.PLAYER_BIT |
+        fixtureDef.filter.categoryBits = PirateGame.PLAYER_0_BIT;
+        fixtureDef.filter.maskBits = PirateGame.PLAYER_0_BIT |
                 PirateGame.ROCK_BIT |
                 PirateGame.REEF_BIT |
                 PirateGame.BORDER_BIT |
@@ -395,8 +409,8 @@ public class Pirate extends Sprite {
         FixtureDef fdef = new FixtureDef();
         CircleShape shape = new CircleShape();
         shape.setRadius(7 / PirateGame.PPM);
-        fdef.filter.categoryBits = PirateGame.PLAYER_BIT;
-        fdef.filter.maskBits = PirateGame.PLAYER_BIT |
+        fdef.filter.categoryBits = PirateGame.PLAYER_0_BIT;
+        fdef.filter.maskBits = PirateGame.PLAYER_0_BIT |
                 PirateGame.ROCK_BIT |
                 PirateGame.REEF_BIT |
                 PirateGame.BORDER_BIT;

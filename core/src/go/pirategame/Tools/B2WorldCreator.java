@@ -11,6 +11,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import go.pirategame.Screen.PlayScreen;
 import go.pirategame.Sprites.TileObject.Reef;
 import go.pirategame.Sprites.TileObject.Rock;
+import go.pirategame.Sprites.TileObject.Treasure;
 
 
 /**
@@ -85,6 +86,10 @@ public class B2WorldCreator {
         for(MapObject object : map.getLayers().get(3).getObjects().getByType(MapObject.class)){
             new Rock(screen, object);
         }
+        for(MapObject object : map.getLayers().get(5).getObjects().getByType(MapObject.class)){
+            new Treasure(screen, object);
+        }
+
 
 
         //create all goombas

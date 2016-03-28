@@ -90,7 +90,7 @@ public class Shield extends Sprite {
         fixtureDef.isSensor = true;
         fixtureDef.filter.categoryBits = PirateGame.SHIELD_BIT;
         fixtureDef.filter.maskBits = PirateGame.REEF_BIT |
-                PirateGame.PLAYER_BIT |
+                PirateGame.PLAYER_0_BIT |
                 PirateGame.BORDER_BIT |
                 PirateGame.ROCK_BIT;
 

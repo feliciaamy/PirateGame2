@@ -18,6 +18,9 @@ public class PirateGame extends Game {
 	public static final int MAX_VELOCITY=4;
 	public static final float BOARDER_OFFSET=0.5f;
 
+	//player select
+	public static final int THIS_PLAYER=0;
+
 	//Hud Split Ratio
 	public static final int FULL_WIDTH = 16;
 	public static final int MAP_WIDTH = 12;
@@ -26,22 +29,21 @@ public class PirateGame extends Game {
 	//Box2D Collision Bits
 	public static final short NOTHING_BIT = 0;
 	public static final short HIT_BIT = 1;
-	public static final short PLAYER_BIT = 2;
+	public static final short PLAYER_0_BIT = 2;
 	public static final short ROCK_BIT = 4;
 	public static final short REEF_BIT = 8;
-	public static final short INDESTRUCTIIBLE_BIT = 16;
+	public static final short PLAYER_1_BIT = 16;
 	public static final short TNT_BIT = 32;
 	public static final short TREASURE_BIT = 64;
 	public static final short BORDER_BIT = 128;
 	public static final short BOMB_BIT = 256;
-	public static final short ENEMY_BIT = 512;
-	public static final short BREAKABLE_BIT = 1024;
+	public static final short PLAYER_2_BIT = 512;
+	public static final short PLAYER_3_BIT = 1024;
 	public static final short BULLET_BIT = 2048;
 	public static final short SWORD_BIT = 4096;
 	public static final short SHIELD_BIT = 8192;
 
-	//player select
-	public static final int THIS_PLAYER=0;
+
 
 	public static SpriteBatch batch;
 
@@ -68,6 +70,20 @@ public class PirateGame extends Game {
 		super.render();
 	}
 
+	public static int getPLAYER_BIT(int id){
+		switch (id){
+			case 0:
+				return PLAYER_0_BIT;
+			case 1:
+				return PLAYER_1_BIT;
+			case 2:
+				return PLAYER_2_BIT;
+			case 3:
+				return PLAYER_3_BIT;
+			default:
+				return 0;
+		}
+	}
 
 }
 
