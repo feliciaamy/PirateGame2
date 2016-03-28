@@ -1,5 +1,6 @@
 package go.pirategame.Sprites.TileObject;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.tiled.TiledMapTileSet;
 
@@ -22,6 +23,7 @@ public class Border extends InteractiveTileObject {
 
     @Override
     public void onNextBomb() {
+        Gdx.app.log("bomb","collision");
 
     }
 

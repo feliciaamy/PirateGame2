@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="34" height="34" tilewidth="16" tileheight="16" nextobjectid="162">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="34" height="34" tilewidth="16" tileheight="16" nextobjectid="255">
  <tileset firstgid="1" name="Pokemon" tilewidth="16" tileheight="16" tilecount="21000" columns="140">
   <image source="tileset.png" width="2240" height="2400"/>
   <tile id="3516">
@@ -67,62 +67,12 @@
   <object id="4" x="242" y="231" width="27" height="25"/>
  </objectgroup>
  <objectgroup name="reef" offsetx="-17" offsety="-17">
-  <object id="34" x="448" y="-1" width="14" height="46"/>
-  <object id="38" x="432.362" y="31.8164" width="14.7719" height="31.8164"/>
-  <object id="39" x="368.729" y="48.2927" width="63.0646" height="14.7719"/>
-  <object id="40" x="400.545" y="80.1091" width="31.2482" height="15.34"/>
-  <object id="41" x="192.603" y="31.8164" width="206.806" height="14.7719"/>
-  <object id="44" x="192.035" y="15.34" width="31.2482" height="15.9082"/>
-  <object id="45" x="209.079" y="47.1564" width="15.34" height="48.2927"/>
-  <object id="46" x="225.555" y="80.6772" width="14.2037" height="31.2482"/>
-  <object id="47" x="255.667" y="78.4046" width="31.8164" height="48.8609"/>
-  <object id="48" x="176.695" y="112.494" width="47.7246" height="14.2037"/>
-  <object id="49" x="160.786" y="96.0173" width="30.1119" height="15.34"/>
-  <object id="52" x="415.885" y="96.5854" width="15.34" height="46.5883"/>
-  <object id="53" x="335.776" y="48.2927" width="15.9082" height="46.5883"/>
-  <object id="54" x="399.977" y="128.402" width="14.7719" height="46.0201"/>
-  <object id="55" x="415.317" y="160.218" width="14.7719" height="30.1119"/>
   <object id="56" x="431.794" y="176.695" width="15.34" height="14.2037"/>
-  <object id="57" x="448.27" y="191.466" width="63.6327" height="15.34"/>
-  <object id="58" x="479.518" y="207.943" width="29.5438" height="94.3128"/>
-  <object id="77" x="65.3372" y="32.3845" width="60.792" height="14.7719"/>
-  <object id="78" x="128.97" y="49.429" width="14.7719" height="44.8838"/>
   <object id="79" x="143.742" y="80.1091" width="15.9082" height="14.2037"/>
-  <object id="80" x="63.6327" y="62.4964" width="30.6801" height="18.1808"/>
-  <object id="81" x="80.1091" y="79.5409" width="13.6356" height="47.7246"/>
+  <object id="80" x="63.6327" y="62.4964" width="16.034" height="18.1808"/>
   <object id="82" x="95.4491" y="96.0173" width="15.34" height="32.3845"/>
-  <object id="83" x="64.2009" y="127.834" width="15.9082" height="174.422"/>
-  <object id="84" x="80.1091" y="224.987" width="48.2927" height="13.6356"/>
-  <object id="85" x="111.925" y="240.327" width="16.4763" height="13.6356">
-   <properties>
-    <property name="shield" value=""/>
-   </properties>
-  </object>
-  <object id="86" x="47.7246" y="255.667" width="15.9082" height="15.34"/>
-  <object id="87" x="15.9082" y="271.007" width="30.6801" height="16.4763"/>
-  <object id="88" x="16.4763" y="288.62" width="15.34" height="30.6801"/>
-  <object id="91" x="31.8164" y="303.392" width="31.8164" height="14.7719"/>
-  <object id="92" x="48.2927" y="320.436" width="15.34" height="94.881"/>
-  <object id="93" x="65.3372" y="399.409" width="78.4046" height="15.34"/>
-  <object id="94" x="112.494" y="384.069" width="30.6801" height="15.34"/>
-  <object id="100" x="224.987" y="431.794" width="46.5883" height="15.34"/>
-  <object id="101" x="273.28" y="416.454" width="77.8365" height="14.2037"/>
-  <object id="102" x="335.776" y="432.362" width="96.0173" height="15.34"/>
-  <object id="103" x="352.253" y="448.27" width="15.34" height="47.1564"/>
-  <object id="104" x="368.161" y="480.655" width="63.3961" height="13.7523"/>
-  <object id="105" x="417.59" y="384.896" width="14.2037" height="124.907"/>
-  <object id="106" x="384.069" y="384.896" width="31.7756" height="13.9449"/>
   <object id="107" x="400.545" y="417.022" width="16.4763" height="12.4993"/>
-  <object id="108" x="1.70445" y="432.362" width="93.7447" height="14.7719"/>
-  <object id="109" x="80.1091" y="417.022" width="30.1119" height="14.7719"/>
-  <object id="110" x="96.0173" y="448.838" width="15.34" height="28.9756"/>
-  <object id="112" x="432.93" y="432.362" width="45.452" height="15.34"/>
-  <object id="113" x="481.71" y="400.767" width="29.9967" height="13.982"/>
   <object id="114" x="481.552" y="416.479" width="13.3064" height="14.1775"/>
-  <object id="115" x="225.555" y="319.3" width="13.0674" height="31.8164"/>
-  <object id="116" x="240.15" y="352.36" width="30.8577" height="15.3951"/>
-  <object id="117" x="272.077" y="368.027" width="32.0338" height="14.9638"/>
-  <object id="118" x="288.846" y="352.345" width="31.2954" height="14.7719"/>
   <object id="119" x="320.436" y="336.545" width="15.9082" height="13.0674"/>
   <object id="120" x="336.913" y="320.3" width="15.34" height="14.3404"/>
   <object id="122" x="224.755" y="367.913" width="15.0048" height="15.0198">
@@ -130,9 +80,6 @@
     <property name="octopus" value=""/>
    </properties>
   </object>
-  <object id="125" x="1.1363" y="64.769" width="14.7719" height="93.1765"/>
-  <object id="126" x="16.4763" y="143.174" width="48.2927" height="14.7719"/>
-  <object id="127" x="385.205" y="63.6327" width="46.0201" height="15.9082"/>
   <object id="131" x="368.729" y="62.4964" width="15.34" height="17.0445">
    <properties>
     <property name="tnt" value=""/>
@@ -150,26 +97,362 @@
     <property name="tnt" value=""/>
    </properties>
   </object>
-  <object id="140" x="31.8164" y="256.235" width="15.9082" height="14.2037">
+  <object id="173" x="54.3333" y="156.333"/>
+  <object id="184" x="63.8164" y="191.568" width="16" height="16">
    <properties>
     <property name="octopus" value=""/>
    </properties>
   </object>
-  <object id="144" x="272.144" y="431.794" width="15.34" height="15.34">
+  <object id="185" x="63.4831" y="207.568" width="16" height="16">
+   <properties>
+    <property name="octopus" value=""/>
+   </properties>
+  </object>
+  <object id="186" x="63.4831" y="223.568" width="16" height="16">
+   <properties>
+    <property name="octopus" value=""/>
+   </properties>
+  </object>
+  <object id="187" x="63.4831" y="239.568" width="16" height="16">
+   <properties>
+    <property name="octopus" value=""/>
+   </properties>
+  </object>
+  <object id="188" x="63.4831" y="255.568" width="16" height="16">
+   <properties>
+    <property name="octopus" value=""/>
+   </properties>
+  </object>
+  <object id="190" x="47.4831" y="255.568" width="16" height="16">
+   <properties>
+    <property name="octopus" value=""/>
+   </properties>
+  </object>
+  <object id="191" x="31.4831" y="255.568" width="16" height="16">
+   <properties>
+    <property name="octopus" value=""/>
+   </properties>
+  </object>
+  <object id="192" x="31.4831" y="271.568" width="16" height="16">
+   <properties>
+    <property name="octopus" value=""/>
+   </properties>
+  </object>
+  <object id="193" x="15.4831" y="271.568" width="16" height="16">
+   <properties>
+    <property name="octopus" value=""/>
+   </properties>
+  </object>
+  <object id="194" x="15.4831" y="287.568" width="16" height="16">
+   <properties>
+    <property name="octopus" value=""/>
+   </properties>
+  </object>
+  <object id="195" x="15.4831" y="303.568" width="16" height="16">
+   <properties>
+    <property name="octopus" value=""/>
+   </properties>
+  </object>
+  <object id="196" x="32.4831" y="303.568" width="16" height="16">
+   <properties>
+    <property name="octopus" value=""/>
+   </properties>
+  </object>
+  <object id="197" x="48.4831" y="303.568" width="16" height="16">
+   <properties>
+    <property name="octopus" value=""/>
+   </properties>
+  </object>
+  <object id="198" x="48.4831" y="319.568" width="16" height="16">
+   <properties>
+    <property name="octopus" value=""/>
+   </properties>
+  </object>
+  <object id="199" x="48.4831" y="335.568" width="16" height="16">
+   <properties>
+    <property name="octopus" value=""/>
+   </properties>
+  </object>
+  <object id="200" x="48.4831" y="351.568" width="16" height="16">
+   <properties>
+    <property name="octopus" value=""/>
+   </properties>
+  </object>
+  <object id="201" x="48.4831" y="367.568" width="16" height="16">
+   <properties>
+    <property name="octopus" value=""/>
+   </properties>
+  </object>
+  <object id="202" x="48.4831" y="383.568" width="16" height="16">
+   <properties>
+    <property name="octopus" value=""/>
+   </properties>
+  </object>
+  <object id="203" x="48.4831" y="399.568" width="16" height="16">
+   <properties>
+    <property name="octopus" value=""/>
+   </properties>
+  </object>
+  <object id="204" x="64.4831" y="399.568" width="16" height="16">
+   <properties>
+    <property name="octopus" value=""/>
+   </properties>
+  </object>
+  <object id="205" x="80.4831" y="399.568" width="16" height="16">
+   <properties>
+    <property name="octopus" value=""/>
+   </properties>
+  </object>
+  <object id="206" x="96.4831" y="399.568" width="16" height="16">
+   <properties>
+    <property name="octopus" value=""/>
+   </properties>
+  </object>
+  <object id="207" x="112.483" y="399.568" width="16" height="16">
+   <properties>
+    <property name="octopus" value=""/>
+   </properties>
+  </object>
+  <object id="208" x="128.483" y="399.568" width="16" height="16">
+   <properties>
+    <property name="octopus" value=""/>
+   </properties>
+  </object>
+  <object id="209" x="128.483" y="383.568" width="16" height="16">
+   <properties>
+    <property name="octopus" value=""/>
+   </properties>
+  </object>
+  <object id="210" x="112.483" y="383.568" width="16" height="16">
+   <properties>
+    <property name="octopus" value=""/>
+   </properties>
+  </object>
+  <object id="211" x="96.4831" y="415.568" width="16" height="16">
+   <properties>
+    <property name="octopus" value=""/>
+   </properties>
+  </object>
+  <object id="212" x="79.4831" y="415.568" width="16" height="16">
+   <properties>
+    <property name="octopus" value=""/>
+   </properties>
+  </object>
+  <object id="213" x="79.4831" y="432.568" width="16" height="16">
+   <properties>
+    <property name="octopus" value=""/>
+   </properties>
+  </object>
+  <object id="214" x="63.4831" y="432.568" width="16" height="16">
+   <properties>
+    <property name="octopus" value=""/>
+   </properties>
+  </object>
+  <object id="215" x="47.4831" y="432.568" width="16" height="16">
+   <properties>
+    <property name="octopus" value=""/>
+   </properties>
+  </object>
+  <object id="216" x="31.4831" y="432.568" width="16" height="16">
+   <properties>
+    <property name="octopus" value=""/>
+   </properties>
+  </object>
+  <object id="217" x="15.4831" y="432.568" width="16" height="16">
+   <properties>
+    <property name="octopus" value=""/>
+   </properties>
+  </object>
+  <object id="218" x="-0.516933" y="432.568" width="16" height="16">
+   <properties>
+    <property name="octopus" value=""/>
+   </properties>
+  </object>
+  <object id="219" x="96.4831" y="447.568" width="16" height="16">
+   <properties>
+    <property name="octopus" value=""/>
+   </properties>
+  </object>
+  <object id="220" x="96.4831" y="463.568" width="16" height="16">
+   <properties>
+    <property name="octopus" value=""/>
+   </properties>
+  </object>
+  <object id="221" x="256.144" y="431.794" width="16" height="16">
    <properties>
     <property name="shield" value=""/>
    </properties>
   </object>
-  <object id="147" x="305" y="290" width="48" height="28"/>
-  <object id="149" x="356" y="304" width="60" height="14"/>
-  <object id="150" x="401" y="287" width="76" height="15"/>
-  <object id="152" x="161" y="287" width="112" height="31"/>
+  <object id="222" x="272.144" y="431.794" width="16" height="16">
+   <properties>
+    <property name="shield" value=""/>
+   </properties>
+  </object>
+  <object id="223" x="240.144" y="431.794" width="16" height="16">
+   <properties>
+    <property name="shield" value=""/>
+   </properties>
+  </object>
+  <object id="224" x="224.144" y="431.794" width="16" height="16">
+   <properties>
+    <property name="shield" value=""/>
+   </properties>
+  </object>
+  <object id="225" x="272.144" y="415.794" width="16" height="16">
+   <properties>
+    <property name="shield" value=""/>
+   </properties>
+  </object>
+  <object id="226" x="288.144" y="415.794" width="16" height="16">
+   <properties>
+    <property name="shield" value=""/>
+   </properties>
+  </object>
+  <object id="227" x="304.144" y="415.794" width="16" height="16">
+   <properties>
+    <property name="shield" value=""/>
+   </properties>
+  </object>
+  <object id="228" x="320.144" y="415.794" width="16" height="16">
+   <properties>
+    <property name="shield" value=""/>
+   </properties>
+  </object>
+  <object id="229" x="320.144" y="415.794" width="16" height="16">
+   <properties>
+    <property name="shield" value=""/>
+   </properties>
+  </object>
+  <object id="230" x="63.4831" y="271.568" width="16" height="16">
+   <properties>
+    <property name="octopus" value=""/>
+   </properties>
+  </object>
+  <object id="231" x="63.4831" y="287.568" width="16" height="16">
+   <properties>
+    <property name="octopus" value=""/>
+   </properties>
+  </object>
+  <object id="232" x="79.4831" y="223.568" width="16" height="16">
+   <properties>
+    <property name="octopus" value=""/>
+   </properties>
+  </object>
+  <object id="233" x="95.4831" y="223.568" width="16" height="16">
+   <properties>
+    <property name="octopus" value=""/>
+   </properties>
+  </object>
+  <object id="234" x="111.483" y="223.568" width="16" height="16">
+   <properties>
+    <property name="octopus" value=""/>
+   </properties>
+  </object>
+  <object id="235" x="111.483" y="239.568" width="16" height="16">
+   <properties>
+    <property name="octopus" value=""/>
+   </properties>
+  </object>
+  <object id="236" x="111.483" y="255.568" width="16" height="16">
+   <properties>
+    <property name="octopus" value=""/>
+   </properties>
+  </object>
+  <object id="237" x="127.483" y="255.568" width="16" height="16">
+   <properties>
+    <property name="octopus" value=""/>
+   </properties>
+  </object>
+  <object id="238" x="143.483" y="255.568" width="16" height="16">
+   <properties>
+    <property name="octopus" value=""/>
+   </properties>
+  </object>
+  <object id="239" x="159.483" y="255.568" width="16" height="16">
+   <properties>
+    <property name="octopus" value=""/>
+   </properties>
+  </object>
+  <object id="240" x="175.483" y="255.568" width="16" height="16">
+   <properties>
+    <property name="octopus" value=""/>
+   </properties>
+  </object>
+  <object id="241" x="159.483" y="271.568" width="16" height="16">
+   <properties>
+    <property name="octopus" value=""/>
+   </properties>
+  </object>
+  <object id="242" x="175.483" y="271.568" width="16" height="16">
+   <properties>
+    <property name="octopus" value=""/>
+   </properties>
+  </object>
+  <object id="243" x="175.483" y="287.568" width="16" height="16">
+   <properties>
+    <property name="octopus" value=""/>
+   </properties>
+  </object>
+  <object id="244" x="159.483" y="287.568" width="16" height="16">
+   <properties>
+    <property name="octopus" value=""/>
+   </properties>
+  </object>
+  <object id="245" x="159.483" y="303.568" width="16" height="16">
+   <properties>
+    <property name="octopus" value=""/>
+   </properties>
+  </object>
+  <object id="246" x="175.483" y="303.568" width="16" height="16">
+   <properties>
+    <property name="octopus" value=""/>
+   </properties>
+  </object>
+  <object id="247" x="192.483" y="303.568" width="16" height="16">
+   <properties>
+    <property name="octopus" value=""/>
+   </properties>
+  </object>
+  <object id="248" x="208.483" y="303.568" width="16" height="16">
+   <properties>
+    <property name="octopus" value=""/>
+   </properties>
+  </object>
+  <object id="249" x="224.483" y="303.568" width="16" height="16">
+   <properties>
+    <property name="octopus" value=""/>
+   </properties>
+  </object>
+  <object id="250" x="224.483" y="319.568" width="16" height="16">
+   <properties>
+    <property name="octopus" value=""/>
+   </properties>
+  </object>
+  <object id="251" x="224.483" y="335.568" width="16" height="16">
+   <properties>
+    <property name="octopus" value=""/>
+   </properties>
+  </object>
+  <object id="252" x="239.483" y="351.568" width="16" height="16">
+   <properties>
+    <property name="octopus" value=""/>
+   </properties>
+  </object>
+  <object id="253" x="256.483" y="351.568" width="16" height="16">
+   <properties>
+    <property name="octopus" value=""/>
+   </properties>
+  </object>
+  <object id="254" x="271.483" y="367.568" width="16" height="16">
+   <properties>
+    <property name="octopus" value=""/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup name="rock" offsetx="-17" offsety="-17">
   <object id="6" x="211" y="177" width="26" height="28"/>
   <object id="7" x="321" y="225" width="29" height="29"/>
   <object id="8" x="273" y="289" width="30" height="29"/>
-  <object id="9" x="160" y="223" width="31" height="32"/>
   <object id="17" x="258" y="48" width="29" height="31"/>
   <object id="18" x="322" y="98" width="30" height="28"/>
   <object id="19" x="434" y="112" width="29" height="30"/>
@@ -180,26 +463,12 @@
   <object id="24" x="207.931" y="383.785" width="32.0688" height="30.2154"/>
   <object id="25" x="145.081" y="432.033" width="31.2664" height="29.9667"/>
   <object id="26" x="65" y="449" width="31" height="29"/>
-  <object id="27" x="113" y="336" width="30" height="30"/>
   <object id="28" x="17" y="210" width="29" height="28"/>
   <object id="30" x="29" y="95" width="35" height="32"/>
   <object id="32" x="111" y="113" width="32" height="29"/>
   <object id="33" x="210" y="145" width="30" height="28"/>
-  <object id="59" x="399.409" y="286.347" width="79.5409" height="17.0445"/>
-  <object id="60" x="304.528" y="305.096" width="110.221" height="13.6356"/>
-  <object id="61" x="320.436" y="256.235" width="30.1119" height="47.7246"/>
   <object id="62" x="302.256" y="288.052" width="17.0445" height="17.0445"/>
-  <object id="65" x="159.082" y="255.667" width="31.2482" height="64.2009"/>
-  <object id="66" x="190.898" y="286.347" width="80.1091" height="32.3845"/>
-  <object id="67" x="111.357" y="254.531" width="47.1564" height="16.4763"/>
-  <object id="68" x="128.97" y="176.695" width="15.34" height="77.2683"/>
-  <object id="69" x="145.446" y="176.695" width="61.9283" height="13.0674"/>
-  <object id="70" x="158.514" y="192.035" width="32.9527" height="30.1119"/>
   <object id="72" x="191.466" y="191.466" width="16.4763" height="14.7719"/>
-  <object id="73" x="240.895" y="176.126" width="78.9728" height="31.2482"/>
-  <object id="74" x="320.436" y="160.218" width="14.7719" height="63.6327"/>
-  <object id="75" x="336.345" y="128.97" width="14.2037" height="94.881"/>
-  <object id="76" x="48.2927" y="1.1363" width="15.9082" height="62.4964"/>
  </objectgroup>
  <objectgroup name="border" offsetx="-32" offsety="-32">
   <object id="154" x="-1" y="-4" width="548" height="19"/>

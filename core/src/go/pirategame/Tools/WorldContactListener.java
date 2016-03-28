@@ -6,6 +6,9 @@ import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 
+import go.pirategame.PirateGame;
+import go.pirategame.Sprites.TileObject.InteractiveTileObject;
+
 /**
  * Created by Amy on 25/2/16.
  */
@@ -17,6 +20,7 @@ public class WorldContactListener implements ContactListener {
 
         int cDef = fixA.getFilterData().categoryBits | fixB.getFilterData().categoryBits;
 
+
         // TODO: 18/3/16 Player vs. bullet(pistol)
         // TODO: 18/3/16 Player vs. bomb || TNT
 
@@ -25,7 +29,15 @@ public class WorldContactListener implements ContactListener {
 
         // TODO: 18/3/16 Player vs. sword
         // TODO: 18/3/16 Reef vs. bomb
+        switch(cDef){
+            case PirateGame.BOMB_BIT | PirateGame.REEF_BIT:
+                if(fixA.getFilterData().categoryBits==PirateGame.REEF_BIT)
+                    ((InteractiveTileObject) fixA.getUserData()).onNextBomb();
+                else
 
+                    ((InteractiveTileObject) fixB.getUserData()).onNextBomb();
+
+        }
 
 
 

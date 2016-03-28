@@ -24,9 +24,10 @@ public class Reef extends InteractiveTileObject {
 
     @Override
     public void onNextBomb() {
-        Gdx.app.log("next to bomb","gonna disappear");
+        Gdx.app.log("reef","collision");
+        setCategoryFilter(PirateGame.EXPLOSION_BIT);
 
-
+        getCell().setTile(null);
 
     }
 

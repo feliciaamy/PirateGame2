@@ -33,9 +33,9 @@ public class Bomb extends Sprite {
     public Bomb(PlayScreen screen, float x, float y) {
 
         setRegion(screen.getAtlas().findRegion("Bomb"), 163, 35, 80, 32);
-        setBounds(x,y, 32 / PirateGame.PPM,32/PirateGame.PPM);
+        setBounds(x, y, 32 / PirateGame.PPM, 32 / PirateGame.PPM);
         this.screen = screen;
-//        this.world = screen.getWorld();
+         this.world = screen.getWorld();
 //         Array<TextureRegion> frames=new Array<TextureRegion>();
 ////
 //         frames = new Array<TextureRegion>();
@@ -49,13 +49,13 @@ public class Bomb extends Sprite {
 //        bombAnimation = new Animation(0.2f, frames);
 
 //
-       defineItem();
+       defineBomb();
 
 
     }
 
 
-    public void defineItem() {
+    public void defineBomb() {
 
         BodyDef bdef=new BodyDef();
         bdef.position.set(getX(),getY());
@@ -68,6 +68,13 @@ public class Bomb extends Sprite {
         shape.setRadius(6 / PirateGame.PPM);
 
         fdef.shape=shape;
+        fdef.filter.categoryBits = PirateGame.BOMB_BIT;
+        fdef.filter.maskBits = PirateGame.REEF_BIT |
+                PirateGame.PLAYER_BIT |
+                PirateGame.BORDER_BIT |
+                PirateGame.ROCK_BIT;
+
+        fdef.shape=shape;
         b2body.createFixture(fdef).setUserData(this);
         EdgeShape exploEdge1=new EdgeShape();
         exploEdge1.set(new Vector2(-30 / PirateGame.PPM, 0 / PirateGame.PPM), new Vector2(30 / PirateGame.PPM, 0 / PirateGame.PPM));
@@ -75,6 +82,11 @@ public class Bomb extends Sprite {
         fdef.shape=exploEdge1;
         fdef.isSensor=true;
         b2body.createFixture(fdef).setUserData("explosionCross1");
+        fdef.filter.categoryBits = PirateGame.BOMB_BIT;
+        fdef.filter.maskBits = PirateGame.REEF_BIT |
+                PirateGame.PLAYER_BIT |
+                PirateGame.BORDER_BIT |
+                PirateGame.ROCK_BIT;
 
         EdgeShape exploEdge2=new EdgeShape();
         exploEdge2.set(new Vector2(0 / PirateGame.PPM, -30 / PirateGame.PPM), new Vector2(0 / PirateGame.PPM, 30 / PirateGame.PPM));
@@ -82,6 +94,35 @@ public class Bomb extends Sprite {
         fdef.shape=exploEdge2;
         fdef.isSensor=true;
         b2body.createFixture(fdef).setUserData("explosionCross2");
+        fdef.filter.categoryBits = PirateGame.BOMB_BIT;
+        fdef.filter.maskBits = PirateGame.REEF_BIT |
+                PirateGame.PLAYER_BIT |
+                PirateGame.BORDER_BIT |
+                PirateGame.ROCK_BIT;
+        EdgeShape exploEdge3=new EdgeShape();
+        exploEdge3.set(new Vector2(-15 / PirateGame.PPM, 0 / PirateGame.PPM), new Vector2(15 / PirateGame.PPM, 0 / PirateGame.PPM));
+
+        fdef.shape=exploEdge3;
+        fdef.isSensor=true;
+        b2body.createFixture(fdef).setUserData("explosionCross3");
+        fdef.filter.categoryBits = PirateGame.BOMB_BIT;
+        fdef.filter.maskBits = PirateGame.REEF_BIT |
+                PirateGame.PLAYER_BIT |
+                PirateGame.BORDER_BIT |
+                PirateGame.ROCK_BIT;
+
+        EdgeShape exploEdge4=new EdgeShape();
+        exploEdge4.set(new Vector2(0 / PirateGame.PPM, -15/ PirateGame.PPM), new Vector2(0 / PirateGame.PPM, 15 / PirateGame.PPM));
+
+        fdef.shape=exploEdge4;
+        fdef.isSensor=true;
+        b2body.createFixture(fdef).setUserData("explosionCross4");
+        fdef.filter.categoryBits = PirateGame.BOMB_BIT;
+        fdef.filter.maskBits = PirateGame.REEF_BIT |
+                PirateGame.PLAYER_BIT |
+                PirateGame.BORDER_BIT |
+                PirateGame.ROCK_BIT;
+
 
 
 
