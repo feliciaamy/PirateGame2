@@ -2,16 +2,15 @@ package go.pirategame.Other;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
+import com.badlogic.gdx.physics.box2d.EdgeShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
-
-import java.util.HashMap;
 
 import go.pirategame.PirateGame;
 import go.pirategame.Screen.PlayScreen;
@@ -36,8 +35,7 @@ public class Bomb extends Sprite {
 
     public Bomb(PlayScreen screen, float x, float y) {
 
-        this.screen = screen;
-        this.world = screen.getWorld();
+
         Array<TextureRegion> frames=new Array<TextureRegion>();
         this.screen = screen;
         this.world = screen.getWorld();
@@ -74,13 +72,14 @@ public class Bomb extends Sprite {
         bombAnimation = new Animation(0.2f, frames);
         setRegion(bombAnimation.getKeyFrame(0));
         setBounds(x, y, 8 / PirateGame.PPM, 8 / PirateGame.PPM);
-        defineItem();
+        defineBomb();
+
 
 
     }
 
 
-    public void defineItem() {
+    public void defineBomb() {
 
         BodyDef bdef=new BodyDef();
         bdef.position.set(getX(),getY());
@@ -91,7 +90,7 @@ public class Bomb extends Sprite {
 
         FixtureDef fdef=new FixtureDef();
         CircleShape shape=new CircleShape();
-        shape.setRadius(6 / PirateGame.PPM);
+        shape.setRadius(40/ PirateGame.PPM);
 
         fdef.shape=shape;
         fdef.filter.categoryBits = PirateGame.BOMB_BIT;
@@ -100,6 +99,20 @@ public class Bomb extends Sprite {
                 PirateGame.BORDER_BIT |
                 PirateGame.ROCK_BIT;
         b2body.createFixture(fdef).setUserData(this);
+
+        EdgeShape exploEdge1=new EdgeShape();
+        exploEdge1.set(new Vector2(-30 / PirateGame.PPM, 0 / PirateGame.PPM), new Vector2(30 / PirateGame.PPM, 0 / PirateGame.PPM));
+
+        fdef.shape=exploEdge1;
+        fdef.isSensor=true;
+        b2body.createFixture(fdef).setUserData("explosionCross1");
+
+        EdgeShape exploEdge2=new EdgeShape();
+        exploEdge2.set(new Vector2(0 / PirateGame.PPM, -30 / PirateGame.PPM), new Vector2(0 / PirateGame.PPM, 30 / PirateGame.PPM));
+
+        fdef.shape=exploEdge2;
+        fdef.isSensor=true;
+        b2body.createFixture(fdef).setUserData("explosionCross2");
 
 
 

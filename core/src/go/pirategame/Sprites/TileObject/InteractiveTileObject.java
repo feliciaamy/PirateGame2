@@ -19,7 +19,6 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import go.pirategame.PirateGame;
 import go.pirategame.Screen.PlayScreen;
-import go.pirategame.Sprites.Pirate;
 
 
 /**
@@ -68,5 +67,7 @@ public abstract class InteractiveTileObject {
         return layer.getCell((int)(body.getPosition().x * PirateGame.PPM / 16),
                 (int)(body.getPosition().y * PirateGame.PPM / 16));
     }
+    public abstract void onNextBomb();
+
 
 }

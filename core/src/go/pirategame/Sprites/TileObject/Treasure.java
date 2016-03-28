@@ -19,4 +19,9 @@ public class Treasure extends InteractiveTileObject{
         fixture.setUserData(this);
         setCategoryFilter(PirateGame.TREASURE_BIT);
     }
+
+    @Override
+    public void onNextBomb() {
+
+    }
 }

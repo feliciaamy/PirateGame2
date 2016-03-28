@@ -19,8 +19,16 @@ public class WorldContactListener implements ContactListener {
 
         // TODO: 18/3/16 Player vs. bullet(pistol)
         // TODO: 18/3/16 Player vs. bomb || TNT
+
+
+
+
         // TODO: 18/3/16 Player vs. sword
         // TODO: 18/3/16 Reef vs. bomb
+
+
+
+
         // TODO: 18/3/16 Player + shield vs. bomb
         // TODO: 18/3/16 Player + shield vs. pistol
         // TODO: 18/3/16 Player + shield vs. sword
