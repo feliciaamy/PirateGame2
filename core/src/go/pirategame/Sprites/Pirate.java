@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
@@ -23,6 +24,8 @@ import go.pirategame.Other.Pistol;
 import go.pirategame.Other.Sword;
 import go.pirategame.PirateGame;
 import go.pirategame.Screen.PlayScreen;
+import go.pirategame.Sprites.Items.Bomb;
+import go.pirategame.Sprites.Items.ItemDef;
 
 /**
  * Created by Amy on 25/2/16.
@@ -48,7 +51,9 @@ public class Pirate extends Sprite {
     private boolean pirateIsDead;
     private PlayScreen screen;
     private boolean swordOut;
+    private boolean plantBomb;
     private Sword sword;
+    private Bomb bomb;
     private Array<Pistol> bullets;
     public Pirate(PlayScreen screen) {
         //initialize default values
@@ -60,6 +65,7 @@ public class Pirate extends Sprite {
         stateTimer = 0;
         weaponTime = 0;
         swordOut = false;
+        plantBomb=false;
 
         // animation
         HashMap<String, Animation> anims = new HashMap<String, Animation>();
@@ -146,9 +152,23 @@ public class Pirate extends Sprite {
 
         bullets = new Array<Pistol>();
 
+
+    }
+    /*
+    When the player hits "return/enter" button, a bomb will be planted
+    //To do
+    Add a condition check for plant bomb: whether got left over bombs.
+    */
+    public void PlantBomb(){
+        if (!plantBomb) {
+            System.out.println("Plant bomb");
+            bomb = new Bomb(screen, b2body.getPosition().x, b2body.getPosition().y);
+            plantBomb= true;
+        }
     }
 
     public void update(float dt) {
+
         weaponTime += dt;
         if (screen.getHud().isTimeUp() && !isDead()) {
             die();
@@ -171,6 +191,11 @@ public class Pirate extends Sprite {
                 swordOut = false;
             } else sword.update(dt, b2body.getPosition().x, b2body.getPosition().y);
 
+        }
+        if(plantBomb){
+            if(bomb.isDestroyed()){
+                plantBomb=false;
+            }else bomb.update(dt);
         }
 
     }

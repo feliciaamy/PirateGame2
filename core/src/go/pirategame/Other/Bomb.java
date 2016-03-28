@@ -1,8 +1,9 @@
-package go.pirategame.Sprites.Items;
+package go.pirategame.Other;
 
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.g3d.model.Animation;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
@@ -10,20 +11,22 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 
+import java.util.HashMap;
+
 import go.pirategame.PirateGame;
 import go.pirategame.Screen.PlayScreen;
-import go.pirategame.Sprites.Pirate;
+
 
 
 /**
  * Created by zhaojuan on 20/3/16.
  */
 public class Bomb extends Sprite {
-    private enum State{BURNING,EXPLODING,DISAPPEARING}
+
     PlayScreen screen;
     World world;
     Array<TextureRegion> frames;
-    com.badlogic.gdx.graphics.g2d.Animation bombAnimation;
+    Animation bombAnimation;
     float stateTime;
     boolean destroyed;
     boolean setToDestroy;
@@ -33,21 +36,44 @@ public class Bomb extends Sprite {
 
     public Bomb(PlayScreen screen, float x, float y) {
 
-//        setRegion(screen.getAtlas().findRegion("Bomb"), 163, 35, 16, 16);
-//        setBounds(x,y, 16 / PirateGame.PPM,16/PirateGame.PPM);
         this.screen = screen;
         this.world = screen.getWorld();
-        //Array<TextureRegion> frames=new Array<TextureRegion>();
+        Array<TextureRegion> frames=new Array<TextureRegion>();
         this.screen = screen;
         this.world = screen.getWorld();
         frames = new Array<TextureRegion>();
-        // TODO: 18/3/16 Bullet Animation
+
+        ////////////////////////
+
+       /* TextureAtlas textureAtlas = assetManager.get("img/actors.pack", TextureAtlas.class);
+        HashMap<String, Animation> anims = new HashMap<String,Animation>();
+        TextureRegion textureRegion = textureAtlas.findRegion("Bomb");
+
+        Animation anim;
+        Array<TextureRegion> keyFrames = new Array<TextureRegion>();
+        if (playerbombPower >= player.MAX_BOMB_POWER) {
+            for (int i = 0; i < 3; i++) {
+                keyFrames.add(new TextureRegion(textureRegion, i * 16, 16 * 1, 16, 16));
+           }
+        } else {
+            for (int i = 0; i < 3; i++) {
+                keyFrames.add(new TextureRegion(textureRegion, i * 16, 0, 16, 16));
+            }
+        }*/
+
+
+
+
+
+
+
+
         for (int i = 0; i < 4; i++) {
             frames.add(new TextureRegion(screen.getAtlas().findRegion("Bomb"), i * 8, 0, 8, 8));
         }
-        bombAnimation = new com.badlogic.gdx.graphics.g2d.Animation(0.2f, frames);
+        bombAnimation = new Animation(0.2f, frames);
         setRegion(bombAnimation.getKeyFrame(0));
-        setBounds(x, y, 6 / PirateGame.PPM, 6 / PirateGame.PPM);
+        setBounds(x, y, 8 / PirateGame.PPM, 8 / PirateGame.PPM);
         defineItem();
 
 
@@ -59,7 +85,8 @@ public class Bomb extends Sprite {
         BodyDef bdef=new BodyDef();
         bdef.position.set(getX(),getY());
         bdef.type=BodyDef.BodyType.DynamicBody;
-        b2body=world.createBody(bdef);
+        if(!world.isLocked())
+           b2body=world.createBody(bdef);
 
 
         FixtureDef fdef=new FixtureDef();
@@ -67,6 +94,11 @@ public class Bomb extends Sprite {
         shape.setRadius(6 / PirateGame.PPM);
 
         fdef.shape=shape;
+        fdef.filter.categoryBits = PirateGame.BOMB_BIT;
+        fdef.filter.maskBits = PirateGame.REEF_BIT |
+                PirateGame.PLAYER_BIT |
+                PirateGame.BORDER_BIT |
+                PirateGame.ROCK_BIT;
         b2body.createFixture(fdef).setUserData(this);
 
 

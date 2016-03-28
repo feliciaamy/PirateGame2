@@ -45,7 +45,7 @@ public class PirateGame extends Game {
 	@Override
 	public void dispose() {
 		super.dispose();
-		manager.dispose();
+//		manager.dispose();
 		batch.dispose();
 	}
 //

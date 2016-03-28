@@ -15,12 +15,17 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+
+import java.util.concurrent.LinkedBlockingQueue;
 
 import go.pirategame.Control.Controller;
 import go.pirategame.PirateGame;
 import go.pirategame.Scene.Hud;
+import go.pirategame.Sprites.Items.Bomb;
+import go.pirategame.Sprites.Items.ItemDef;
 import go.pirategame.Sprites.Pirate;
 import go.pirategame.Tools.B2WorldCreator;
 import go.pirategame.Tools.WorldContactListener;
@@ -58,9 +63,7 @@ public class PlayScreen implements Screen {
     private Stage stage;
     private Texture fadeOutTexture;
 
-//    private Array<Item> items;
-//    private LinkedBlockingQueue<ItemDef> itemsToSpawn;
-//
+
 private Controller controller;
 
     public PlayScreen(PirateGame game){
@@ -104,25 +107,11 @@ private Controller controller;
 //        music.setVolume(0.3f);
 //        music.play();
 //
-//        items = new Array<Item>();
-//        itemsToSpawn = new LinkedBlockingQueue<ItemDef>();
-    }
-
-    /*
-    public void spawnItem(ItemDef idef){
-        itemsToSpawn.add(idef);
     }
 
 
-    public void handleSpawningItems(){
-        if(!itemsToSpawn.isEmpty()){
-            ItemDef idef = itemsToSpawn.poll();
-            if(idef.type == Mushroom.class){
-                items.add(new Mushroom(this, idef.position.x, idef.position.y));
-            }
-        }
-    }
-    */
+
+
 
 
     public TextureAtlas getAtlas(){
@@ -143,19 +132,20 @@ private Controller controller;
                 player.fire();
             else if (controller.isSwordPressed())
                 player.useSword();
+            else if (controller.isBombPressed())
+                player.PlantBomb();
         }
     }
 
     public void update(float dt){
         //handle user input first
         handleInput(dt);
-//        handleSpawningItems();
+
 
         //takes 1 step in the physics simulation(60 times per second)
         world.step(1 / 60f, 6, 2);
 
         player.update(dt);
-
 
         hud.update(dt);
 
@@ -181,6 +171,11 @@ private Controller controller;
         renderer.setView(gamecam);
     }
 
+
+    public OrthographicCamera getGamecam() {
+        return gamecam;
+    }
+
     @Override
     public void show() {
 
@@ -200,6 +195,7 @@ private Controller controller;
 
         //renderer our Box2DDebugLines
         b2dr.render(world, gamecam.combined);
+
 
 
         game.batch.begin();
