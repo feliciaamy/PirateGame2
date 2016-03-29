@@ -41,9 +41,6 @@ public class PirateGame extends Game {
 	public static final short SWORD_BIT = 4096;
 	public static final short SHIELD_BIT = 8192;
 
-
-
-
 	public static SpriteBatch batch;
 
 	/* WARNING Using AssetManager in a static way can cause issues, especially on Android.
@@ -67,6 +64,13 @@ public class PirateGame extends Game {
 	@Override
 	public void render () {
 		super.render();
+	}
+
+	public static PlayServices playServices;
+
+	public PirateGame(PlayServices playServices)
+	{
+		this.playServices = playServices;
 	}
 }
 
