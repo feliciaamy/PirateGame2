@@ -22,6 +22,7 @@ import java.util.HashMap;
 
 import go.pirategame.PirateGame;
 import go.pirategame.Screen.PlayScreen;
+import go.pirategame.Sprites.Items.Bomb;
 import go.pirategame.Weapon.Pistol;
 import go.pirategame.Weapon.Shield;
 import go.pirategame.Weapon.Sword;
@@ -42,11 +43,13 @@ public class Pirate extends Sprite {
     private boolean pirateIsDead;
     private PlayScreen screen;
     private Sword sword;
+    private Bomb bomb;
     private Shield shield;
     private float powerUpTime;
     private Array<Pistol> bullets;
     private HandledWeapon weapon;
     private PowerUp extraWeapon;
+    private boolean plantBomb;
     private boolean timeToRedefinePirate,timeToDefineShield;
 
     private int health;
@@ -67,6 +70,7 @@ public class Pirate extends Sprite {
         timeToRedefinePirate = false;
         timeToDefineShield = false;
         health=100;
+        plantBomb = false;
         // animation
         HashMap<String, Animation> anims = new HashMap<String, Animation>();
 
@@ -168,6 +172,19 @@ public class Pirate extends Sprite {
 
     }
 
+    /*
+    When the player hits "return/enter" button, a bomb will be planted
+    //To do
+    Add a condition check for plant bomb: whether got left over bombs.
+    */
+    public void PlantBomb() {
+        if (!plantBomb) {
+            System.out.println("Plant bomb");
+            bomb = new Bomb(screen, b2body.getPosition().x, b2body.getPosition().y);
+            plantBomb = true;
+        }
+    }
+
     public void update(float dt) {
         powerUpTime += dt;
         if (screen.getHud().isTimeUp() && !isDead()) {
@@ -206,6 +223,11 @@ public class Pirate extends Sprite {
 //                weapon = HandledWeapon.NONE;
 //            } else shield.update(dt, b2body.getPosition().x, b2body.getPosition().y);
 //        }
+        if (plantBomb) {
+            if (bomb.isDestroyed()) {
+                plantBomb = false;
+            } else bomb.update(dt);
+        }
 
     }
 
@@ -334,13 +356,13 @@ public class Pirate extends Sprite {
                 fixtureDef.filter.categoryBits = PirateGame.PLAYER_0_BIT;
                 break;
             case 1:
-                fixtureDef.filter.categoryBits = PirateGame.PLAYER_1_BIT;
+                fixtureDef.filter.categoryBits = PirateGame.NOTHING_BIT;
                 break;
             case 2:
-                fixtureDef.filter.categoryBits = PirateGame.PLAYER_2_BIT;
+                fixtureDef.filter.categoryBits = PirateGame.NOTHING_BIT;
                 break;
             case 3:
-                fixtureDef.filter.categoryBits = PirateGame.PLAYER_3_BIT;
+                fixtureDef.filter.categoryBits = PirateGame.NOTHING_BIT;
                 break;
         }
 

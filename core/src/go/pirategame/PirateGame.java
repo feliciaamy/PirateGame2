@@ -32,16 +32,15 @@ public class PirateGame extends Game {
 	public static final short PLAYER_0_BIT = 2;
 	public static final short ROCK_BIT = 4;
 	public static final short REEF_BIT = 8;
-	public static final short PLAYER_1_BIT = 16;
+	public static final short EXPLOSION_BIT = 16;
 	public static final short TNT_BIT = 32;
 	public static final short TREASURE_BIT = 64;
 	public static final short BORDER_BIT = 128;
 	public static final short BOMB_BIT = 256;
-	public static final short PLAYER_2_BIT = 512;
-	public static final short PLAYER_3_BIT = 1024;
 	public static final short BULLET_BIT = 2048;
 	public static final short SWORD_BIT = 4096;
 	public static final short SHIELD_BIT = 8192;
+
 
 
 
@@ -55,7 +54,7 @@ public class PirateGame extends Game {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		setScreen(new PlayScreen(this,THIS_PLAYER));
+		setScreen(new PlayScreen(this, THIS_PLAYER));
 	}
 
 	@Override
@@ -69,22 +68,6 @@ public class PirateGame extends Game {
 	public void render () {
 		super.render();
 	}
-
-	public static int getPLAYER_BIT(int id){
-		switch (id){
-			case 0:
-				return PLAYER_0_BIT;
-			case 1:
-				return PLAYER_1_BIT;
-			case 2:
-				return PLAYER_2_BIT;
-			case 3:
-				return PLAYER_3_BIT;
-			default:
-				return 0;
-		}
-	}
-
 }
 
 
