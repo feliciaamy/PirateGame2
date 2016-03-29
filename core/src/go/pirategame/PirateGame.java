@@ -8,30 +8,41 @@ import go.pirategame.Screen.PlayScreen;
 
 public class PirateGame extends Game {
 	//Virtual Screen size and Box2D Scale(Pixels Per Meter)
+	public static final float PPM = 40;
 	public static final int V_WIDTH = 400;
 	public static final int V_HEIGHT = 300;
-	public static final float PPM = 40;
+	public static final float EDGE_POSITION_X = 8f;
+	public static final float EDGE_POSITION_Y = 8f;
+
+	//Player Info
+	public static final int MAX_VELOCITY=4;
+	public static final float BOARDER_OFFSET=0.5f;
+
+	//player select
+	public static final int THIS_PLAYER=0;
 
 	//Hud Split Ratio
 	public static final int FULL_WIDTH = 16;
 	public static final int MAP_WIDTH = 12;
+	public static final int HUD_PAD=5;
 
 	//Box2D Collision Bits
 	public static final short NOTHING_BIT = 0;
-	public static final short WATER_BIT = 1;
-	public static final short PLAYER_BIT = 2;
+	public static final short HIT_BIT = 1;
+	public static final short PLAYER_0_BIT = 2;
 	public static final short ROCK_BIT = 4;
 	public static final short REEF_BIT = 8;
-	public static final short INDESTRUCTIIBLE_BIT = 16;
-	public static final short EXPLOSION_BIT = 32;
+	public static final short EXPLOSION_BIT = 16;
+	public static final short TNT_BIT = 32;
 	public static final short TREASURE_BIT = 64;
 	public static final short BORDER_BIT = 128;
 	public static final short BOMB_BIT = 256;
-	public static final short ENEMY_BIT = 512;
-	public static final short BREAKABLE_BIT = 1024;
 	public static final short BULLET_BIT = 2048;
 	public static final short SWORD_BIT = 4096;
 	public static final short SHIELD_BIT = 8192;
+
+
+
 
 	public static SpriteBatch batch;
 
@@ -43,7 +54,7 @@ public class PirateGame extends Game {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		setScreen(new PlayScreen(this));
+		setScreen(new PlayScreen(this, THIS_PLAYER));
 	}
 
 	@Override
@@ -57,8 +68,6 @@ public class PirateGame extends Game {
 	public void render () {
 		super.render();
 	}
-
-
 }
 
 

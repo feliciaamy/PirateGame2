@@ -27,7 +27,7 @@ public class GameOverScreen implements Screen {
     public GameOverScreen(Game game){
         this.game = game;
         viewport = new FitViewport(PirateGame.V_WIDTH,PirateGame.V_HEIGHT, new OrthographicCamera());
-        stage = new Stage(viewport, ((PirateGame) game).batch);
+        stage = new Stage(viewport, PirateGame.batch);
 
         Label.LabelStyle font = new Label.LabelStyle(new BitmapFont(), Color.WHITE);
 
@@ -51,7 +51,7 @@ public class GameOverScreen implements Screen {
     @Override
     public void render(float delta) {
         if(Gdx.input.justTouched()) {
-            game.setScreen(new PlayScreen((PirateGame) game));
+            game.setScreen(new PlayScreen((PirateGame) game,PirateGame.THIS_PLAYER));
             dispose();
         }
         Gdx.gl.glClearColor(0,0,0,1);

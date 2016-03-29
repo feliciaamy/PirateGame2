@@ -17,6 +17,8 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+import java.util.ArrayList;
+
 import go.pirategame.Control.Controller;
 import go.pirategame.PirateGame;
 import go.pirategame.Scene.Hud;
@@ -33,6 +35,7 @@ public class PlayScreen implements Screen {
     //Reference to our Game, used to set Screens
     private PirateGame game;
     private TextureAtlas atlas;
+
     //basic playscreen variables
     private OrthographicCamera gamecam;
     private Viewport gamePort;
@@ -49,7 +52,9 @@ public class PlayScreen implements Screen {
     private B2WorldCreator creator;
 
     //sprites
-    private Pirate player;
+//    private Pirate player;
+    private ArrayList<Pirate> players = new ArrayList<Pirate>(4);
+    private int thisPlayerIndex;
 
     private Music music;
 
@@ -59,27 +64,23 @@ public class PlayScreen implements Screen {
 
 //    private Array<Item> items;
 //    private LinkedBlockingQueue<ItemDef> itemsToSpawn;
-//
-private Controller controller;
 
-    public PlayScreen(PirateGame game){
+    private Controller controller;
 
-
+    public PlayScreen(PirateGame game, int thisPlayerIndex){
         atlas = new TextureAtlas("img/actors.pack");
         this.game = game;
+        this.thisPlayerIndex=thisPlayerIndex;
         //create cam used to follow mario through cam world
         gamecam = new OrthographicCamera();
         gamecam.setToOrtho(false,PirateGame.V_WIDTH,PirateGame.V_HEIGHT);
         //create a FitViewport to maintain virtual aspect ratio despite screen size
         gamePort = new FitViewport(PirateGame.V_WIDTH / PirateGame.PPM, PirateGame.V_HEIGHT / PirateGame.PPM, gamecam);
-        //create our game HUD for scores/timers/level info
-        hud = new Hud(game.batch);
 
         //Load our map and setup our map renderer
         maploader = new TmxMapLoader();
-        map = maploader.load("Pirate.tmx");
+        map=maploader.load("testingworld.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, 1  / PirateGame.PPM);
-
         //initialize gamecame
         gamecam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
 
@@ -87,13 +88,19 @@ private Controller controller;
         world = new World(new Vector2(0, 0), true);
         //allows for debug lines of our box2d world.
         b2dr = new Box2DDebugRenderer();
-
         creator = new B2WorldCreator(this);
-
         //create mario in our game world
-        player = new Pirate(this);
+        for (int i = 0; i < 4; i++) {
+            players.add(new Pirate(this,i));
+        }
+//        player = new Pirate(this);
+
+
+        //create our game HUD for scores/timers/level info
+        hud = new Hud(PirateGame.batch,players.get(thisPlayerIndex));
 
         controller = new Controller();
+
         world.setContactListener(new WorldContactListener());
 //
 //        music = PirateGame.manager.get("audio/music/mario_music.ogg", Music.class);
@@ -123,15 +130,16 @@ private Controller controller;
     }
 
     public void handleInput(float dt){
+        Pirate player=players.get(thisPlayerIndex);
         if(player.currentState != Pirate.State.DEAD) {
-            if (controller.isUpPressed() && player.b2body.getLinearVelocity().y <= 2)
-                player.b2body.applyLinearImpulse(new Vector2(0, 0.1f), player.b2body.getWorldCenter(), true);
-            if (controller.isDownPressed() && player.b2body.getLinearVelocity().y >= -2)
-                player.b2body.applyLinearImpulse(new Vector2(0,-0.1f), player.b2body.getWorldCenter(), true);
-            if (controller.isRightPressed() && player.b2body.getLinearVelocity().x <= 2)
-                player.b2body.applyLinearImpulse(new Vector2(0.1f, 0), player.b2body.getWorldCenter(), true);
-            if (controller.isLeftPressed() && player.b2body.getLinearVelocity().x >= -2)
-                player.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), player.b2body.getWorldCenter(), true);
+            if (controller.isUpPressed() && player.b2body.getLinearVelocity().y <= PirateGame.MAX_VELOCITY)
+                player.b2body.applyLinearImpulse(new Vector2(0, 0.2f), player.b2body.getWorldCenter(), true);
+            if (controller.isDownPressed() && player.b2body.getLinearVelocity().y >= -PirateGame.MAX_VELOCITY)
+                player.b2body.applyLinearImpulse(new Vector2(0,-0.2f), player.b2body.getWorldCenter(), true);
+            if (controller.isRightPressed() && player.b2body.getLinearVelocity().x <= PirateGame.MAX_VELOCITY)
+                player.b2body.applyLinearImpulse(new Vector2(0.2f, 0), player.b2body.getWorldCenter(), true);
+            if (controller.isLeftPressed() && player.b2body.getLinearVelocity().x >= -PirateGame.MAX_VELOCITY)
+                player.b2body.applyLinearImpulse(new Vector2(-0.2f, 0), player.b2body.getWorldCenter(), true);
             if (controller.isPistolPressed())
                 player.fire();
             else if (controller.isSwordPressed())
@@ -148,7 +156,10 @@ private Controller controller;
 
         //takes 1 step in the physics simulation(60 times per second)
         world.step(1 / 60f, 6, 2);
-        player.update(dt);
+        for (int i = 0; i < 4; i++) {
+            players.get(i).update(dt);
+        }
+//        player.update(dt);
         hud.update(dt);
 
         /*//attach our gamecam to our players.x coordinate
@@ -156,17 +167,27 @@ private Controller controller;
             gamecam.position.x = player.b2body.getPosition().x;
         }*/
 
+        Pirate player=players.get(thisPlayerIndex);
         //update our gamecam with correct coordinates after changes
+        //x position
         gamecam.setToOrtho(false, PirateGame.V_WIDTH / PirateGame.PPM, PirateGame.V_HEIGHT / PirateGame.PPM);
         if (player.b2body.getPosition().x<(PirateGame.V_WIDTH / PirateGame.PPM)/2){
             gamecam.position.x=gamePort.getWorldWidth()/2;
         }else {
-            gamecam.position.x = player.b2body.getPosition().x;
+            if (player.b2body.getPosition().x>PirateGame.EDGE_POSITION_X)
+                gamecam.position.x=PirateGame.EDGE_POSITION_X;
+            else
+                gamecam.position.x = player.b2body.getPosition().x;
         }
-        if (player.b2body.getPosition().y>(PirateGame.V_HEIGHT / PirateGame.PPM) /2){
-            gamecam.position.y = player.b2body.getPosition().y;
+        //y position
+        if (player.b2body.getPosition().y<(PirateGame.V_HEIGHT / PirateGame.PPM) /2){
+            gamecam.position.y = gamePort.getWorldHeight()/2;
+        }else {
+            if (player.b2body.getPosition().y>PirateGame.EDGE_POSITION_Y)
+                gamecam.position.y=PirateGame.EDGE_POSITION_Y;
+            else
+                gamecam.position.y = player.b2body.getPosition().y;
         }
-
         gamecam.update();
         //tell our renderer to draw only what our camera can see in our game world.
         renderer.setView(gamecam);
@@ -179,9 +200,6 @@ private Controller controller;
 
     @Override
     public void render(float delta) {
-
-
-
         //separate our update logic from render
         update(delta);
 
@@ -189,8 +207,6 @@ private Controller controller;
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-
-        //
         Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth() / PirateGame.FULL_WIDTH * PirateGame.MAP_WIDTH, Gdx.graphics.getHeight());
 
         //render our game map
@@ -199,13 +215,16 @@ private Controller controller;
         //renderer our Box2DDebugLines
         b2dr.render(world, gamecam.combined);
 
-        game.batch.begin();
-        game.batch.setProjectionMatrix(gamecam.combined);
-        player.draw(game.batch);
-        game.batch.end();
+        PirateGame.batch.begin();
+        PirateGame.batch.setProjectionMatrix(gamecam.combined);
+        for (int i = 0; i < 4; i++) {
+            players.get(i).draw(PirateGame.batch);
+        }
+//        player.draw(PirateGame.batch);
+        PirateGame.batch.end();
 
         //Set our batch to now draw what the Hud camera sees.
-        game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
+        PirateGame.batch.setProjectionMatrix(hud.stage.getCamera().combined);
 
         Gdx.gl.glViewport(Gdx.graphics.getWidth() / PirateGame.FULL_WIDTH * PirateGame.MAP_WIDTH, 0, Gdx.graphics.getWidth() / PirateGame.FULL_WIDTH * (PirateGame.FULL_WIDTH-PirateGame.MAP_WIDTH), Gdx.graphics.getHeight());
         hud.stage.draw();
@@ -221,10 +240,8 @@ private Controller controller;
     }
 
     public boolean gameOver(){
-        if(player.currentState == Pirate.State.DEAD && player.getStateTimer() > 3){
-            return true;
-        }
-        return false;
+//        return player.currentState == Pirate.State.DEAD && player.getStateTimer() > 3;
+        return players.get(thisPlayerIndex).currentState == Pirate.State.DEAD && players.get(thisPlayerIndex).getStateTimer() > 3;
     }
 
     @Override

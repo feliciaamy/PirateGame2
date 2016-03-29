@@ -11,6 +11,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import go.pirategame.PirateGame;
+import go.pirategame.Sprites.Pirate;
 
 /**
  * Created by Amy on 1/3/16.
@@ -26,6 +27,8 @@ public class Hud implements Disposable {
     private float timeCount;
     private static Integer score;
 
+    private Pirate pirate;
+
     //Scene2D widgets
     private Label countdownLabel;
     private static Label scoreLabel;
@@ -33,11 +36,16 @@ public class Hud implements Disposable {
     private Label levelLabel;
     private Label worldLabel;
     private Label playerLabel;
+    public static Label testLabel,testLabel2;
+    private Label healthLabel;
+    private Label healthValueLabel;
 
-    public Hud(SpriteBatch sb){
+
+    public Hud(SpriteBatch sb,Pirate pirate){
         worldTimer = 300;
         timeCount = 0;
         score = 0;
+        this.pirate=pirate;
 
         //setup the HUD viewport using a new camera seperate from our gamecam
         //define our stage using that viewport and our games spritebatch
@@ -57,21 +65,30 @@ public class Hud implements Disposable {
         timeLabel = new Label("TIME", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         levelLabel = new Label("1-1", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         worldLabel = new Label("WORLD", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        playerLabel = new Label("MARIO", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        playerLabel = new Label("Pirate 1", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        healthLabel= new Label("HEALTH", new Label.LabelStyle(new BitmapFont(),Color.WHITE));
+        healthValueLabel= new Label(String.format("%03d",pirate.getHealth()), new Label.LabelStyle(new BitmapFont(),Color.WHITE));
+
+
+        testLabel= new Label("Testing", new Label.LabelStyle(new BitmapFont(),Color.WHITE));
+        testLabel2= new Label("Testing", new Label.LabelStyle(new BitmapFont(),Color.WHITE));
 
         //add our labels to our table, padding the top, and giving them all equal width with expandX
-        table.add(playerLabel).expandX().padTop(10);
-//        table.add(worldLabel).expandX().padTop(10);
-//
-        //add a second row to our table
+        table.add(playerLabel).center().padTop(10);
         table.row();
-//        table.add(scoreLabel).expandX();
-//        table.add(levelLabel).expandX();
-        table.add(timeLabel).left().padLeft(10);
-        table.add(countdownLabel).right().padRight(10);
+        table.add(timeLabel).left().padLeft(PirateGame.HUD_PAD);
+        table.add(countdownLabel).right().padRight(PirateGame.HUD_PAD);
+        table.row();
+        table.add(healthLabel).left().padLeft(PirateGame.HUD_PAD);
+        table.add(healthValueLabel).right().padRight(PirateGame.HUD_PAD);
+        table.row();
+        table.add(testLabel).padLeft(PirateGame.HUD_PAD);
+        table.row();
+        table.add(testLabel2).padLeft(PirateGame.HUD_PAD);
 
         //add our table to the stage
         stage.addActor(table);
+
     }
 
     public void update(float dt){
@@ -85,11 +102,18 @@ public class Hud implements Disposable {
             countdownLabel.setText(String.format("%03d", worldTimer));
             timeCount = 0;
         }
+        healthValueLabel.setText(String.format("%03d",pirate.getHealth()));
+        testLabel.setText(String.format("%1.2f",pirate.b2body.getPosition().x));
+        testLabel2.setText(String.format("%1.2f",pirate.b2body.getPosition().y));
     }
 
     public static void addScore(int value){
         score += value;
         scoreLabel.setText(String.format("%06d", score));
+    }
+
+    public static void setTestMsg(String msg){
+        testLabel.setText(msg);
     }
 
     @Override

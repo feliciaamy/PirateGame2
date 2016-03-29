@@ -22,6 +22,7 @@ import java.util.HashMap;
 
 import go.pirategame.PirateGame;
 import go.pirategame.Screen.PlayScreen;
+import go.pirategame.Sprites.Items.Bomb;
 import go.pirategame.Weapon.Pistol;
 import go.pirategame.Weapon.Shield;
 import go.pirategame.Weapon.Sword;
@@ -30,49 +31,46 @@ import go.pirategame.Weapon.Sword;
  * Created by Amy on 25/2/16.
  */
 public class Pirate extends Sprite {
-    public static Direction direction;
+    public Direction direction;
     public State currentState;
     public State previousState;
     public World world;
     public Body b2body;
 
-    private Animation swimUp;
-    private Animation swimDown;
-    private Animation swimRight;
-    private Animation swimLeft;
-    private Animation idleUp;
-    private Animation idleDown;
-    private Animation idleLeft;
-    private Animation idleRight;
-    private TextureRegion pirateHit;
-    private Animation pirateDead;
+    private Animation swimUp,swimDown,swimRight,swimLeft,idleUp,idleDown,idleLeft,idleRight,pirateDead;
 
     private float stateTimer;
     private boolean pirateIsDead;
     private PlayScreen screen;
     private Sword sword;
+    private Bomb bomb;
     private Shield shield;
     private float powerUpTime;
     private Array<Pistol> bullets;
     private HandledWeapon weapon;
     private PowerUp extraWeapon;
-    private boolean timeToRedefinePirate;
-    private boolean timeToDefineShield;
+    private boolean plantBomb;
+    private boolean timeToRedefinePirate,timeToDefineShield;
 
-    public Pirate(PlayScreen screen) {
+    private int health;
+    private int player_id;
+
+    public Pirate(PlayScreen screen,int player_id) {
         //initialize default values
         this.screen = screen;
         this.world = screen.getWorld();
+        this.player_id=player_id;
         currentState = State.SWIMMING;
         previousState = State.SWIMMING;
-        direction = Direction.UP;
+        direction = Direction.DOWN;
         stateTimer = 0;
         weapon = HandledWeapon.NONE;
 //        extraWeapon = PowerUp.NONE;
         extraWeapon = PowerUp.SHIELD; // for test only
         timeToRedefinePirate = false;
         timeToDefineShield = false;
-
+        health=100;
+        plantBomb = false;
         // animation
         HashMap<String, Animation> anims = new HashMap<String, Animation>();
 
@@ -152,12 +150,39 @@ public class Pirate extends Sprite {
         pirateDead = anim;
 
         //define mario in Box2d
-        definePirate(0.2f, 0.2f);
+
+        switch (player_id){
+            case 0:
+                definePirate(PirateGame.BOARDER_OFFSET,PirateGame.BOARDER_OFFSET,player_id);
+                break;
+            case 1:
+                definePirate(PirateGame.EDGE_POSITION_X-PirateGame.BOARDER_OFFSET,PirateGame.BOARDER_OFFSET,player_id);
+                break;
+            case 2:
+                definePirate(PirateGame.BOARDER_OFFSET,PirateGame.EDGE_POSITION_Y-PirateGame.BOARDER_OFFSET,player_id);
+                break;
+            case 3:
+                definePirate(PirateGame.EDGE_POSITION_X-PirateGame.BOARDER_OFFSET,PirateGame.EDGE_POSITION_Y-PirateGame.BOARDER_OFFSET,player_id);
+                break;
+        }
         setBounds(0, 0, 16 / PirateGame.PPM, 16 / PirateGame.PPM);
         setRegion(idleUp.getKeyFrame(stateTimer, true));
 
         bullets = new Array<Pistol>();
 
+    }
+
+    /*
+    When the player hits "return/enter" button, a bomb will be planted
+    //To do
+    Add a condition check for plant bomb: whether got left over bombs.
+    */
+    public void PlantBomb() {
+        if (!plantBomb) {
+            System.out.println("Plant bomb");
+            bomb = new Bomb(screen, b2body.getPosition().x, b2body.getPosition().y);
+            plantBomb = true;
+        }
     }
 
     public void update(float dt) {
@@ -184,7 +209,7 @@ public class Pirate extends Sprite {
         if (weapon == HandledWeapon.SWORD) {
             if (sword.isDestroyed()) {
                 weapon = HandledWeapon.NONE;
-            } else sword.update(dt, b2body.getPosition().x, b2body.getPosition().y);
+            } else sword.update(dt, b2body.getPosition().x, b2body.getPosition().y,this);
         }
         // TODO: 21/3/16 Set an accurate timing
         if (powerUpTime >= 12) {
@@ -198,6 +223,11 @@ public class Pirate extends Sprite {
 //                weapon = HandledWeapon.NONE;
 //            } else shield.update(dt, b2body.getPosition().x, b2body.getPosition().y);
 //        }
+        if (plantBomb) {
+            if (bomb.isDestroyed()) {
+                plantBomb = false;
+            } else bomb.update(dt);
+        }
 
     }
 
@@ -310,7 +340,7 @@ public class Pirate extends Sprite {
         return stateTimer;
     }
 
-    public void definePirate(float x, float y){
+    public void definePirate(float x, float y,int player_id){
         BodyDef bdef = new BodyDef();
         bdef.type = BodyDef.BodyType.DynamicBody;
         bdef.position.set(x, y);
@@ -321,8 +351,22 @@ public class Pirate extends Sprite {
         shape.setRadius(7 / PirateGame.PPM);
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
-        fixtureDef.filter.categoryBits = PirateGame.PLAYER_BIT;
-        fixtureDef.filter.maskBits = PirateGame.PLAYER_BIT |
+        switch (player_id){
+            case 0:
+                fixtureDef.filter.categoryBits = PirateGame.PLAYER_0_BIT;
+                break;
+            case 1:
+                fixtureDef.filter.categoryBits = PirateGame.NOTHING_BIT;
+                break;
+            case 2:
+                fixtureDef.filter.categoryBits = PirateGame.NOTHING_BIT;
+                break;
+            case 3:
+                fixtureDef.filter.categoryBits = PirateGame.NOTHING_BIT;
+                break;
+        }
+
+        fixtureDef.filter.maskBits =
                     PirateGame.ROCK_BIT |
                     PirateGame.REEF_BIT |
                 PirateGame.BORDER_BIT |
@@ -348,8 +392,8 @@ public class Pirate extends Sprite {
         FixtureDef fdef = new FixtureDef();
         CircleShape shield = new CircleShape();
         shield.setRadius(10 / PirateGame.PPM);
-        fdef.filter.categoryBits = PirateGame.PLAYER_BIT;
-        fdef.filter.maskBits = PirateGame.PLAYER_BIT |
+        fdef.filter.categoryBits = PirateGame.PLAYER_0_BIT;
+        fdef.filter.maskBits = PirateGame.PLAYER_0_BIT |
                 PirateGame.BULLET_BIT;
 
         fdef.shape = shield;
@@ -359,15 +403,14 @@ public class Pirate extends Sprite {
         body.setRadius(7 / PirateGame.PPM);
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = body;
-        fixtureDef.filter.categoryBits = PirateGame.PLAYER_BIT;
-        fixtureDef.filter.maskBits = PirateGame.PLAYER_BIT |
+        fixtureDef.filter.categoryBits = PirateGame.PLAYER_0_BIT;
+        fixtureDef.filter.maskBits = PirateGame.PLAYER_0_BIT |
                 PirateGame.ROCK_BIT |
                 PirateGame.REEF_BIT |
                 PirateGame.BORDER_BIT |
                 PirateGame.BULLET_BIT;
         b2body.createFixture(fixtureDef);
 //        shape.dispose();
-
         b2body.createFixture(fixtureDef).setUserData(this);
         timeToDefineShield = false;
 
@@ -388,8 +431,8 @@ public class Pirate extends Sprite {
         FixtureDef fdef = new FixtureDef();
         CircleShape shape = new CircleShape();
         shape.setRadius(7 / PirateGame.PPM);
-        fdef.filter.categoryBits = PirateGame.PLAYER_BIT;
-        fdef.filter.maskBits = PirateGame.PLAYER_BIT |
+        fdef.filter.categoryBits = PirateGame.PLAYER_0_BIT;
+        fdef.filter.maskBits = PirateGame.PLAYER_0_BIT |
                 PirateGame.ROCK_BIT |
                 PirateGame.REEF_BIT |
                 PirateGame.BORDER_BIT;
@@ -451,7 +494,7 @@ public class Pirate extends Sprite {
             timeToDefineShield = true;
             weapon = HandledWeapon.SHIELD;
             // TODO: 21/3/16 decide whether we want it to be like pistol or just a sphere around the player
-//            shield = new Shield(screen, b2body.getPosition().x, b2body.getPosition().y, direction);
+            shield = new Shield(screen, b2body.getPosition().x, b2body.getPosition().y, direction);
         }
     }
 
@@ -464,6 +507,12 @@ public class Pirate extends Sprite {
     public void useTNT() {
     }
 
+    public void decreaseHealth(int value){
+        health-=value;
+    }
+    public int getHealth(){
+        return health;
+    }
     //Note: This will be needed for Contact Listener
     public boolean shieldOn() {
         return (weapon == HandledWeapon.SHIELD);
