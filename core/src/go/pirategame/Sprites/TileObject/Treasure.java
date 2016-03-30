@@ -12,7 +12,6 @@ import go.pirategame.Sprites.Pirate;
  */
 public class Treasure extends InteractiveTileObject{
     private static TiledMapTileSet tileSet;
-    private final int BLANK_COIN = 28;
 
     public Treasure(PlayScreen screen, MapObject object) {
         super(screen, object);

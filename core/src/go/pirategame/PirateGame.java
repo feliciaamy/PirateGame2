@@ -35,7 +35,7 @@ public class PirateGame extends Game {
 	public static final short EXPLOSION_BIT = 16;
 	public static final short TNT_BIT = 32;
 	public static final short TREASURE_BIT = 64;
-	public static final short BORDER_BIT = 128;
+	public static final short OTHER_PLAYER_BIT = 128;
 	public static final short BOMB_BIT = 256;
 	public static final short BULLET_BIT = 2048;
 	public static final short SWORD_BIT = 4096;

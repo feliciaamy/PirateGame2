@@ -351,26 +351,26 @@ public class Pirate extends Sprite {
         shape.setRadius(7 / PirateGame.PPM);
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
+
+
         switch (player_id){
-            case 0:
+            case PirateGame.THIS_PLAYER:
                 fixtureDef.filter.categoryBits = PirateGame.PLAYER_BIT;
                 break;
-            case 1:
-                fixtureDef.filter.categoryBits = PirateGame.NOTHING_BIT;
-                break;
-            case 2:
-                fixtureDef.filter.categoryBits = PirateGame.NOTHING_BIT;
-                break;
-            case 3:
-                fixtureDef.filter.categoryBits = PirateGame.NOTHING_BIT;
-                break;
+            default:
+                fixtureDef.filter.categoryBits = PirateGame.OTHER_PLAYER_BIT;
         }
 
-        fixtureDef.filter.maskBits =
+        if (player_id==PirateGame.THIS_PLAYER){
+            fixtureDef.filter.maskBits =
                     PirateGame.ROCK_BIT |
-                    PirateGame.REEF_BIT |
-                PirateGame.BORDER_BIT |
-                PirateGame.BULLET_BIT;
+                            PirateGame.REEF_BIT |
+                            PirateGame.BOMB_BIT |
+                            PirateGame.BULLET_BIT;
+        }else {
+            fixtureDef.filter.maskBits =
+                    PirateGame.ROCK_BIT;
+        }
         b2body.createFixture(fixtureDef);
         shape.dispose();
 
@@ -385,7 +385,7 @@ public class Pirate extends Sprite {
         BodyDef bdef = new BodyDef();
         bdef.position.set(position);
         bdef.type = BodyDef.BodyType.DynamicBody;
-        bdef.linearDamping = 11f;
+        bdef.linearDamping = 1f;
         b2body = world.createBody(bdef);
 
 
@@ -407,7 +407,6 @@ public class Pirate extends Sprite {
         fixtureDef.filter.maskBits = PirateGame.PLAYER_BIT |
                 PirateGame.ROCK_BIT |
                 PirateGame.REEF_BIT |
-                PirateGame.BORDER_BIT |
                 PirateGame.BULLET_BIT;
         b2body.createFixture(fixtureDef);
 //        shape.dispose();
@@ -434,8 +433,7 @@ public class Pirate extends Sprite {
         fdef.filter.categoryBits = PirateGame.PLAYER_BIT;
         fdef.filter.maskBits = PirateGame.PLAYER_BIT |
                 PirateGame.ROCK_BIT |
-                PirateGame.REEF_BIT |
-                PirateGame.BORDER_BIT;
+                PirateGame.REEF_BIT ;
 
         fdef.shape = shape;
         b2body.createFixture(fdef).setUserData(this);

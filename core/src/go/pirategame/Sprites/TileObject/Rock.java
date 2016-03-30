@@ -2,6 +2,7 @@ package go.pirategame.Sprites.TileObject;
 
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.tiled.TiledMapTileSet;
+
 import go.pirategame.PirateGame;
 import go.pirategame.Screen.PlayScreen;
 import go.pirategame.Sprites.Pirate;
@@ -17,7 +18,7 @@ public class Rock extends InteractiveTileObject {
         super(screen, object);
         tileSet = map.getTileSets().getTileSet("tileset");
         fixture.setUserData(this);
-        setCategoryFilter(PirateGame.BORDER_BIT);
+        setCategoryFilter(PirateGame.ROCK_BIT);
     }
 
     @Override

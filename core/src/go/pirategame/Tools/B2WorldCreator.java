@@ -80,13 +80,15 @@ public class B2WorldCreator {
 //        for(MapObject object : map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)){
 //            new Treasure(screen, object);
 //        }
-        for(MapObject object : map.getLayers().get(2).getObjects().getByType(MapObject.class)){
+
+
+        for(MapObject object : map.getLayers().get(3).getObjects().getByType(MapObject.class)){
             new Reef(screen, object);
         }
-        for(MapObject object : map.getLayers().get(3).getObjects().getByType(MapObject.class)){
+        for(MapObject object : map.getLayers().get(2).getObjects().getByType(MapObject.class)){
             new Rock(screen, object);
         }
-        for(MapObject object : map.getLayers().get(5).getObjects().getByType(MapObject.class)){
+        for(MapObject object : map.getLayers().get(4).getObjects().getByType(MapObject.class)){
             new Treasure(screen, object);
         }
 
