@@ -34,19 +34,7 @@ public class Reef extends InteractiveTileObject {
     // TODO: 27/3/16 Handle reef destroyed
     public void destroyReef() {
         Gdx.app.log("reef", "collision");
-        Thread a=new Thread(new Runnable(){
-            public void run(){
-                long startTime=System.currentTimeMillis();
-                long endTime=System.currentTimeMillis();
-
-                while(endTime-startTime<3000){
-
-                    endTime=System.currentTimeMillis();
-                }
-                getCell().setTile(null);
-                setCategoryFilter(PirateGame.NOTHING_BIT);
-            }
-        });
-        a.start();
+        getCell().setTile(null);
+        setCategoryFilter(PirateGame.NOTHING_BIT);
     }
 }
