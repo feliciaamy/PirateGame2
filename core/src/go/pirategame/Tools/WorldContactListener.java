@@ -7,17 +7,21 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 
 import go.pirategame.PirateGame;
-import go.pirategame.Sprites.Items.Bomb;
-import go.pirategame.Sprites.Pirate;
-import go.pirategame.Sprites.TileObject.InteractiveTileObject;
+import go.pirategame.Screen.PlayScreen;
 import go.pirategame.Sprites.TileObject.Reef;
 import go.pirategame.Sprites.TileObject.Treasure;
 import go.pirategame.Weapon.Pistol;
+import go.pirategame.Weapon.Sword;
 
 /**
  * Created by Amy on 25/2/16.
  */
 public class WorldContactListener implements ContactListener {
+    private PlayScreen screen;
+
+    public WorldContactListener(PlayScreen screen){
+        this.screen=screen;
+    }
     @Override
     public void beginContact(Contact contact) {
         Fixture fixA = contact.getFixtureA();
@@ -42,11 +46,6 @@ public class WorldContactListener implements ContactListener {
                 else
                     ((Reef) fixB.getUserData()).destroyReef();
                 break;
-
-
-
-
-            // TODO: 27/3/16 fix pistol
             // Player vs. bullet(pistol)
             case PirateGame.PLAYER_BIT | PirateGame.BULLET_BIT:
                 if(fixA.getFilterData().categoryBits != PirateGame.PLAYER_BIT)
@@ -54,29 +53,29 @@ public class WorldContactListener implements ContactListener {
                 else
                     ((Pistol) fixB.getUserData()).hitByBullet();
                 break;
-            // Player vs. bomb || TNT
-            //// TODO: 30/3/16 avoid once killed by putting bomb
-            case PirateGame.PLAYER_BIT | PirateGame.EXPLOSION_BIT:
-                if(fixA.getFilterData().categoryBits == PirateGame.BOMB_BIT)
-                    ((Bomb) fixA.getUserData()).hitByBomb((Pirate) fixB.getUserData());
-                else
-                    ((Bomb) fixB.getUserData()).hitByBomb((Pirate) fixA.getUserData());
-                break;
+            //**************FINISHED*************//
 
-            case PirateGame.PLAYER_BIT | PirateGame.TNT_BIT:
-                if(fixA.getFilterData().categoryBits == PirateGame.PLAYER_BIT)
-                    ((InteractiveTileObject) fixA.getUserData()).hitByTNT((Pirate) fixB.getUserData());
-                else
-                    ((InteractiveTileObject) fixB.getUserData()).hitByTNT((Pirate) fixA.getUserData());
-                break;
 
+
+            //**************NOT SURE (HAVEN'T TEST)**********//
             //  Player vs. sword
             case PirateGame.PLAYER_BIT | PirateGame.SWORD_BIT:
                 if(fixA.getFilterData().categoryBits == PirateGame.PLAYER_BIT)
-                    ((InteractiveTileObject) fixA.getUserData()).hitBySword((Pirate) fixB.getUserData());
+                    ((Sword) fixA.getUserData()).hitBySword();
                 else
-                    ((InteractiveTileObject) fixB.getUserData()).hitBySword((Pirate) fixA.getUserData());
+                    ((Sword) fixB.getUserData()).hitBySword();
                 break;
+
+
+
+
+            // Player vs. bomb || TNT
+            case PirateGame.PLAYER_BIT | PirateGame.EXPLOSION_BIT:
+                screen.getPirate(PirateGame.THIS_PLAYER).decreaseHealth(25);
+                break;
+
+
+
         }
     }
 

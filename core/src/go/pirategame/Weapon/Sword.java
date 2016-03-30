@@ -114,5 +114,10 @@ public class Sword extends Sprite {
     public boolean isDestroyed() {
         return destroyed;
     }
+
+    // TODO: 27/3/16 Handle hit by Sword
+    public void hitBySword() {
+        screen.getPirate(PirateGame.THIS_PLAYER).decreaseHealth(10);
+    }
 }
 

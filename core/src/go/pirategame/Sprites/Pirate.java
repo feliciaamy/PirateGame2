@@ -362,7 +362,7 @@ public class Pirate extends Sprite {
                             PirateGame.ROCK_BIT |
                             PirateGame.REEF_BIT |
                             PirateGame.BOMB_BIT |
-                            PirateGame.BULLET_BIT|
+                            PirateGame.BULLET_BIT| PirateGame.EXPLOSION_BIT|
                             PirateGame.TREASURE_BIT;
         }else {
             fixtureDef.filter.maskBits =
@@ -445,7 +445,7 @@ public class Pirate extends Sprite {
                     PirateGame.ROCK_BIT |
                             PirateGame.REEF_BIT |
                             PirateGame.BOMB_BIT |
-                            PirateGame.BULLET_BIT|
+                            PirateGame.BULLET_BIT|PirateGame.EXPLOSION_BIT|
                             PirateGame.TREASURE_BIT;
         }else {
             fixtureDef.filter.maskBits =

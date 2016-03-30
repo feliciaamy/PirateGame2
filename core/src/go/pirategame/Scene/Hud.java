@@ -41,10 +41,11 @@ public class Hud implements Disposable {
     private Label healthValueLabel;
     private Label treasureLabel;
 
-    private static boolean findTreasre=false;
+    private static boolean findTreasre;
 
 
     public Hud(SpriteBatch sb,Pirate pirate){
+        findTreasre=false;
         worldTimer = 300;
         timeCount = 0;
         score = 0;
@@ -127,6 +128,10 @@ public class Hud implements Disposable {
 
     public static void findTreasure(){
         findTreasre=true;
+    }
+
+    public static boolean isFindTreasre(){
+        return findTreasre;
     }
 
     @Override

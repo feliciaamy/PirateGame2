@@ -19,7 +19,7 @@ public class PirateGame extends Game {
 	public static final float BOARDER_OFFSET=0.5f;
 
 	//player select
-	public static final int THIS_PLAYER=2;
+	public static final int THIS_PLAYER=0;
 
 	//Hud Split Ratio
 	public static final int FULL_WIDTH = 16;

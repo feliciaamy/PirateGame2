@@ -12,7 +12,6 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import go.pirategame.PirateGame;
 import go.pirategame.Screen.PlayScreen;
-import go.pirategame.Sprites.Pirate;
 
 
 /**
@@ -155,14 +154,11 @@ public class Bomb extends Sprite {
         stateTime += dt;
         setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
         if ((stateTime > 2 || setToDestroy) && !destroyed && ! redefined){
-            System.out.println("redifi");
-
             reDefineBomb();
             redefined=true;
         }
         //set Explosion time to 4
         else if ((stateTime > bombExplosionCountDown || setToDestroy) && !destroyed && !exploded){
-            System.out.println("Explode");
             explodeBomb();
             exploded=true;
         }
@@ -181,9 +177,11 @@ public class Bomb extends Sprite {
         return destroyed;
     }
 
-    public void hitByBomb(Pirate pirate) {
-        pirate.decreaseHealth(25);
+    public void hitByBomb() {
+        System.out.println("hit by bomb");
+        screen.getPirate(PirateGame.THIS_PLAYER).decreaseHealth(25);
     }
+
 
     private enum State {BURNING, EXPLODING, DISAPPEARING}
 

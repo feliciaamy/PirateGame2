@@ -105,7 +105,7 @@ public class PlayScreen implements Screen {
 
         controller = new Controller();
 
-        world.setContactListener(new WorldContactListener());
+        world.setContactListener(new WorldContactListener(this));
 //
 //        music = PirateGame.manager.get("audio/music/mario_music.ogg", Music.class);
 //        music.setLooping(true);
@@ -243,12 +243,16 @@ public class PlayScreen implements Screen {
             game.setScreen(new GameOverScreen(game));
             dispose();
         }
+        if (Hud.isFindTreasre()){
+            game.setScreen(new WinScreen(game));
+            dispose();
+        }
 
     }
 
     public boolean gameOver(){
 //        return player.currentState == Pirate.State.DEAD && player.getStateTimer() > 3;
-        return players.get(thisPlayerIndex).currentState == Pirate.State.DEAD && players.get(thisPlayerIndex).getStateTimer() > 3;
+        return getPirate(thisPlayerIndex).getHealth()<=0;
     }
 
     @Override

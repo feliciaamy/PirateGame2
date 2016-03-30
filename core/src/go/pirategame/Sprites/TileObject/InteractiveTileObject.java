@@ -78,10 +78,7 @@ public abstract class InteractiveTileObject {
         pirate.decreaseHealth(50);
     }
 
-    // TODO: 27/3/16 Handle hit by Sword
-    public void hitBySword(Pirate pirate) {
-        pirate.decreaseHealth(10);
-    }
+
 
 
 
