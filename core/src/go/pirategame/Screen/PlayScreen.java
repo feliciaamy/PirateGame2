@@ -14,7 +14,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -24,12 +23,12 @@ import java.util.concurrent.LinkedBlockingQueue;
 import go.pirategame.Control.Controller;
 import go.pirategame.PirateGame;
 import go.pirategame.Scene.Hud;
-import go.pirategame.Sprites.Items.Item;
 import go.pirategame.Sprites.Items.ItemDef;
 import go.pirategame.Sprites.Pirate;
+import go.pirategame.Sprites.PowerUp.PowerUp;
 import go.pirategame.Tools.B2WorldCreator;
 import go.pirategame.Tools.WorldContactListener;
-
+import com.badlogic.gdx.utils.Array;
 
 /**
  * Created by Amy on 25/2/16.
@@ -66,7 +65,7 @@ public class PlayScreen implements Screen {
     private Stage stage;
     private Texture fadeOutTexture;
 
-    private Array<Item> items;
+    private Array<PowerUp> items;
     private LinkedBlockingQueue<ItemDef> itemsToSpawn;
 
     private Controller controller;
@@ -112,21 +111,21 @@ public class PlayScreen implements Screen {
 //        music.setVolume(0.3f);
 //        music.play();
 //
-        items = new Array<Item>();
-        itemsToSpawn = new LinkedBlockingQueue<ItemDef>();
+//        items = new Array<Item>();
+//        itemsToSpawn = new LinkedBlockingQueue<ItemDef>();
     }
 
     public void spawnItem(ItemDef idef){
         itemsToSpawn.add(idef);
     }
-//    public void handleSpawningItems(){
-//        if(!itemsToSpawn.isEmpty()){
-//            ItemDef idef = itemsToSpawn.poll();
-//            if(idef.type == Reef.class){
-//                items.add(new Reef());
-//            }
-//        }
-//    }
+    public void handleSpawningItems(){
+        if(!itemsToSpawn.isEmpty()){
+            ItemDef idef = itemsToSpawn.poll();
+            if(idef.type == Mushroom.class){
+                items.add(new Mushroom(this, idef.position.x, idef.position.y));
+            }
+        }
+    }
 
 
     public TextureAtlas getAtlas(){
@@ -150,9 +149,6 @@ public class PlayScreen implements Screen {
                 player.useSword();
             else if (controller.isPowerUpPressed())
                 player.usePowerup();
-            else if (controller.isBombPressed())
-                player.plantBomb();
-
         }
     }
 
@@ -291,5 +287,4 @@ public class PlayScreen implements Screen {
 
 
     public Hud getHud(){ return hud; }
-
 }

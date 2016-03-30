@@ -63,7 +63,9 @@ public abstract class InteractiveTileObject {
         fixture.setFilterData(filter);
     }
 
-    public abstract void onHit(Pirate pirate);
+    public abstract void onHit();
+
+    public void onHit(Pirate pirate){};
 
     public TiledMapTileLayer.Cell getCell(){
         TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(1);

@@ -3,7 +3,7 @@ android {
         config {
             keyAlias 'GoPirates'
             keyPassword 'qqwweerr'
-            storeFile file('keystore.jks')
+            storeFile file('C:/Users/user/androidkeystore/keystore.jks')
             storePassword 'android'
         }
     }
@@ -24,7 +24,7 @@ android {
     }
     defaultConfig {
         applicationId "go.pirategame"
-        minSdkVersion 9
+        minSdkVersion 8
         targetSdkVersion 23
     }
     buildTypes {

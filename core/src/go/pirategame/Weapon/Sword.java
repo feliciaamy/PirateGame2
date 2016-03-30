@@ -83,6 +83,7 @@ public class Sword extends Sprite {
         fixtureDef.filter.categoryBits = PirateGame.SWORD_BIT;
         fixtureDef.filter.maskBits = PirateGame.REEF_BIT |
                 PirateGame.PLAYER_BIT |
+                PirateGame.BORDER_BIT |
                 PirateGame.ROCK_BIT;
 
         fixtureDef.restitution = 1;
@@ -92,6 +93,7 @@ public class Sword extends Sprite {
     }
 
     public void update(float dt, float x, float y, Pirate pirate) {
+        System.out.println("old " + b2body.getPosition().x + " " + b2body.getPosition().y);
         stateTime += dt;
         if (oldX != x)
             b2body.setTransform(b2body.getPosition().x + x - oldX, b2body.getPosition().y, 0);

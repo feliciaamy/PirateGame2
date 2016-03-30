@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="32" tilewidth="16" tileheight="16" nextobjectid="1465">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="32" tilewidth="16" tileheight="16" nextobjectid="1508">
  <tileset firstgid="1" name="Tileset 1" tilewidth="16" tileheight="16" tilecount="1024" columns="32">
   <image source="tileset_gutter.png" width="512" height="512"/>
  </tileset>
@@ -1743,6 +1743,52 @@
   <object id="1464" x="484" y="64">
    <polyline points="0,0 8,0 12,4 12,12 8,16 0,16 -4,12 -4,4 0,0"/>
   </object>
+  <object id="1466" x="16" y="448" width="16" height="16"/>
+  <object id="1467" x="32" y="448" width="16" height="16"/>
+  <object id="1468" x="32" y="432" width="16" height="16"/>
+  <object id="1470" x="48" y="432" width="16" height="16">
+   <properties>
+    <property name="shield" value=""/>
+   </properties>
+  </object>
+  <object id="1471" x="32" y="464" width="16" height="16"/>
+  <object id="1472" x="48" y="464" width="16" height="16"/>
+  <object id="1473" x="32" y="416" width="16" height="16"/>
+  <object id="1474" x="32" y="400" width="16" height="16">
+   <properties>
+    <property name="shield" value=""/>
+   </properties>
+  </object>
+  <object id="1476" x="32" y="384" width="16" height="16"/>
+  <object id="1477" x="48" y="384" width="16" height="16"/>
+  <object id="1478" x="48" y="400" width="16" height="16"/>
+  <object id="1479" x="64" y="400" width="16" height="16"/>
+  <object id="1480" x="64" y="416" width="16" height="16"/>
+  <object id="1481" x="80" y="416" width="16" height="16"/>
+  <object id="1482" x="80" y="432" width="16" height="16"/>
+  <object id="1483" x="96" y="432" width="16" height="16">
+   <properties>
+    <property name="shield" value=""/>
+   </properties>
+  </object>
+  <object id="1484" x="96" y="416" width="16" height="16"/>
+  <object id="1485" x="112" y="416" width="16" height="16"/>
+  <object id="1486" x="112" y="432" width="16" height="16"/>
+  <object id="1489" x="112" y="448" width="16" height="16"/>
+  <object id="1491" x="96" y="448" width="16" height="16"/>
+  <object id="1492" x="128" y="416" width="16" height="16"/>
+  <object id="1493" x="144" y="416" width="16" height="16"/>
+  <object id="1494" x="160" y="416" width="16" height="16"/>
+  <object id="1495" x="176" y="416" width="16" height="16"/>
+  <object id="1496" x="160" y="432" width="16" height="16"/>
+  <object id="1497" x="144" y="432" width="16" height="16"/>
+  <object id="1499" x="144" y="448" width="16" height="16"/>
+  <object id="1500" x="160" y="448" width="16" height="16"/>
+  <object id="1501" x="144" y="464" width="16" height="16"/>
+  <object id="1502" x="144" y="480" width="16" height="16"/>
+  <object id="1503" x="160" y="464" width="16" height="16"/>
+  <object id="1504" x="176" y="464" width="16" height="16"/>
+  <object id="1506" x="176" y="480" width="16" height="16"/>
  </objectgroup>
  <objectgroup name="rock">
   <object id="195" gid="6507" x="64" y="480" width="16" height="16"/>

@@ -22,7 +22,7 @@ public class Rock extends InteractiveTileObject {
     }
 
     @Override
-    public void onHit(Pirate pirate) {
+    public void onHit() {
 
     }
 
