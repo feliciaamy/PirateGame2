@@ -17,31 +17,30 @@ import go.pirategame.Sprites.Pirate;
  * Created by Amy on 1/3/16.
  */
 public class Hud implements Disposable {
+    public static Label testLabel, testLabel2;
+    private static Integer score;
+    private static Label scoreLabel;
+    private static Label powerupLabel;
+    private static boolean findTreasre = false;
+    private static Pirate.PowerUp powerUp;
     //Scene2D.ui Stage and its own Viewport for HUD
     public Stage stage;
     private Viewport viewport;
-
     //Mario score/time Tracking Variables
     private Integer worldTimer;
     private boolean timeUp; // true when the world timer reaches 0
     private float timeCount;
-    private static Integer score;
-
+    private Pirate.PowerUp powerup;
     private Pirate pirate;
-
     //Scene2D widgets
     private Label countdownLabel;
-    private static Label scoreLabel;
     private Label timeLabel;
     private Label levelLabel;
     private Label worldLabel;
     private Label playerLabel;
-    public static Label testLabel,testLabel2;
     private Label healthLabel;
     private Label healthValueLabel;
     private Label treasureLabel;
-
-    private static boolean findTreasre=false;
 
 
     public Hud(SpriteBatch sb,Pirate pirate){
@@ -49,6 +48,7 @@ public class Hud implements Disposable {
         timeCount = 0;
         score = 0;
         this.pirate=pirate;
+        powerUp = Pirate.PowerUp.NONE;
 
         //setup the HUD viewport using a new camera seperate from our gamecam
         //define our stage using that viewport and our games spritebatch
@@ -72,7 +72,7 @@ public class Hud implements Disposable {
         healthLabel= new Label("HEALTH", new Label.LabelStyle(new BitmapFont(),Color.WHITE));
         healthValueLabel= new Label(String.format("%03d",pirate.getHealth()), new Label.LabelStyle(new BitmapFont(),Color.WHITE));
         treasureLabel= new Label("Where ?", new Label.LabelStyle(new BitmapFont(),Color.WHITE));
-
+        powerupLabel = new Label("", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 
         testLabel= new Label("Testing", new Label.LabelStyle(new BitmapFont(),Color.WHITE));
         testLabel2= new Label("Testing", new Label.LabelStyle(new BitmapFont(),Color.WHITE));
@@ -88,6 +88,8 @@ public class Hud implements Disposable {
         table.row();
         table.add(treasureLabel).right().expandX();
         table.row();
+        table.add(powerupLabel).right().expandX();
+        table.row();
         table.add(testLabel).padLeft(PirateGame.HUD_PAD);
         table.row();
         table.add(testLabel2).padLeft(PirateGame.HUD_PAD);
@@ -97,9 +99,29 @@ public class Hud implements Disposable {
 
     }
 
-    public void update(float dt){
+    public static void addScore(int value) {
+        score += value;
+        scoreLabel.setText(String.format("%06d", score));
+    }
+
+    public static void setTestMsg(String msg) {
+        testLabel.setText(msg);
+    }
+
+    public static void updatePowerUp(Pirate.PowerUp pu) {
+        powerUp = pu;
+        System.out.println("hud: " + pu);
+        powerupLabel.setText(powerUp.toString());
+    }
+
+    public static void findTreasure() {
+        findTreasre = true;
+    }
+
+
+    public void update(float dt) {
         timeCount += dt;
-        if(timeCount >= 1){
+        if (timeCount >= 1) {
             if (worldTimer > 0) {
                 worldTimer--;
             } else {
@@ -108,25 +130,14 @@ public class Hud implements Disposable {
             countdownLabel.setText(String.format("%03d", worldTimer));
             timeCount = 0;
         }
-        healthValueLabel.setText(String.format("%03d",pirate.getHealth()));
-        testLabel.setText(String.format("%1.2f",pirate.b2body.getPosition().x));
-        testLabel2.setText(String.format("%1.2f",pirate.b2body.getPosition().y));
+        healthValueLabel.setText(String.format("%03d", pirate.getHealth()));
+        testLabel.setText(String.format("%1.2f", pirate.b2body.getPosition().x));
+        testLabel2.setText(String.format("%1.2f", pirate.b2body.getPosition().y));
 
         if (findTreasre)
             treasureLabel.setText("Treasure Found");
-    }
 
-    public static void addScore(int value){
-        score += value;
-        scoreLabel.setText(String.format("%06d", score));
-    }
-
-    public static void setTestMsg(String msg){
-        testLabel.setText(msg);
-    }
-
-    public static void findTreasure(){
-        findTreasre=true;
+//        powerupLabel.setText(powerUp.toString());
     }
 
     @Override

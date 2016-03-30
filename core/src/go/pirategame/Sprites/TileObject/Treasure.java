@@ -22,13 +22,20 @@ public class Treasure extends InteractiveTileObject{
     }
 
     @Override
-    public void onHit(Pirate pirate) {
+    public void onHit() {
 
     }
 
-    public void findTreasure(){
+    @Override
+    public void onHit(Pirate pirate) {
         Hud.findTreasure();
         getCell().setTile(null);
         setCategoryFilter(PirateGame.NOTHING_BIT);
     }
+
+//    public void findTreasure(Pirate pirate){
+//        Hud.findTreasure();
+//        getCell().setTile(null);
+//        setCategoryFilter(PirateGame.NOTHING_BIT);
+//    }
 }

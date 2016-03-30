@@ -9,8 +9,8 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 import go.pirategame.PirateGame;
 import go.pirategame.Sprites.Items.Bomb;
 import go.pirategame.Sprites.Pirate;
+import go.pirategame.Sprites.PowerUp.PowerUp;
 import go.pirategame.Sprites.TileObject.InteractiveTileObject;
-import go.pirategame.Sprites.TileObject.Reef;
 import go.pirategame.Sprites.TileObject.Treasure;
 
 /**
@@ -31,20 +31,19 @@ public class WorldContactListener implements ContactListener {
             // Player vs. treasure
             case PirateGame.PLAYER_BIT | PirateGame.TREASURE_BIT:
                 if(fixA.getFilterData().categoryBits == PirateGame.PLAYER_BIT)
-                    ((Treasure) fixB.getUserData()).findTreasure();
+                    ((Treasure) fixB.getUserData()).onHit((Pirate) fixA.getUserData());
                 else
-                    ((Treasure) fixA.getUserData()).findTreasure();
-                break;
-            // Reef vs. bomb
-            case PirateGame.REEF_BIT | PirateGame.EXPLOSION_BIT:
-                if(fixA.getFilterData().categoryBits == PirateGame.REEF_BIT)
-                    ((Reef) fixA.getUserData()).destroyReef();
-                else
-                    ((Reef) fixB.getUserData()).destroyReef();
+                    ((Treasure) fixA.getUserData()).onHit((Pirate) fixB.getUserData());
                 break;
 
-
-
+            // Pistol vs. Reef 
+            // TODO: 31/3/16 destroy bullet
+//            case PirateGame.PLAYER_BIT | PirateGame.REEF_BIT:
+//                if(fixA.getFilterData().categoryBits != PirateGame.REEF_BIT)
+//                    ((InteractiveTileObject) fixA.getUserData()).hitByBullet((Pirate) fixB.getUserData());
+//                else
+//                    ((InteractiveTileObject) fixB.getUserData()).hitByBullet((Pirate) fixA.getUserData());
+//                break;
 
             // TODO: 27/3/16 fix pistol
             // Player vs. bullet(pistol)
@@ -78,30 +77,37 @@ public class WorldContactListener implements ContactListener {
                     ((InteractiveTileObject) fixB.getUserData()).hitBySword((Pirate) fixA.getUserData());
                 break;
             // Player vs. power up
-            case PirateGame.PLAYER_BIT | PirateGame.POWERUP_BIT:
-                System.out.println("collide");
+            case PirateGame.POWERUP_BIT | PirateGame.PLAYER_BIT:
                 if(fixA.getFilterData().categoryBits == PirateGame.POWERUP_BIT)
                     ((PowerUp) fixA.getUserData()).use((Pirate) fixB.getUserData());
                 else
                     ((PowerUp) fixB.getUserData()).use((Pirate) fixA.getUserData());
                 break;
+
+//            case PirateGame.PLAYER_BIT | PirateGame.POWERUP_BIT:
+//                System.out.println("collide");
+//                if(fixA.getFilterData().categoryBits == PirateGame.POWERUP_BIT)
+//                                    ((PowerUp) fixA.getUserData()).use((Pirate) fixB.getUserData());
+//                else
+//                    ((PowerUp) fixB.getUserData()).use((Pirate) fixA.getUserData());
+//                break;
             // Reef vs. bomb
             case PirateGame.REEF_BIT | PirateGame.EXPLOSION_BIT:
                 if(fixA.getFilterData().categoryBits == PirateGame.REEF_BIT)
-                    ((InteractiveTileObject) fixA.getUserData()).destroyReef();
+                    ((InteractiveTileObject) fixA.getUserData()).onHit();
                 else
-                    ((InteractiveTileObject) fixB.getUserData()).destroyReef();
+                    ((InteractiveTileObject) fixB.getUserData()).onHit();
                 break;
 //            case PirateGame.PLAYER_BIT | PirateGame.BORDER_BIT:
 //                Hud.setTestMsg("Testing: C");
 //                break;
-            case PirateGame.PLAYER_BIT | PirateGame.TREASURE_BIT:
-                System.out.println("Win");
-                if(fixA.getFilterData().categoryBits == PirateGame.TREASURE_BIT)
-                    ((InteractiveTileObject) fixA.getUserData()).onHit((Pirate) fixA.getUserData());
-                else
-                    ((InteractiveTileObject) fixB.getUserData()).onHit((Pirate) fixB.getUserData());
-                break;
+//            case PirateGame.PLAYER_BIT | PirateGame.TREASURE_BIT:
+//                System.out.println("Win");
+//                if(fixA.getFilterData().categoryBits == PirateGame.TREASURE_BIT)
+//                    ((InteractiveTileObject) fixA.getUserData()).onHit((Pirate) fixA.getUserData());
+//                else
+//                    ((InteractiveTileObject) fixB.getUserData()).onHit((Pirate) fixB.getUserData());
+//                break;
 
         }
     }

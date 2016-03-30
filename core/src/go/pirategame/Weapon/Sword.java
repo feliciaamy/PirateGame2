@@ -83,7 +83,7 @@ public class Sword extends Sprite {
         fixtureDef.filter.categoryBits = PirateGame.SWORD_BIT;
         fixtureDef.filter.maskBits = PirateGame.REEF_BIT |
                 PirateGame.PLAYER_BIT |
-                PirateGame.BORDER_BIT |
+//                PirateGame.BORDER_BIT |
                 PirateGame.ROCK_BIT;
 
         fixtureDef.restitution = 1;

@@ -14,6 +14,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -26,9 +27,11 @@ import go.pirategame.Scene.Hud;
 import go.pirategame.Sprites.Items.ItemDef;
 import go.pirategame.Sprites.Pirate;
 import go.pirategame.Sprites.PowerUp.PowerUp;
+import go.pirategame.Sprites.PowerUp.Shield;
+import go.pirategame.Sprites.PowerUp.Shoes;
+import go.pirategame.Sprites.PowerUp.Tnt;
 import go.pirategame.Tools.B2WorldCreator;
 import go.pirategame.Tools.WorldContactListener;
-import com.badlogic.gdx.utils.Array;
 
 /**
  * Created by Amy on 25/2/16.
@@ -111,18 +114,25 @@ public class PlayScreen implements Screen {
 //        music.setVolume(0.3f);
 //        music.play();
 //
-//        items = new Array<Item>();
-//        itemsToSpawn = new LinkedBlockingQueue<ItemDef>();
+        items = new Array<PowerUp>();
+        itemsToSpawn = new LinkedBlockingQueue<ItemDef>();
     }
 
     public void spawnItem(ItemDef idef){
         itemsToSpawn.add(idef);
     }
+
     public void handleSpawningItems(){
         if(!itemsToSpawn.isEmpty()){
             ItemDef idef = itemsToSpawn.poll();
-            if(idef.type == Mushroom.class){
-                items.add(new Mushroom(this, idef.position.x, idef.position.y));
+            if (idef.type == Shield.class) {
+                items.add(new Shield(this, idef.position.x, idef.position.y));
+            }
+            if (idef.type == Shoes.class) {
+                items.add(new Shoes(this, idef.position.x, idef.position.y));
+            }
+            if (idef.type == Tnt.class) {
+                items.add(new Tnt(this, idef.position.x, idef.position.y));
             }
         }
     }
@@ -148,14 +158,16 @@ public class PlayScreen implements Screen {
             else if (controller.isSwordPressed())
                 player.useSword();
             else if (controller.isPowerUpPressed())
-                player.usePowerup();
+                player.usePowerUp();
+            else if (controller.isBombPressed())
+                player.plantBomb();
         }
     }
 
     public void update(float dt){
         //handle user input first
         handleInput(dt);
-//        handleSpawningItems();
+        handleSpawningItems();
 
         //takes 1 step in the physics simulation(60 times per second)
         world.step(1 / 60f, 6, 2);
@@ -163,6 +175,9 @@ public class PlayScreen implements Screen {
             players.get(i).update(dt);
         }
 //        player.update(dt);
+        for (PowerUp item : items)
+            item.update(dt);
+
         hud.update(dt);
 
         /*//attach our gamecam to our players.x coordinate

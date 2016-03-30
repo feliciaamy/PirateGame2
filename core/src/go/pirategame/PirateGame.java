@@ -40,14 +40,17 @@ public class PirateGame extends Game {
 	public static final short BULLET_BIT = 2048;
 	public static final short SWORD_BIT = 4096;
 	public static final short SHIELD_BIT = 8192;
-
+	public static final short POWERUP_BIT = 16384;
 	public static SpriteBatch batch;
 
 	/* WARNING Using AssetManager in a static way can cause issues, especially on Android.
     Instead you may want to pass around Assetmanager to those the classes that need it.
     We will use it in the static context to save time for now. */
 	public static AssetManager manager;
-	
+
+	public PirateGame() {
+	}
+
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
@@ -61,19 +64,17 @@ public class PirateGame extends Game {
 		batch.dispose();
 	}
 
+//	public static PlayServices playServices;
+
 	@Override
 	public void render () {
 		super.render();
 	}
 
-	public static PlayServices playServices;
-
-	public PirateGame(){}
-
-	public PirateGame(PlayServices playServices)
-	{
-		PirateGame.playServices = playServices;
-	}
+//	public PirateGame(PlayServices playServices)
+//	{
+//		PirateGame.playServices = playServices;
+//	}
 }
 
 

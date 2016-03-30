@@ -1,13 +1,17 @@
 package go.pirategame.Sprites.TileObject;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMapTileSet;
+import com.badlogic.gdx.math.Vector2;
 
 import go.pirategame.PirateGame;
 import go.pirategame.Screen.PlayScreen;
-import go.pirategame.Sprites.Pirate;
+import go.pirategame.Sprites.Items.ItemDef;
+import go.pirategame.Sprites.PowerUp.Shield;
+import go.pirategame.Sprites.PowerUp.Shoes;
+import go.pirategame.Sprites.PowerUp.Tnt;
 
 /**
  * Created by Amy on 1/3/16.
@@ -25,15 +29,21 @@ public class Reef extends InteractiveTileObject {
 
 
     @Override
-    public void onHit(Pirate pirate) {
-        setCategoryFilter(PirateGame.HIT_BIT);
-        getCell().setTile(null);
-        PirateGame.manager.get("audio/sounds/breakblock.wav", Sound.class).play();
-    }
-
-    // TODO: 27/3/16 Handle reef destroyed
-    public void destroyReef() {
+    public void onHit() {
         Gdx.app.log("reef", "collision");
+        MapProperties temp = object.getProperties();
+        if (temp.containsKey("TNT")) {
+            screen.spawnItem(new ItemDef(new Vector2(body.getPosition().x, body.getPosition().y),
+                    Tnt.class));
+        }
+        if (temp.containsKey("shield")) {
+            screen.spawnItem(new ItemDef(new Vector2(body.getPosition().x, body.getPosition().y),
+                    Shield.class));
+        }
+        if (temp.containsKey("shoes")) {
+            screen.spawnItem(new ItemDef(new Vector2(body.getPosition().x, body.getPosition().y),
+                    Shoes.class));
+        }
         Thread a=new Thread(new Runnable(){
             public void run(){
                 long startTime=System.currentTimeMillis();
@@ -48,5 +58,12 @@ public class Reef extends InteractiveTileObject {
             }
         });
         a.start();
+//        System.out.println(object.getProperties().toString());
+
     }
+//
+//    // TODO: 27/3/16 Handle reef destroyed
+//    public void destroyReef() {
+//
+//    }
 }
