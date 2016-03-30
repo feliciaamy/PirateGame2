@@ -1,6 +1,5 @@
 package go.pirategame.Sprites.TileObject;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.tiled.TiledMapTileSet;
@@ -23,12 +22,6 @@ public class Reef extends InteractiveTileObject {
         setCategoryFilter(PirateGame.REEF_BIT);
     }
 
-    public void onNextBomb() {
-        Gdx.app.log("reef", "collision");
-        setCategoryFilter(PirateGame.EXPLOSION_BIT);
-        getCell().setTile(null);
-
-    }
 
     @Override
     public void onHit(Pirate pirate) {

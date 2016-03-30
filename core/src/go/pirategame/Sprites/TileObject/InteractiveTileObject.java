@@ -18,9 +18,8 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
-import java.util.concurrent.TimeUnit;
-
 import go.pirategame.PirateGame;
+import go.pirategame.Scene.Hud;
 import go.pirategame.Screen.PlayScreen;
 import go.pirategame.Sprites.Pirate;
 
@@ -79,11 +78,6 @@ public abstract class InteractiveTileObject {
         pirate.decreaseHealth(20);
     }
 
-    // TODO: 27/3/16 Handle hit by bomb
-    public void hitByBomb(Pirate pirate) {
-        pirate.decreaseHealth(25);
-    }
-
     // TODO: 27/3/16 Handle hit by TNT
     public void hitByTNT(Pirate pirate) {
         pirate.decreaseHealth(50);
@@ -110,13 +104,12 @@ public abstract class InteractiveTileObject {
 
                 getCell().setTile(null);
                 setCategoryFilter(PirateGame.NOTHING_BIT);
-
             }
-
         });
         a.start();
+    }
 
-
-
+    public void findTreasure(){
+        Hud.findTreasure();
     }
 }

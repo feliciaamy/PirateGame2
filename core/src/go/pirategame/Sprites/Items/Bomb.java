@@ -1,6 +1,5 @@
 package go.pirategame.Sprites.Items;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g3d.model.Animation;
 import com.badlogic.gdx.math.Vector2;
@@ -13,7 +12,7 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import go.pirategame.PirateGame;
 import go.pirategame.Screen.PlayScreen;
-import go.pirategame.Sprites.TileObject.Reef;
+import go.pirategame.Sprites.Pirate;
 
 
 /**
@@ -79,7 +78,7 @@ public class Bomb extends Sprite {
         fdef.shape = exploEdge1;
         fdef.isSensor = true;
         b2body.createFixture(fdef).setUserData("explosionCross1");
-        fdef.filter.categoryBits = PirateGame.BOMB_BIT;
+        fdef.filter.categoryBits = PirateGame.EXPLOSION_BIT;
         fdef.filter.maskBits = PirateGame.REEF_BIT |
                 PirateGame.PLAYER_BIT |
                 PirateGame.ROCK_BIT;
@@ -90,7 +89,7 @@ public class Bomb extends Sprite {
         fdef.shape = exploEdge2;
         fdef.isSensor = true;
         b2body.createFixture(fdef).setUserData("explosionCross2");
-        fdef.filter.categoryBits = PirateGame.BOMB_BIT;
+        fdef.filter.categoryBits = PirateGame.EXPLOSION_BIT;
         fdef.filter.maskBits = PirateGame.REEF_BIT |
                 PirateGame.PLAYER_BIT |
                 PirateGame.ROCK_BIT;
@@ -100,7 +99,7 @@ public class Bomb extends Sprite {
         fdef.shape = exploEdge3;
         fdef.isSensor = true;
         b2body.createFixture(fdef).setUserData("explosionCross3");
-        fdef.filter.categoryBits = PirateGame.BOMB_BIT;
+        fdef.filter.categoryBits = PirateGame.EXPLOSION_BIT;
         fdef.filter.maskBits = PirateGame.REEF_BIT |
                 PirateGame.PLAYER_BIT |
                 PirateGame.ROCK_BIT;
@@ -111,7 +110,7 @@ public class Bomb extends Sprite {
         fdef.shape = exploEdge4;
         fdef.isSensor = true;
         b2body.createFixture(fdef).setUserData("explosionCross4");
-        fdef.filter.categoryBits = PirateGame.BOMB_BIT;
+        fdef.filter.categoryBits = PirateGame.EXPLOSION_BIT;
         fdef.filter.maskBits = PirateGame.REEF_BIT |
                 PirateGame.PLAYER_BIT |
                 PirateGame.ROCK_BIT;
@@ -129,15 +128,16 @@ public class Bomb extends Sprite {
         }
     }
 
-
-
-
     public void setToDestroy() {
         setToDestroy = true;
     }
 
     public boolean isDestroyed() {
         return destroyed;
+    }
+
+    public void hitByBomb(Pirate pirate) {
+        pirate.decreaseHealth(25);
     }
 
     private enum State {BURNING, EXPLODING, DISAPPEARING}

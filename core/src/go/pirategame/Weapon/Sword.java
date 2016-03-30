@@ -92,7 +92,6 @@ public class Sword extends Sprite {
     }
 
     public void update(float dt, float x, float y, Pirate pirate) {
-        System.out.println("old " + b2body.getPosition().x + " " + b2body.getPosition().y);
         stateTime += dt;
         if (oldX != x)
             b2body.setTransform(b2body.getPosition().x + x - oldX, b2body.getPosition().y, 0);

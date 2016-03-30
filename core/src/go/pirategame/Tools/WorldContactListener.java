@@ -7,6 +7,7 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 
 import go.pirategame.PirateGame;
+import go.pirategame.Sprites.Items.Bomb;
 import go.pirategame.Sprites.Pirate;
 import go.pirategame.Sprites.TileObject.InteractiveTileObject;
 
@@ -32,12 +33,13 @@ public class WorldContactListener implements ContactListener {
 //                break;
             // Player vs. bomb || TNT
             //// TODO: 30/3/16 avoid once killed by putting bomb
-            /*case PirateGame.PLAYER_BIT | PirateGame.BOMB_BIT:
-                if(fixA.getFilterData().categoryBits == PirateGame.PLAYER_BIT)
-                    ((InteractiveTileObject) fixA.getUserData()).hitByBomb((Pirate) fixB.getUserData());
+            case PirateGame.PLAYER_BIT | PirateGame.EXPLOSION_BIT:
+                System.out.println("hit by bomb");
+                if(fixA.getFilterData().categoryBits == PirateGame.BOMB_BIT)
+                    ((Bomb) fixA.getUserData()).hitByBomb((Pirate) fixB.getUserData());
                 else
-                    ((InteractiveTileObject) fixB.getUserData()).hitByBomb((Pirate) fixA.getUserData());
-                break;*/
+                    ((Bomb) fixB.getUserData()).hitByBomb((Pirate) fixA.getUserData());
+                break;
 
             case PirateGame.PLAYER_BIT | PirateGame.TNT_BIT:
                 if(fixA.getFilterData().categoryBits == PirateGame.PLAYER_BIT)
@@ -55,7 +57,7 @@ public class WorldContactListener implements ContactListener {
                 break;
 
             // Reef vs. bomb
-            case PirateGame.REEF_BIT | PirateGame.BOMB_BIT:
+            case PirateGame.REEF_BIT | PirateGame.EXPLOSION_BIT:
                 if(fixA.getFilterData().categoryBits == PirateGame.REEF_BIT)
                     ((InteractiveTileObject) fixA.getUserData()).destroyReef();
                 else
@@ -67,6 +69,7 @@ public class WorldContactListener implements ContactListener {
             case PirateGame.PLAYER_BIT | PirateGame.TREASURE_BIT:
                 System.out.println("Win");
                 break;
+
         }
     }
 

@@ -39,6 +39,9 @@ public class Hud implements Disposable {
     public static Label testLabel,testLabel2;
     private Label healthLabel;
     private Label healthValueLabel;
+    private Label treasureLabel;
+
+    private static boolean findTreasre=false;
 
 
     public Hud(SpriteBatch sb,Pirate pirate){
@@ -68,6 +71,7 @@ public class Hud implements Disposable {
         playerLabel = new Label("Pirate 1", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         healthLabel= new Label("HEALTH", new Label.LabelStyle(new BitmapFont(),Color.WHITE));
         healthValueLabel= new Label(String.format("%03d",pirate.getHealth()), new Label.LabelStyle(new BitmapFont(),Color.WHITE));
+        treasureLabel= new Label("Where ?", new Label.LabelStyle(new BitmapFont(),Color.WHITE));
 
 
         testLabel= new Label("Testing", new Label.LabelStyle(new BitmapFont(),Color.WHITE));
@@ -105,6 +109,9 @@ public class Hud implements Disposable {
         healthValueLabel.setText(String.format("%03d",pirate.getHealth()));
         testLabel.setText(String.format("%1.2f",pirate.b2body.getPosition().x));
         testLabel2.setText(String.format("%1.2f",pirate.b2body.getPosition().y));
+
+        if (findTreasre)
+            treasureLabel.setText("Treasure Found");
     }
 
     public static void addScore(int value){
@@ -114,6 +121,10 @@ public class Hud implements Disposable {
 
     public static void setTestMsg(String msg){
         testLabel.setText(msg);
+    }
+
+    public static void findTreasure(){
+        findTreasre=true;
     }
 
     @Override

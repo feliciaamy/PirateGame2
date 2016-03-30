@@ -149,7 +149,7 @@ public class Pirate extends Sprite {
         anims.put("dying", anim);
         pirateDead = anim;
 
-        //define mario in Box2d
+        //define pirates
 
         switch (player_id){
             case 0:
@@ -172,11 +172,7 @@ public class Pirate extends Sprite {
 
     }
 
-    /*
-    When the player hits "return/enter" button, a bomb will be planted
-    //To do
-    Add a condition check for plant bomb: whether got left over bombs.
-    */
+
     public void plantBomb() {
         if (!plantBomb) {
             System.out.println("Plant bomb");
@@ -318,7 +314,7 @@ public class Pirate extends Sprite {
     public void die() {
 
         if (!isDead()) {
-
+//
 //            PirateGame.manager.get("audio/music/mario_music.ogg", Music.class).stop();
 //            PirateGame.manager.get("audio/sounds/mariodie.wav", Sound.class).play();
             //test commit
@@ -344,7 +340,7 @@ public class Pirate extends Sprite {
         BodyDef bdef = new BodyDef();
         bdef.type = BodyDef.BodyType.DynamicBody;
         bdef.position.set(x, y);
-        bdef.linearDamping = 11f;
+        bdef.linearDamping = 2f;
 
         b2body = world.createBody(bdef);
         CircleShape shape = new CircleShape();
@@ -385,7 +381,7 @@ public class Pirate extends Sprite {
         BodyDef bdef = new BodyDef();
         bdef.position.set(position);
         bdef.type = BodyDef.BodyType.DynamicBody;
-        bdef.linearDamping = 1f;
+        bdef.linearDamping = 2f;
         b2body = world.createBody(bdef);
 
 
@@ -508,6 +504,7 @@ public class Pirate extends Sprite {
     public void decreaseHealth(int value){
         health-=value;
     }
+
     public int getHealth(){
         return health;
     }
