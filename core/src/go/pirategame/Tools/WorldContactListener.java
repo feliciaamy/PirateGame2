@@ -11,12 +11,21 @@ import go.pirategame.Sprites.Items.Bomb;
 import go.pirategame.Sprites.Pirate;
 import go.pirategame.Sprites.PowerUp.PowerUp;
 import go.pirategame.Sprites.TileObject.InteractiveTileObject;
+import go.pirategame.Screen.PlayScreen;
+import go.pirategame.Sprites.TileObject.Reef;
 import go.pirategame.Sprites.TileObject.Treasure;
+import go.pirategame.Weapon.Pistol;
+import go.pirategame.Weapon.Sword;
 
 /**
  * Created by Amy on 25/2/16.
  */
 public class WorldContactListener implements ContactListener {
+    private PlayScreen screen;
+
+    public WorldContactListener(PlayScreen screen){
+        this.screen=screen;
+    }
     @Override
     public void beginContact(Contact contact) {
         Fixture fixA = contact.getFixtureA();
@@ -34,6 +43,13 @@ public class WorldContactListener implements ContactListener {
                     ((Treasure) fixB.getUserData()).onHit((Pirate) fixA.getUserData());
                 else
                     ((Treasure) fixA.getUserData()).onHit((Pirate) fixB.getUserData());
+                break;
+            // Reef vs. bomb
+            case PirateGame.REEF_BIT | PirateGame.EXPLOSION_BIT:
+                if(fixA.getFilterData().categoryBits == PirateGame.REEF_BIT)
+                    ((Reef) fixA.getUserData()).destroyReef();
+                else
+                    ((Reef) fixB.getUserData()).destroyReef();
                 break;
 
             // Pistol vs. Reef 
@@ -108,6 +124,17 @@ public class WorldContactListener implements ContactListener {
 //                else
 //                    ((InteractiveTileObject) fixB.getUserData()).onHit((Pirate) fixB.getUserData());
 //                break;
+
+
+
+
+
+            // Player vs. bomb || TNT
+            case PirateGame.PLAYER_BIT | PirateGame.EXPLOSION_BIT:
+                screen.getPirate(PirateGame.THIS_PLAYER).decreaseHealth(25);
+                break;
+
+
 
         }
     }

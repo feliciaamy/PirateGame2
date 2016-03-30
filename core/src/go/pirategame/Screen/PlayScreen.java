@@ -85,7 +85,7 @@ public class PlayScreen implements Screen {
 
         //Load our map and setup our map renderer
         maploader = new TmxMapLoader();
-        map=maploader.load("testingworld.tmx");
+        map=maploader.load("bigTestWorld.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, 1  / PirateGame.PPM);
         //initialize gamecame
         gamecam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
@@ -107,7 +107,7 @@ public class PlayScreen implements Screen {
 
         controller = new Controller();
 
-        world.setContactListener(new WorldContactListener());
+        world.setContactListener(new WorldContactListener(this));
 //
 //        music = PirateGame.manager.get("audio/music/mario_music.ogg", Music.class);
 //        music.setLooping(true);
@@ -254,12 +254,16 @@ public class PlayScreen implements Screen {
             game.setScreen(new GameOverScreen(game));
             dispose();
         }
+        if (Hud.isFindTreasre()){
+            game.setScreen(new WinScreen(game));
+            dispose();
+        }
 
     }
 
     public boolean gameOver(){
 //        return player.currentState == Pirate.State.DEAD && player.getStateTimer() > 3;
-        return players.get(thisPlayerIndex).currentState == Pirate.State.DEAD && players.get(thisPlayerIndex).getStateTimer() > 3;
+        return getPirate(thisPlayerIndex).getHealth()<=0;
     }
 
     @Override
@@ -302,4 +306,9 @@ public class PlayScreen implements Screen {
 
 
     public Hud getHud(){ return hud; }
+
+    public Pirate getPirate(int id){
+        return players.get(id);
+    }
+
 }

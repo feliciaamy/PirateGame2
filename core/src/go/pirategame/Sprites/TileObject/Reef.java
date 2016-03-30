@@ -31,19 +31,6 @@ public class Reef extends InteractiveTileObject {
     @Override
     public void onHit() {
         Gdx.app.log("reef", "collision");
-        MapProperties temp = object.getProperties();
-        if (temp.containsKey("TNT")) {
-            screen.spawnItem(new ItemDef(new Vector2(body.getPosition().x, body.getPosition().y),
-                    Tnt.class));
-        }
-        if (temp.containsKey("shield")) {
-            screen.spawnItem(new ItemDef(new Vector2(body.getPosition().x, body.getPosition().y),
-                    Shield.class));
-        }
-        if (temp.containsKey("shoes")) {
-            screen.spawnItem(new ItemDef(new Vector2(body.getPosition().x, body.getPosition().y),
-                    Shoes.class));
-        }
         Thread a=new Thread(new Runnable(){
             public void run(){
                 long startTime=System.currentTimeMillis();
@@ -58,8 +45,6 @@ public class Reef extends InteractiveTileObject {
             }
         });
         a.start();
-//        System.out.println(object.getProperties().toString());
-
     }
 //
 //    // TODO: 27/3/16 Handle reef destroyed

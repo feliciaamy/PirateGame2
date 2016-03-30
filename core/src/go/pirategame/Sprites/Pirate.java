@@ -156,13 +156,13 @@ public class Pirate extends Sprite {
                 definePirate(PirateGame.BOARDER_OFFSET,PirateGame.BOARDER_OFFSET,player_id);
                 break;
             case 1:
-                definePirate(PirateGame.EDGE_POSITION_X-PirateGame.BOARDER_OFFSET,PirateGame.BOARDER_OFFSET,player_id);
+                definePirate(PirateGame.EDGE_POSITION_X-PirateGame.BOARDER_OFFSET+PirateGame.PLAYER_OFFSET_X,PirateGame.BOARDER_OFFSET,player_id);
                 break;
             case 2:
-                definePirate(PirateGame.BOARDER_OFFSET,PirateGame.EDGE_POSITION_Y-PirateGame.BOARDER_OFFSET,player_id);
+                definePirate(PirateGame.BOARDER_OFFSET,PirateGame.EDGE_POSITION_Y-PirateGame.BOARDER_OFFSET+PirateGame.PLAYER_OFFSET_Y,player_id);
                 break;
             case 3:
-                definePirate(PirateGame.EDGE_POSITION_X-PirateGame.BOARDER_OFFSET,PirateGame.EDGE_POSITION_Y-PirateGame.BOARDER_OFFSET,player_id);
+                definePirate(PirateGame.EDGE_POSITION_X-PirateGame.BOARDER_OFFSET+PirateGame.PLAYER_OFFSET_X,PirateGame.EDGE_POSITION_Y-PirateGame.BOARDER_OFFSET+PirateGame.PLAYER_OFFSET_Y,player_id);
                 break;
         }
         setBounds(0, 0, 16 / PirateGame.PPM, 16 / PirateGame.PPM);

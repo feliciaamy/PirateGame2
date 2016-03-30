@@ -42,8 +42,11 @@ public class Hud implements Disposable {
     private Label healthValueLabel;
     private Label treasureLabel;
 
+    private static boolean findTreasre;
+
 
     public Hud(SpriteBatch sb,Pirate pirate){
+        findTreasre=false;
         worldTimer = 300;
         timeCount = 0;
         score = 0;
@@ -135,9 +138,24 @@ public class Hud implements Disposable {
         testLabel2.setText(String.format("%1.2f", pirate.b2body.getPosition().y));
 
         if (findTreasre)
-            treasureLabel.setText("Treasure Found");
+            treasureLabel.setText("Found!");
+    }
 
-//        powerupLabel.setText(powerUp.toString());
+    public static void addScore(int value){
+        score += value;
+        scoreLabel.setText(String.format("%06d", score));
+    }
+
+    public static void setTestMsg(String msg){
+        testLabel.setText(msg);
+    }
+
+    public static void findTreasure(){
+        findTreasre=true;
+    }
+
+    public static boolean isFindTreasre(){
+        return findTreasre;
     }
 
     @Override
