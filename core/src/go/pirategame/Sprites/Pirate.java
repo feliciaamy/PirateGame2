@@ -529,6 +529,7 @@ public class Pirate extends Sprite {
     public int getHealth(){
         return health;
     }
+
     //Note: This will be needed for Contact Listener
     public boolean shieldOn() {
         return (weapon == HandledWeapon.SHIELD);

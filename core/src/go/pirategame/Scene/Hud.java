@@ -113,7 +113,7 @@ public class Hud implements Disposable {
         testLabel2.setText(String.format("%1.2f",pirate.b2body.getPosition().y));
 
         if (findTreasre)
-            treasureLabel.setText("Treasure Found");
+            treasureLabel.setText("Found!");
     }
 
     public static void addScore(int value){

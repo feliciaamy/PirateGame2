@@ -12,6 +12,7 @@ import go.pirategame.Sprites.Pirate;
 import go.pirategame.Sprites.TileObject.InteractiveTileObject;
 import go.pirategame.Sprites.TileObject.Reef;
 import go.pirategame.Sprites.TileObject.Treasure;
+import go.pirategame.Weapon.Pistol;
 
 /**
  * Created by Amy on 25/2/16.
@@ -23,7 +24,6 @@ public class WorldContactListener implements ContactListener {
         Fixture fixB = contact.getFixtureB();
 
         int cDef = fixA.getFilterData().categoryBits | fixB.getFilterData().categoryBits;
-        System.out.println(cDef);
 
         switch (cDef) {
 
@@ -50,9 +50,9 @@ public class WorldContactListener implements ContactListener {
             // Player vs. bullet(pistol)
             case PirateGame.PLAYER_BIT | PirateGame.BULLET_BIT:
                 if(fixA.getFilterData().categoryBits != PirateGame.PLAYER_BIT)
-                    ((InteractiveTileObject) fixA.getUserData()).hitByBullet((Pirate) fixB.getUserData());
+                    ((Pistol) fixA.getUserData()).hitByBullet();
                 else
-                    ((InteractiveTileObject) fixB.getUserData()).hitByBullet((Pirate) fixA.getUserData());
+                    ((Pistol) fixB.getUserData()).hitByBullet();
                 break;
             // Player vs. bomb || TNT
             //// TODO: 30/3/16 avoid once killed by putting bomb

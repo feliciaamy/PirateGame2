@@ -292,4 +292,8 @@ public class PlayScreen implements Screen {
 
     public Hud getHud(){ return hud; }
 
+    public Pirate getPirate(int id){
+        return players.get(id);
+    }
+
 }

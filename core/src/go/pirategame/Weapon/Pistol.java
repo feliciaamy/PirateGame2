@@ -109,5 +109,11 @@ public class Pistol extends Sprite {
     public boolean isDestroyed() {
         return destroyed;
     }
+
+    // TODO: 27/3/16 Handle hit by bullet
+    public void hitByBullet() {
+        screen.getPirate(PirateGame.THIS_PLAYER).decreaseHealth(20);
+        System.out.println("Shot by bullet");
+    }
 }
 
