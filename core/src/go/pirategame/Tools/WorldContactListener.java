@@ -9,7 +9,6 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 import go.pirategame.PirateGame;
 import go.pirategame.Sprites.Pirate;
 import go.pirategame.Sprites.TileObject.InteractiveTileObject;
-import go.pirategame.Sprites.TileObject.Reef;
 
 /**
  * Created by Amy on 25/2/16.
@@ -32,12 +31,13 @@ public class WorldContactListener implements ContactListener {
 //                    ((InteractiveTileObject) fixB.getUserData()).hitByBullet((Pirate) fixA.getUserData());
 //                break;
             // Player vs. bomb || TNT
-            case PirateGame.PLAYER_BIT | PirateGame.BOMB_BIT:
+            //// TODO: 30/3/16 avoid once killed by putting bomb
+            /*case PirateGame.PLAYER_BIT | PirateGame.BOMB_BIT:
                 if(fixA.getFilterData().categoryBits == PirateGame.PLAYER_BIT)
                     ((InteractiveTileObject) fixA.getUserData()).hitByBomb((Pirate) fixB.getUserData());
                 else
                     ((InteractiveTileObject) fixB.getUserData()).hitByBomb((Pirate) fixA.getUserData());
-                break;
+                break;*/
 
             case PirateGame.PLAYER_BIT | PirateGame.TNT_BIT:
                 if(fixA.getFilterData().categoryBits == PirateGame.PLAYER_BIT)
@@ -57,9 +57,9 @@ public class WorldContactListener implements ContactListener {
             // Reef vs. bomb
             case PirateGame.REEF_BIT | PirateGame.BOMB_BIT:
                 if(fixA.getFilterData().categoryBits == PirateGame.REEF_BIT)
-                    ((InteractiveTileObject) fixA.getUserData()).destroyReef((Reef) fixB.getUserData());
+                    ((InteractiveTileObject) fixA.getUserData()).destroyReef();
                 else
-                    ((InteractiveTileObject) fixB.getUserData()).destroyReef((Reef) fixA.getUserData());
+                    ((InteractiveTileObject) fixB.getUserData()).destroyReef();
                 break;
 //            case PirateGame.PLAYER_BIT | PirateGame.BORDER_BIT:
 //                Hud.setTestMsg("Testing: C");

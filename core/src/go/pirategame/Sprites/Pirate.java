@@ -177,7 +177,7 @@ public class Pirate extends Sprite {
     //To do
     Add a condition check for plant bomb: whether got left over bombs.
     */
-    public void PlantBomb() {
+    public void plantBomb() {
         if (!plantBomb) {
             System.out.println("Plant bomb");
             bomb = new Bomb(screen, b2body.getPosition().x, b2body.getPosition().y);

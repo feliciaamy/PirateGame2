@@ -92,7 +92,8 @@ public abstract class InteractiveTileObject {
     }
 
     // TODO: 27/3/16 Handle reef destroyed
-    public void destroyReef(Reef reef) {
-        reef.getCell().setTile(null);
+    public void destroyReef() {
+        getCell().setTile(null);
+        setCategoryFilter(PirateGame.NOTHING_BIT);
     }
 }
