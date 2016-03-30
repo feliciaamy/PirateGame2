@@ -585,7 +585,7 @@ public class Pirate extends Sprite {
         }
     }
 
-    // TODO: 18/3/16
+    // TODO: 18/3/16 DO THIS
     public void useTNT() {
     }
 
