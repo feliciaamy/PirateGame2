@@ -83,7 +83,7 @@ public class PlayScreen implements Screen {
 
         //Load our map and setup our map renderer
         maploader = new TmxMapLoader();
-        map=maploader.load("testingworld.tmx");
+        map=maploader.load("bigTestWorld.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, 1  / PirateGame.PPM);
         //initialize gamecame
         gamecam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
