@@ -4,6 +4,7 @@ package go.pirategame.Sprites.TileObject;
  * Created by Amy on 1/3/16.
  */
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -16,6 +17,8 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+
+import java.util.concurrent.TimeUnit;
 
 import go.pirategame.PirateGame;
 import go.pirategame.Screen.PlayScreen;
@@ -93,7 +96,27 @@ public abstract class InteractiveTileObject {
 
     // TODO: 27/3/16 Handle reef destroyed
     public void destroyReef() {
-        getCell().setTile(null);
-        setCategoryFilter(PirateGame.NOTHING_BIT);
+        Gdx.app.log("reef", "collision");
+        Thread a=new Thread(new Runnable(){
+            public void run(){
+                long startTime=System.currentTimeMillis();
+                long endTime=System.currentTimeMillis();
+
+                while(endTime-startTime<3000){
+
+                    endTime=System.currentTimeMillis();
+                }
+
+
+                getCell().setTile(null);
+                setCategoryFilter(PirateGame.NOTHING_BIT);
+
+            }
+
+        });
+        a.start();
+
+
+
     }
 }

@@ -1,5 +1,6 @@
 package go.pirategame.Sprites.Items;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g3d.model.Animation;
 import com.badlogic.gdx.math.Vector2;
@@ -12,6 +13,7 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import go.pirategame.PirateGame;
 import go.pirategame.Screen.PlayScreen;
+import go.pirategame.Sprites.TileObject.Reef;
 
 
 /**
@@ -126,6 +128,9 @@ public class Bomb extends Sprite {
             destroyed = true;
         }
     }
+
+
+
 
     public void setToDestroy() {
         setToDestroy = true;
