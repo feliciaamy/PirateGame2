@@ -1,5 +1,6 @@
 package go.pirategame.Sprites.TileObject;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.tiled.TiledMapTileSet;
@@ -30,21 +31,22 @@ public class Reef extends InteractiveTileObject {
         PirateGame.manager.get("audio/sounds/breakblock.wav", Sound.class).play();
     }
 
-   /*
-    @Override
-    public void onHeadHit(Mario mario) {
-        if(getCell().getTile().getId() == BLANK_COIN)
-            PirateGame.manager.get("audio/sounds/bump.wav", Sound.class).play();
-        else {
-            if(object.getProperties().containsKey("mushroom")) {
-                screen.spawnItem(new ItemDef(new Vector2(body.getPosition().x, body.getPosition().y + 16 / PirateGame.PPM),
-                        Mushroom.class));
-                PirateGame.manager.get("audio/sounds/powerup_spawn.wav", Sound.class).play();
+    // TODO: 27/3/16 Handle reef destroyed
+    public void destroyReef() {
+        Gdx.app.log("reef", "collision");
+        Thread a=new Thread(new Runnable(){
+            public void run(){
+                long startTime=System.currentTimeMillis();
+                long endTime=System.currentTimeMillis();
+
+                while(endTime-startTime<3000){
+
+                    endTime=System.currentTimeMillis();
+                }
+                getCell().setTile(null);
+                setCategoryFilter(PirateGame.NOTHING_BIT);
             }
-            else
-                PirateGame.manager.get("audio/sounds/coin.wav", Sound.class).play();
-            getCell().setTile(tileSet.getTile(BLANK_COIN));
-            Hud.addScore(100);
-        }
-    }*/
+        });
+        a.start();
+    }
 }

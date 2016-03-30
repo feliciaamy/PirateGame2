@@ -86,6 +86,8 @@ public class Hud implements Disposable {
         table.add(healthLabel).left().padLeft(PirateGame.HUD_PAD);
         table.add(healthValueLabel).right().padRight(PirateGame.HUD_PAD);
         table.row();
+        table.add(treasureLabel).right().expandX();
+        table.row();
         table.add(testLabel).padLeft(PirateGame.HUD_PAD);
         table.row();
         table.add(testLabel2).padLeft(PirateGame.HUD_PAD);

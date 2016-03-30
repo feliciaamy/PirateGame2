@@ -4,6 +4,7 @@ import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.tiled.TiledMapTileSet;
 
 import go.pirategame.PirateGame;
+import go.pirategame.Scene.Hud;
 import go.pirategame.Screen.PlayScreen;
 import go.pirategame.Sprites.Pirate;
 
@@ -23,5 +24,11 @@ public class Treasure extends InteractiveTileObject{
     @Override
     public void onHit(Pirate pirate) {
 
+    }
+
+    public void findTreasure(){
+        Hud.findTreasure();
+        getCell().setTile(null);
+        setCategoryFilter(PirateGame.NOTHING_BIT);
     }
 }

@@ -214,11 +214,11 @@ public class Pirate extends Sprite {
             timeToRedefinePirate = true;
             extraWeapon = PowerUp.NONE;
         }
-//        else if (weapon == HandledWeapon.SHIELD) {
-//            if (shield.isDestroyed()) {
-//                weapon = HandledWeapon.NONE;
-//            } else shield.update(dt, b2body.getPosition().x, b2body.getPosition().y);
-//        }
+        else if (weapon == HandledWeapon.SHIELD) {
+            if (shield.isDestroyed()) {
+                weapon = HandledWeapon.NONE;
+            } else shield.update(dt, b2body.getPosition().x, b2body.getPosition().y,this);
+        }
         if (plantBomb) {
             if (bomb.isDestroyed()) {
                 plantBomb = false;
@@ -359,10 +359,11 @@ public class Pirate extends Sprite {
 
         if (player_id==PirateGame.THIS_PLAYER){
             fixtureDef.filter.maskBits =
-                    PirateGame.ROCK_BIT |
+                            PirateGame.ROCK_BIT |
                             PirateGame.REEF_BIT |
                             PirateGame.BOMB_BIT |
-                            PirateGame.BULLET_BIT;
+                            PirateGame.BULLET_BIT|
+                            PirateGame.TREASURE_BIT;
         }else {
             fixtureDef.filter.maskBits =
                     PirateGame.ROCK_BIT;
@@ -403,7 +404,8 @@ public class Pirate extends Sprite {
         fixtureDef.filter.maskBits = PirateGame.PLAYER_BIT |
                 PirateGame.ROCK_BIT |
                 PirateGame.REEF_BIT |
-                PirateGame.BULLET_BIT;
+                PirateGame.BULLET_BIT|
+                PirateGame.EXPLOSION_BIT;
         b2body.createFixture(fixtureDef);
 //        shape.dispose();
         b2body.createFixture(fixtureDef).setUserData(this);
@@ -419,22 +421,41 @@ public class Pirate extends Sprite {
         BodyDef bdef = new BodyDef();
         bdef.position.set(position);
         bdef.type = BodyDef.BodyType.DynamicBody;
-        bdef.linearDamping = 11f;
+        bdef.linearDamping = 2f;
         b2body = world.createBody(bdef);
 
 
-        FixtureDef fdef = new FixtureDef();
+        FixtureDef fixtureDef = new FixtureDef();
         CircleShape shape = new CircleShape();
         shape.setRadius(7 / PirateGame.PPM);
-        fdef.filter.categoryBits = PirateGame.PLAYER_BIT;
-        fdef.filter.maskBits = PirateGame.PLAYER_BIT |
-                PirateGame.ROCK_BIT |
-                PirateGame.REEF_BIT ;
+//        fdef.filter.categoryBits = PirateGame.PLAYER_BIT;
+//        fdef.filter.maskBits = PirateGame.PLAYER_BIT |
+//                PirateGame.ROCK_BIT |
+//                PirateGame.REEF_BIT ;
+        switch (player_id){
+            case PirateGame.THIS_PLAYER:
+                fixtureDef.filter.categoryBits = PirateGame.PLAYER_BIT;
+                break;
+            default:
+                fixtureDef.filter.categoryBits = PirateGame.OTHER_PLAYER_BIT;
+        }
 
-        fdef.shape = shape;
-        b2body.createFixture(fdef).setUserData(this);
+        if (player_id==PirateGame.THIS_PLAYER){
+            fixtureDef.filter.maskBits =
+                    PirateGame.ROCK_BIT |
+                            PirateGame.REEF_BIT |
+                            PirateGame.BOMB_BIT |
+                            PirateGame.BULLET_BIT|
+                            PirateGame.TREASURE_BIT;
+        }else {
+            fixtureDef.filter.maskBits =
+                    PirateGame.ROCK_BIT;
+        }
 
-        b2body.createFixture(fdef).setUserData(this);
+        fixtureDef.shape = shape;
+        b2body.createFixture(fixtureDef).setUserData(this);
+
+        b2body.createFixture(fixtureDef).setUserData(this);
 
         timeToRedefinePirate = false;
     }

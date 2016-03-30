@@ -10,6 +10,8 @@ import go.pirategame.PirateGame;
 import go.pirategame.Sprites.Items.Bomb;
 import go.pirategame.Sprites.Pirate;
 import go.pirategame.Sprites.TileObject.InteractiveTileObject;
+import go.pirategame.Sprites.TileObject.Reef;
+import go.pirategame.Sprites.TileObject.Treasure;
 
 /**
  * Created by Amy on 25/2/16.
@@ -21,20 +23,40 @@ public class WorldContactListener implements ContactListener {
         Fixture fixB = contact.getFixtureB();
 
         int cDef = fixA.getFilterData().categoryBits | fixB.getFilterData().categoryBits;
+        System.out.println(cDef);
 
         switch (cDef) {
-            // Player vs. bullet(pistol)
+
+            //**************FINISHED*************//
+            // Player vs. treasure
+            case PirateGame.PLAYER_BIT | PirateGame.TREASURE_BIT:
+                if(fixA.getFilterData().categoryBits == PirateGame.PLAYER_BIT)
+                    ((Treasure) fixB.getUserData()).findTreasure();
+                else
+                    ((Treasure) fixA.getUserData()).findTreasure();
+                break;
+            // Reef vs. bomb
+            case PirateGame.REEF_BIT | PirateGame.EXPLOSION_BIT:
+                if(fixA.getFilterData().categoryBits == PirateGame.REEF_BIT)
+                    ((Reef) fixA.getUserData()).destroyReef();
+                else
+                    ((Reef) fixB.getUserData()).destroyReef();
+                break;
+
+
+
+
             // TODO: 27/3/16 fix pistol
-//            case PirateGame.PLAYER_BIT | PirateGame.BULLET_BIT:
-//                if(fixA.getFilterData().categoryBits != PirateGame.PLAYER_BIT)
-//                    ((InteractiveTileObject) fixA.getUserData()).hitByBullet((Pirate) fixB.getUserData());
-//                else
-//                    ((InteractiveTileObject) fixB.getUserData()).hitByBullet((Pirate) fixA.getUserData());
-//                break;
+            // Player vs. bullet(pistol)
+            case PirateGame.PLAYER_BIT | PirateGame.BULLET_BIT:
+                if(fixA.getFilterData().categoryBits != PirateGame.PLAYER_BIT)
+                    ((InteractiveTileObject) fixA.getUserData()).hitByBullet((Pirate) fixB.getUserData());
+                else
+                    ((InteractiveTileObject) fixB.getUserData()).hitByBullet((Pirate) fixA.getUserData());
+                break;
             // Player vs. bomb || TNT
             //// TODO: 30/3/16 avoid once killed by putting bomb
             case PirateGame.PLAYER_BIT | PirateGame.EXPLOSION_BIT:
-                System.out.println("hit by bomb");
                 if(fixA.getFilterData().categoryBits == PirateGame.BOMB_BIT)
                     ((Bomb) fixA.getUserData()).hitByBomb((Pirate) fixB.getUserData());
                 else
@@ -55,21 +77,6 @@ public class WorldContactListener implements ContactListener {
                 else
                     ((InteractiveTileObject) fixB.getUserData()).hitBySword((Pirate) fixA.getUserData());
                 break;
-
-            // Reef vs. bomb
-            case PirateGame.REEF_BIT | PirateGame.EXPLOSION_BIT:
-                if(fixA.getFilterData().categoryBits == PirateGame.REEF_BIT)
-                    ((InteractiveTileObject) fixA.getUserData()).destroyReef();
-                else
-                    ((InteractiveTileObject) fixB.getUserData()).destroyReef();
-                break;
-//            case PirateGame.PLAYER_BIT | PirateGame.BORDER_BIT:
-//                Hud.setTestMsg("Testing: C");
-//                break;
-            case PirateGame.PLAYER_BIT | PirateGame.TREASURE_BIT:
-                System.out.println("Win");
-                break;
-
         }
     }
 

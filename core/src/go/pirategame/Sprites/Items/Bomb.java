@@ -48,12 +48,9 @@ public class Bomb extends Sprite {
 
 //
         defineBomb();
-
-
     }
 
     public void defineBomb() {
-
         BodyDef bdef = new BodyDef();
         bdef.position.set(getX(), getY());
         bdef.type = BodyDef.BodyType.DynamicBody;
