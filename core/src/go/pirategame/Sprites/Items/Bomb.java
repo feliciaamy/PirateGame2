@@ -66,7 +66,7 @@ public class Bomb extends Sprite {
         fdef.shape = shape;
         fdef.filter.categoryBits = PirateGame.BOMB_BIT;
         fdef.filter.maskBits = PirateGame.REEF_BIT |
-                PirateGame.PLAYER_0_BIT |
+                PirateGame.PLAYER_BIT |
                 PirateGame.BORDER_BIT |
                 PirateGame.ROCK_BIT;
 
@@ -80,7 +80,7 @@ public class Bomb extends Sprite {
         b2body.createFixture(fdef).setUserData("explosionCross1");
         fdef.filter.categoryBits = PirateGame.BOMB_BIT;
         fdef.filter.maskBits = PirateGame.REEF_BIT |
-                PirateGame.PLAYER_0_BIT |
+                PirateGame.PLAYER_BIT |
                 PirateGame.BORDER_BIT |
                 PirateGame.ROCK_BIT;
 
@@ -92,7 +92,7 @@ public class Bomb extends Sprite {
         b2body.createFixture(fdef).setUserData("explosionCross2");
         fdef.filter.categoryBits = PirateGame.BOMB_BIT;
         fdef.filter.maskBits = PirateGame.REEF_BIT |
-                PirateGame.PLAYER_0_BIT |
+                PirateGame.PLAYER_BIT |
                 PirateGame.BORDER_BIT |
                 PirateGame.ROCK_BIT;
         EdgeShape exploEdge3 = new EdgeShape();
@@ -103,7 +103,7 @@ public class Bomb extends Sprite {
         b2body.createFixture(fdef).setUserData("explosionCross3");
         fdef.filter.categoryBits = PirateGame.BOMB_BIT;
         fdef.filter.maskBits = PirateGame.REEF_BIT |
-                PirateGame.PLAYER_0_BIT |
+                PirateGame.PLAYER_BIT |
                 PirateGame.BORDER_BIT |
                 PirateGame.ROCK_BIT;
 
@@ -115,7 +115,7 @@ public class Bomb extends Sprite {
         b2body.createFixture(fdef).setUserData("explosionCross4");
         fdef.filter.categoryBits = PirateGame.BOMB_BIT;
         fdef.filter.maskBits = PirateGame.REEF_BIT |
-                PirateGame.PLAYER_0_BIT |
+                PirateGame.PLAYER_BIT |
                 PirateGame.BORDER_BIT |
                 PirateGame.ROCK_BIT;
 

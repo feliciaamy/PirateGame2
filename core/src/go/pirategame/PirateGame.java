@@ -29,7 +29,7 @@ public class PirateGame extends Game {
 	//Box2D Collision Bits
 	public static final short NOTHING_BIT = 0;
 	public static final short HIT_BIT = 1;
-	public static final short PLAYER_0_BIT = 2;
+	public static final short PLAYER_BIT = 2;
 	public static final short ROCK_BIT = 4;
 	public static final short REEF_BIT = 8;
 	public static final short EXPLOSION_BIT = 16;
@@ -68,7 +68,7 @@ public class PirateGame extends Game {
 
 	public static PlayServices playServices;
 
-	public PirateGame(){}
+//	public PirateGame(){}
 
 	public PirateGame(PlayServices playServices)
 	{

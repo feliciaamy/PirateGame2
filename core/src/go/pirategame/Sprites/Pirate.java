@@ -353,7 +353,7 @@ public class Pirate extends Sprite {
         fixtureDef.shape = shape;
         switch (player_id){
             case 0:
-                fixtureDef.filter.categoryBits = PirateGame.PLAYER_0_BIT;
+                fixtureDef.filter.categoryBits = PirateGame.PLAYER_BIT;
                 break;
             case 1:
                 fixtureDef.filter.categoryBits = PirateGame.NOTHING_BIT;
@@ -392,8 +392,8 @@ public class Pirate extends Sprite {
         FixtureDef fdef = new FixtureDef();
         CircleShape shield = new CircleShape();
         shield.setRadius(10 / PirateGame.PPM);
-        fdef.filter.categoryBits = PirateGame.PLAYER_0_BIT;
-        fdef.filter.maskBits = PirateGame.PLAYER_0_BIT |
+        fdef.filter.categoryBits = PirateGame.PLAYER_BIT;
+        fdef.filter.maskBits = PirateGame.PLAYER_BIT |
                 PirateGame.BULLET_BIT;
 
         fdef.shape = shield;
@@ -403,8 +403,8 @@ public class Pirate extends Sprite {
         body.setRadius(7 / PirateGame.PPM);
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = body;
-        fixtureDef.filter.categoryBits = PirateGame.PLAYER_0_BIT;
-        fixtureDef.filter.maskBits = PirateGame.PLAYER_0_BIT |
+        fixtureDef.filter.categoryBits = PirateGame.PLAYER_BIT;
+        fixtureDef.filter.maskBits = PirateGame.PLAYER_BIT |
                 PirateGame.ROCK_BIT |
                 PirateGame.REEF_BIT |
                 PirateGame.BORDER_BIT |
@@ -431,8 +431,8 @@ public class Pirate extends Sprite {
         FixtureDef fdef = new FixtureDef();
         CircleShape shape = new CircleShape();
         shape.setRadius(7 / PirateGame.PPM);
-        fdef.filter.categoryBits = PirateGame.PLAYER_0_BIT;
-        fdef.filter.maskBits = PirateGame.PLAYER_0_BIT |
+        fdef.filter.categoryBits = PirateGame.PLAYER_BIT;
+        fdef.filter.maskBits = PirateGame.PLAYER_BIT |
                 PirateGame.ROCK_BIT |
                 PirateGame.REEF_BIT |
                 PirateGame.BORDER_BIT;

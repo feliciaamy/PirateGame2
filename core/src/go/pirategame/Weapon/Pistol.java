@@ -59,7 +59,7 @@ public class Pistol extends Sprite {
         shape.setRadius(3 / PirateGame.PPM);
         fdef.filter.categoryBits = PirateGame.BULLET_BIT;
         fdef.filter.maskBits = PirateGame.REEF_BIT |
-                PirateGame.PLAYER_0_BIT |
+                PirateGame.PLAYER_BIT |
                 PirateGame.BORDER_BIT |
                 PirateGame.ROCK_BIT;
 

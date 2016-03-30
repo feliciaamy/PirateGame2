@@ -12,7 +12,5 @@ public class ItemDef {
     public ItemDef(Vector2 position, Class<?> type) {
         this.position = position;
         this.type = type;
-
-
     }
 }

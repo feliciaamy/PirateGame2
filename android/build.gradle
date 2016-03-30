@@ -3,7 +3,7 @@ android {
         config {
             keyAlias 'GoPirates'
             keyPassword 'qqwweerr'
-            storeFile file('/Users/zhanghao/Downloads/keystore.jks')
+            storeFile file('keystore.jks')
             storePassword 'android'
         }
     }
