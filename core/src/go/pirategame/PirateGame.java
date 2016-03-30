@@ -68,9 +68,11 @@ public class PirateGame extends Game {
 
 	public static PlayServices playServices;
 
+	public PirateGame(){}
+
 	public PirateGame(PlayServices playServices)
 	{
-		this.playServices = playServices;
+		PirateGame.playServices = playServices;
 	}
 }
 
