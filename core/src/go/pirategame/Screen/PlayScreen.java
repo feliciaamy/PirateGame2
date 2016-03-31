@@ -160,6 +160,8 @@ public class PlayScreen implements Screen {
                 player.usePowerUp();
             else if (controller.isBombPressed())
                 player.plantBomb();
+            else if (controller.isTntPressed())
+                player.useTNT();
         }
     }
 

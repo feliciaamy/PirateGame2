@@ -21,7 +21,7 @@ public class Controller {
     Viewport viewport;
     Stage stage;
     boolean upPressed, downPressed, leftPressed, rightPressed;
-    boolean pistolPressed, powerUpPressed, bombPressed, swordPressed;
+    boolean pistolPressed, powerUpPressed, bombPressed, swordPressed,tntPressed;
     OrthographicCamera cam;
 
     public Controller() {
@@ -301,6 +301,10 @@ public class Controller {
     public boolean isSwordPressed() {
         return swordPressed;
     }
+    public boolean isTntPressed() {
+        return tntPressed;
+    }
+
     public void resize(int width, int height){
         viewport.update(width,height);
     }
