@@ -29,7 +29,12 @@ public abstract class Item extends Sprite {
 
     }
 
+    protected Item() {
+    }
+
     public abstract void defineItem();
+
+    public abstract void redefineItem();
 
     public abstract void use();
 
