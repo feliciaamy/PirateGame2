@@ -24,6 +24,7 @@ import go.pirategame.PirateGame;
 import go.pirategame.Scene.Hud;
 import go.pirategame.Screen.PlayScreen;
 import go.pirategame.Sprites.Items.Bomb;
+import go.pirategame.Sprites.Items.TNT;
 import go.pirategame.Weapon.Pistol;
 import go.pirategame.Weapon.Shield;
 import go.pirategame.Weapon.Sword;
@@ -45,11 +46,13 @@ public class Pirate extends Sprite {
     private Sword sword;
     private Bomb bomb;
     private Shield shield;
+    private TNT tnt;
     private float powerUpTime;
     private Array<Pistol> bullets;
     private HandledWeapon weapon;
     private PowerUp nextPowerUp;
     private boolean plantBomb;
+    private boolean plantTNT;
     private boolean timeToRedefinePirate, timeToDefineShield, timeToDefineShoes;
 
     private int health;
@@ -71,6 +74,7 @@ public class Pirate extends Sprite {
         timeToRedefinePirate = timeToDefineShield = timeToDefineShield = false;
         health=100;
         plantBomb = false;
+        plantTNT=false;
         // animation
         HashMap<String, Animation> anims = new HashMap<String, Animation>();
 
@@ -181,6 +185,7 @@ public class Pirate extends Sprite {
         }
     }
 
+
     public void update(float dt) {
         if (weapon == HandledWeapon.SHIELD || weapon == HandledWeapon.SHOES)
             powerUpTime += dt;
@@ -235,6 +240,12 @@ public class Pirate extends Sprite {
                 plantBomb = false;
             } else bomb.update(dt);
         }
+        if (plantTNT) {
+            if (tnt.isDestroyed()) {
+                plantTNT = false;
+            } else tnt.update(dt);
+        }
+
 
     }
 
@@ -587,6 +598,13 @@ public class Pirate extends Sprite {
 
     // TODO: 18/3/16 DO THIS
     public void useTNT() {
+        if (!plantTNT) {
+            System.out.println("Plant bomb");
+            tnt= new TNT(screen, b2body.getPosition().x, b2body.getPosition().y);
+            plantTNT = true;
+        }
+
+
     }
 
     public void decreaseHealth(int value){
