@@ -66,17 +66,18 @@ public class PirateGame extends Game {
 		batch.dispose();
 	}
 
-//	public static PlayServices playServices;
+	public static PlayServices playServices;
 
 	@Override
 	public void render () {
 		super.render();
 	}
 
-//	public PirateGame(PlayServices playServices)
-//	{
-//		PirateGame.playServices = playServices;
-//	}
+
+	public PirateGame(PlayServices playServices)
+	{
+		PirateGame.playServices = playServices;
+	}
 }
 
 
