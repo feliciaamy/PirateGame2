@@ -24,7 +24,7 @@ android {
     }
     defaultConfig {
         applicationId "go.pirategame"
-        minSdkVersion 8
+        minSdkVersion 9
         targetSdkVersion 23
     }
     buildTypes {
@@ -133,4 +133,5 @@ idea {
     }
 }
 dependencies {
+
 }
