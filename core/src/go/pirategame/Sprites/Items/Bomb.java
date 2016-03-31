@@ -1,6 +1,5 @@
 package go.pirategame.Sprites.Items;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g3d.model.Animation;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -17,7 +16,7 @@ import go.pirategame.Screen.PlayScreen;
 /**
  * Created by zhaojuan on 20/3/16.
  */
-public class Bomb extends Sprite {
+public class Bomb extends Item {
     PlayScreen screen;
     World world;
     Animation bombAnimation;
@@ -30,7 +29,6 @@ public class Bomb extends Sprite {
     private int bombExplosionCountDown=4;
 
     public Bomb(PlayScreen screen, float x, float y) {
-
         setRegion(screen.getAtlas().findRegion("Bomb"), 163, 35, 80, 32);
         setBounds(x, y, 32 / PirateGame.PPM, 32 / PirateGame.PPM);
         this.screen = screen;
@@ -48,10 +46,11 @@ public class Bomb extends Sprite {
 //        bombAnimation = new Animation(0.2f, frames);
 
 //
-        defineBomb();
+        defineItem();
     }
 
-    public void defineBomb() {
+    @Override
+    public void defineItem() {
         BodyDef bdef = new BodyDef();
         bdef.position.set(getX(), getY());
         bdef.type = BodyDef.BodyType.StaticBody;
@@ -68,7 +67,8 @@ public class Bomb extends Sprite {
         b2body.createFixture(fdef).setUserData(this);
     }
 
-    public void reDefineBomb(){
+    @Override
+    public void redefineItem() {
         Vector2 position = b2body.getPosition();
         world.destroyBody(b2body);
 
@@ -88,7 +88,8 @@ public class Bomb extends Sprite {
         b2body.createFixture(fdef).setUserData(this);
     }
 
-    public void explodeBomb(){
+    @Override
+    public void use() {
         Vector2 position = b2body.getPosition();
         world.destroyBody(b2body);
 
@@ -154,12 +155,12 @@ public class Bomb extends Sprite {
         stateTime += dt;
         setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
         if ((stateTime > 2 || setToDestroy) && !destroyed && ! redefined){
-            reDefineBomb();
+            redefineItem();
             redefined=true;
         }
         //set Explosion time to 4
         else if ((stateTime > bombExplosionCountDown || setToDestroy) && !destroyed && !exploded){
-            explodeBomb();
+            use();
             exploded=true;
         }
         if ((stateTime > bombExplosionCountDown+1 || setToDestroy) && !destroyed && exploded){
