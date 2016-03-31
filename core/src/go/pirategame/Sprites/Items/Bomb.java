@@ -38,7 +38,7 @@ public class Bomb extends Sprite {
 //         Array<TextureRegion> frames=new Array<TextureRegion>();
 ////
 //         frames = new Array<TextureRegion>();
-//        // TODO: 18/3/16 Bullet Animation
+//        // TODO: 18/3/16 Bomb Animation
 //        for (int i = 0; i < 4; i++) {
 //            frames.add(new TextureRegion(screen.getAtlas().findRegion("Bomb"), i*8,0,8,8));
 //        }
@@ -176,14 +176,4 @@ public class Bomb extends Sprite {
     public boolean isDestroyed() {
         return destroyed;
     }
-
-    public void hitByBomb() {
-        System.out.println("hit by bomb");
-        screen.getPirate(PirateGame.THIS_PLAYER).decreaseHealth(25);
-    }
-
-
-    private enum State {BURNING, EXPLODING, DISAPPEARING}
-
-
 }
