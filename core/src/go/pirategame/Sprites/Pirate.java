@@ -188,7 +188,7 @@ public class Pirate extends Sprite {
         if (nextPowerUp != PowerUp.NONE) {
             extraWeapon = nextPowerUp;
             nextPowerUp = PowerUp.NONE;
-            System.out.println("3" + extraWeapon);
+            System.out.println("3 " + extraWeapon);
             Hud.updatePowerUp(extraWeapon);
         }
 
@@ -607,12 +607,12 @@ public class Pirate extends Sprite {
         if (extraWeapon == PowerUp.NONE)
             nextPowerUp = pu;
         System.out.println("2 " + nextPowerUp);
-
     }
 
-//    public PowerUp getExtraWeapon() {
-//        return extraWeapon;
-//    }
+    public void hitByBullet() {
+        screen.getPirate(PirateGame.THIS_PLAYER).decreaseHealth(20);
+        System.out.println("Shot by bullet");
+    }
 
     public enum State {SWIMMING, WALKING, HIT, DEAD, IDLING}
 

@@ -21,9 +21,11 @@ import go.pirategame.Weapon.Sword;
  */
 public class WorldContactListener implements ContactListener {
     private PlayScreen screen;
+    private boolean hitReef;
 
     public WorldContactListener(PlayScreen screen){
         this.screen=screen;
+        this.hitReef = false;
     }
     @Override
     public void beginContact(Contact contact) {
@@ -54,16 +56,21 @@ public class WorldContactListener implements ContactListener {
 
             // Pistol vs. Reef 
             // TODO: 31/3/16 destroy bullet
-//            case PirateGame.PLAYER_BIT | PirateGame.REEF_BIT:
-//                if(fixA.getFilterData().categoryBits != PirateGame.REEF_BIT)
-//                    ((InteractiveTileObject) fixA.getUserData()).hitByBullet((Pirate) fixB.getUserData());
-//                else
-//                    ((InteractiveTileObject) fixB.getUserData()).hitByBullet((Pirate) fixA.getUserData());
-//                break;
+            case PirateGame.BULLET_BIT | PirateGame.REEF_BIT:
+                if (fixA.getFilterData().categoryBits != PirateGame.REEF_BIT)
+                    ((Pistol) fixA.getUserData()).setToDestroy();
+                else
+                    ((Pistol) fixB.getUserData()).setToDestroy();
+                hitReef = true;
+                break;
 
             // TODO: 27/3/16 fix pistol
             // Player vs. bullet(pistol)
             case PirateGame.PLAYER_BIT | PirateGame.BULLET_BIT:
+                if (hitReef) {
+                    hitReef = false;
+                    break;
+                }
                 if(fixA.getFilterData().categoryBits != PirateGame.PLAYER_BIT)
                     ((Pistol) fixA.getUserData()).hitByBullet();
                 else

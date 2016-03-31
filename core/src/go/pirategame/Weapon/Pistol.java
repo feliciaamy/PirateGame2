@@ -38,7 +38,7 @@ public class Pistol extends Sprite {
 
         frames = new Array<TextureRegion>();
         for (int i = 0; i < 4; i++) {
-            frames.add(new TextureRegion(screen.getAtlas().findRegion("Bomb"), i * 8, 0, 8, 8));
+            frames.add(new TextureRegion(screen.getAtlas().findRegion("Bomb"), i * 8, 0, 10, 8));
         }
         fireAnimation = new Animation(0.2f, frames);
         setRegion(fireAnimation.getKeyFrame(0));
@@ -49,7 +49,11 @@ public class Pistol extends Sprite {
 
     public void defineFireBall() {
         BodyDef bdef = new BodyDef();
-        bdef.position.set((dir == Pirate.Direction.LEFT) ? getX() - 12 / PirateGame.PPM : getX() + 5 / PirateGame.PPM, getY());
+        if (dir == Pirate.Direction.LEFT || dir == Pirate.Direction.RIGHT) {
+            bdef.position.set((dir == Pirate.Direction.LEFT) ? getX() - 16 / PirateGame.PPM : getX() + 11 / PirateGame.PPM, getY());
+        } else
+            bdef.position.set(getX() + 8 / PirateGame.PPM, (dir == Pirate.Direction.UP) ? getY() + 6 / PirateGame.PPM : getY() - 10 / PirateGame.PPM);
+
         bdef.type = BodyDef.BodyType.DynamicBody;
         if (!world.isLocked())
             b2body = world.createBody(bdef);
@@ -60,7 +64,6 @@ public class Pistol extends Sprite {
         fdef.filter.categoryBits = PirateGame.BULLET_BIT;
         fdef.filter.maskBits = PirateGame.REEF_BIT |
                 PirateGame.PLAYER_BIT |
-//                PirateGame.REEF_BIT |
                 PirateGame.ROCK_BIT;
 
         fdef.shape = shape;
