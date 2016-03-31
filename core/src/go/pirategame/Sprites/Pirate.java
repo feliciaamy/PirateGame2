@@ -607,6 +607,7 @@ public class Pirate extends Sprite {
         if (extraWeapon == PowerUp.NONE)
             nextPowerUp = pu;
         System.out.println("2 " + nextPowerUp);
+
     }
 
 //    public PowerUp getExtraWeapon() {
