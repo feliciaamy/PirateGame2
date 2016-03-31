@@ -32,7 +32,6 @@ public class TNT extends Item {
     private int tntExplosionCountDown=4;
 
     public TNT(PlayScreen screen, float x, float y) {
-
         setRegion(screen.getAtlas().findRegion("TNT"), 163, 35, 80, 32);
         setBounds(x, y, 32 / PirateGame.PPM, 32 / PirateGame.PPM);
         this.screen = screen;

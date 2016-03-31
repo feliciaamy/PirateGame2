@@ -598,13 +598,11 @@ public class Pirate extends Sprite {
 
     // TODO: 18/3/16 DO THIS
     public void useTNT() {
-        if (!plantTNT) {
-            System.out.println("Plant bomb");
-            tnt= new TNT(screen, b2body.getPosition().x, b2body.getPosition().y);
-            plantTNT = true;
-        }
-
-
+//        if (!plantTNT) {
+//            System.out.println("Plant bomb");
+//            tnt= new TNT(screen, b2body.getPosition().x, b2body.getPosition().y);
+//            plantTNT = true;
+//        }
     }
 
     public void decreaseHealth(int value){

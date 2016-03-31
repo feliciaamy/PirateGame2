@@ -94,7 +94,11 @@
   </object>
   <object id="80" x="64" y="688" width="16" height="16"/>
   <object id="81" x="112" y="736" width="16" height="16"/>
-  <object id="82" x="176" y="752" width="16" height="16"/>
+  <object id="82" x="176" y="752" width="16" height="16">
+   <properties>
+    <property name="TNT" value=""/>
+   </properties>
+  </object>
   <object id="83" x="256" y="752" width="16" height="16"/>
   <object id="84" x="352" y="752" width="16" height="16"/>
   <object id="85" x="448" y="720" width="16" height="16"/>
