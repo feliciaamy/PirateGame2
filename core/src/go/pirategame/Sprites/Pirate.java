@@ -375,7 +375,7 @@ public class Pirate extends Sprite {
                             PirateGame.BOMB_BIT |
                             PirateGame.BULLET_BIT|
                                     PirateGame.TREASURE_BIT |
-                                    PirateGame.POWERUP_BIT;
+                                    PirateGame.POWERUP_BIT|PirateGame.EXPLOSION_BIT;
         }else {
             fixtureDef.filter.maskBits =
                     PirateGame.ROCK_BIT;
@@ -457,7 +457,7 @@ public class Pirate extends Sprite {
                             PirateGame.BOMB_BIT |
                             PirateGame.BULLET_BIT |
                             PirateGame.TREASURE_BIT |
-                            PirateGame.POWERUP_BIT;
+                            PirateGame.POWERUP_BIT |PirateGame.EXPLOSION_BIT;
         } else {
             fixtureDef.filter.maskBits =
                     PirateGame.ROCK_BIT;

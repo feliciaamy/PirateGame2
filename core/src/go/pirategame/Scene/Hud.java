@@ -21,7 +21,6 @@ public class Hud implements Disposable {
     private static Integer score;
     private static Label scoreLabel;
     private static Label powerupLabel;
-    private static boolean findTreasre = false;
     private static Pirate.PowerUp powerUp;
     //Scene2D.ui Stage and its own Viewport for HUD
     public Stage stage;
@@ -141,18 +140,7 @@ public class Hud implements Disposable {
             treasureLabel.setText("Found!");
     }
 
-    public static void addScore(int value){
-        score += value;
-        scoreLabel.setText(String.format("%06d", score));
-    }
 
-    public static void setTestMsg(String msg){
-        testLabel.setText(msg);
-    }
-
-    public static void findTreasure(){
-        findTreasre=true;
-    }
 
     public static boolean isFindTreasre(){
         return findTreasre;

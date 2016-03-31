@@ -7,11 +7,10 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 
 import go.pirategame.PirateGame;
-import go.pirategame.Sprites.Items.Bomb;
+import go.pirategame.Screen.PlayScreen;
 import go.pirategame.Sprites.Pirate;
 import go.pirategame.Sprites.PowerUp.PowerUp;
 import go.pirategame.Sprites.TileObject.InteractiveTileObject;
-import go.pirategame.Screen.PlayScreen;
 import go.pirategame.Sprites.TileObject.Reef;
 import go.pirategame.Sprites.TileObject.Treasure;
 import go.pirategame.Weapon.Pistol;
@@ -45,11 +44,12 @@ public class WorldContactListener implements ContactListener {
                     ((Treasure) fixA.getUserData()).onHit((Pirate) fixB.getUserData());
                 break;
             // Reef vs. bomb
+            // Reef vs. bomb
             case PirateGame.REEF_BIT | PirateGame.EXPLOSION_BIT:
                 if(fixA.getFilterData().categoryBits == PirateGame.REEF_BIT)
-                    ((Reef) fixA.getUserData()).destroyReef();
+                    ((Reef) fixA.getUserData()).onHit();
                 else
-                    ((Reef) fixB.getUserData()).destroyReef();
+                    ((Reef) fixB.getUserData()).onHit();
                 break;
 
             // Pistol vs. Reef 
@@ -65,18 +65,11 @@ public class WorldContactListener implements ContactListener {
             // Player vs. bullet(pistol)
             case PirateGame.PLAYER_BIT | PirateGame.BULLET_BIT:
                 if(fixA.getFilterData().categoryBits != PirateGame.PLAYER_BIT)
-                    ((InteractiveTileObject) fixA.getUserData()).hitByBullet((Pirate) fixB.getUserData());
+                    ((Pistol) fixA.getUserData()).hitByBullet();
                 else
-                    ((InteractiveTileObject) fixB.getUserData()).hitByBullet((Pirate) fixA.getUserData());
+                    ((Pistol) fixB.getUserData()).hitByBullet();
                 break;
             // Player vs. bomb || TNT
-            //// TODO: 30/3/16 avoid once killed by putting bomb
-            case PirateGame.PLAYER_BIT | PirateGame.EXPLOSION_BIT:
-                if(fixA.getFilterData().categoryBits == PirateGame.BOMB_BIT)
-                    ((Bomb) fixA.getUserData()).hitByBomb((Pirate) fixB.getUserData());
-                else
-                    ((Bomb) fixB.getUserData()).hitByBomb((Pirate) fixA.getUserData());
-                break;
 
             case PirateGame.PLAYER_BIT | PirateGame.TNT_BIT:
                 if(fixA.getFilterData().categoryBits == PirateGame.PLAYER_BIT)
@@ -88,9 +81,9 @@ public class WorldContactListener implements ContactListener {
             //  Player vs. sword
             case PirateGame.PLAYER_BIT | PirateGame.SWORD_BIT:
                 if(fixA.getFilterData().categoryBits == PirateGame.PLAYER_BIT)
-                    ((InteractiveTileObject) fixA.getUserData()).hitBySword((Pirate) fixB.getUserData());
+                    ((Sword) fixA.getUserData()).hitBySword();
                 else
-                    ((InteractiveTileObject) fixB.getUserData()).hitBySword((Pirate) fixA.getUserData());
+                    ((Sword) fixB.getUserData()).hitBySword();
                 break;
             // Player vs. power up
             case PirateGame.POWERUP_BIT | PirateGame.PLAYER_BIT:
@@ -107,13 +100,7 @@ public class WorldContactListener implements ContactListener {
 //                else
 //                    ((PowerUp) fixB.getUserData()).use((Pirate) fixA.getUserData());
 //                break;
-            // Reef vs. bomb
-            case PirateGame.REEF_BIT | PirateGame.EXPLOSION_BIT:
-                if(fixA.getFilterData().categoryBits == PirateGame.REEF_BIT)
-                    ((InteractiveTileObject) fixA.getUserData()).onHit();
-                else
-                    ((InteractiveTileObject) fixB.getUserData()).onHit();
-                break;
+
 //            case PirateGame.PLAYER_BIT | PirateGame.BORDER_BIT:
 //                Hud.setTestMsg("Testing: C");
 //                break;
@@ -124,11 +111,6 @@ public class WorldContactListener implements ContactListener {
 //                else
 //                    ((InteractiveTileObject) fixB.getUserData()).onHit((Pirate) fixB.getUserData());
 //                break;
-
-
-
-
-
             // Player vs. bomb || TNT
             case PirateGame.PLAYER_BIT | PirateGame.EXPLOSION_BIT:
                 screen.getPirate(PirateGame.THIS_PLAYER).decreaseHealth(25);

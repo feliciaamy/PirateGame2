@@ -1,17 +1,10 @@
 package go.pirategame.Sprites.TileObject;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMapTileSet;
-import com.badlogic.gdx.math.Vector2;
 
 import go.pirategame.PirateGame;
 import go.pirategame.Screen.PlayScreen;
-import go.pirategame.Sprites.Items.ItemDef;
-import go.pirategame.Sprites.PowerUp.Shield;
-import go.pirategame.Sprites.PowerUp.Shoes;
-import go.pirategame.Sprites.PowerUp.Tnt;
 
 /**
  * Created by Amy on 1/3/16.
@@ -30,21 +23,8 @@ public class Reef extends InteractiveTileObject {
 
     @Override
     public void onHit() {
-        Gdx.app.log("reef", "collision");
-        Thread a=new Thread(new Runnable(){
-            public void run(){
-                long startTime=System.currentTimeMillis();
-                long endTime=System.currentTimeMillis();
-
-                while(endTime-startTime<3000){
-
-                    endTime=System.currentTimeMillis();
-                }
-                getCell().setTile(null);
-                setCategoryFilter(PirateGame.NOTHING_BIT);
-            }
-        });
-        a.start();
+        getCell().setTile(null);
+        setCategoryFilter(PirateGame.NOTHING_BIT);
     }
 //
 //    // TODO: 27/3/16 Handle reef destroyed
