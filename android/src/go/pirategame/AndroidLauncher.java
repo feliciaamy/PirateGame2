@@ -1,7 +1,6 @@
 package go.pirategame;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 
 import com.badlogic.gdx.Gdx;
@@ -77,6 +76,8 @@ public class AndroidLauncher extends AndroidApplication implements PlayServices 
 			Gdx.app.log("MainActivity", "Log in failed: " + e.getMessage() + ".");
 		}
 	}
+
+
 
 	@Override
 	public void signOut()

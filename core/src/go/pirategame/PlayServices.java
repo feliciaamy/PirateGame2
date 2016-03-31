@@ -6,6 +6,6 @@ package go.pirategame;
 public interface PlayServices {
 
     void signIn();
-    void singOut();
-    boolean isSignedin();
+    void signOut();
+    boolean isSignedIn();
 }
