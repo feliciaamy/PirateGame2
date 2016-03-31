@@ -137,7 +137,6 @@ public class PlayScreen implements Screen {
         }
     }
 
-
     public TextureAtlas getAtlas(){
         return atlas;
     }
